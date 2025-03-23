@@ -1,0 +1,2596 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ tour.title }} | Mirzade TUR{% endblock %}
+
+{% block content %}
+<!-- Tur Detayları -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <!-- Tur Resmi -->
+            <div class="tour-image-container mb-4">
+                {% if tour.image %}
+                    <img src="{{ tour.image.url }}" class="img-fluid rounded shadow tour-main-image" alt="{{ tour.title }}">
+                {% else %}
+                    <img src="/static/images/default-tour.jpg" class="img-fluid rounded shadow tour-main-image" alt="{{ tour.title }}">
+                {% endif %}
+            </div>
+            
+            <!-- Tur Açıklaması -->
+            <div class="tour-description bg-white p-4 rounded shadow mb-4">
+                <h2 class="mb-4 text-primary">{{ tour.title }}</h2>
+                <div class="tour-info mb-4">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar-alt me-2 text-primary"></i>
+                                <div>
+                                    <small class="text-muted d-block">Tarih</small>
+                                    <strong>{{ tour.date|date:"d.m.Y" }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-clock me-2 text-primary"></i>
+                                <div>
+                                    <small class="text-muted d-block">Süre</small>
+                                    <strong>{{ tour.duration }} Gün {% if tour.duration > 1 %}{{ tour.duration|add:"-1" }} Gece{% endif %}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-tag me-2 text-primary"></i>
+                                <div>
+                                    <small class="text-muted d-block">Kategori</small>
+                                    <strong>{{ tour.category }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fiyat Bilgisi -->
+                <div class="price-info mb-4">
+                    <h4 class="mb-3 text-primary">Tur Fiyatı</h4>
+                    <div class="price-tag mb-3">
+                        <h2 class="text-primary mb-0">{{ tour.price }} {{ tour.currency }}</h2>
+                        <small class="text-muted">Kişi Başı</small>
+                    </div>
+                    <div class="row">
+                        {% if tour.double_room_price %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card price-card h-100 room-price-card">
+                                <div class="card-header custom-card-header text-white text-center position-relative">
+                                    <div class="room-icons mb-3">
+                                        <div class="user-icon-circle">
+                                            <span class="user-icon-group">
+                                                <i class="fas fa-user"></i>
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h5 class="mb-1">ÇİFTLİ ODA</h5>
+                                    <small class="text-light-emphasis">KİŞİ BAŞI</small>
+                                    <div class="card-header-overlay"></div>
+                                </div>
+                                <div class="card-body text-center d-flex flex-column justify-content-center">
+                                    <h3 class="price-tag mb-0">{{ tour.double_room_price }} {{ tour.currency }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if tour.triple_room_price %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card price-card h-100 room-price-card">
+                                <div class="card-header custom-card-header text-white text-center position-relative">
+                                    <div class="room-icons mb-3">
+                                        <div class="user-icon-circle">
+                                            <span class="user-icon-group">
+                                                <i class="fas fa-user"></i>
+                                                <i class="fas fa-user"></i>
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h5 class="mb-1">ÜÇLÜ ODA</h5>
+                                    <small class="text-light-emphasis">KİŞİ BAŞI</small>
+                                    <div class="card-header-overlay"></div>
+                                </div>
+                                <div class="card-body text-center d-flex flex-column justify-content-center">
+                                    <h3 class="price-tag mb-0">{{ tour.triple_room_price }} {{ tour.currency }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if tour.quad_room_price %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card price-card h-100 room-price-card">
+                                <div class="card-header custom-card-header text-white text-center position-relative">
+                                    <div class="room-icons mb-3">
+                                        <div class="user-icon-circle">
+                                            <span class="user-icon-group">
+                                                <i class="fas fa-user"></i>
+                                                <i class="fas fa-user"></i>
+                                                <i class="fas fa-user"></i>
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h5 class="mb-1">DÖRTLÜ ODA</h5>
+                                    <small class="text-light-emphasis">KİŞİ BAŞI</small>
+                                    <div class="card-header-overlay"></div>
+                                </div>
+                                <div class="card-body text-center d-flex flex-column justify-content-center">
+                                    <h3 class="price-tag mb-0">{{ tour.quad_room_price }} {{ tour.currency }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-3">
+                        <a href="#reservation-form" class="btn btn-primary btn-lg">Rezervasyon Yap</a>
+                        <a href="https://wa.me/905334364372?text=Merhaba, {{ tour.title }} turu hakkında bilgi almak istiyorum." target="_blank" class="btn btn-whatsapp ms-2">
+                            <i class="fab fa-whatsapp me-2"></i> WhatsApp ile Bilgi Al
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Uçuş/Ulaşım Bilgileri Tablosu -->
+                <div class="transportation-section bg-white p-4 rounded shadow mb-4">
+                    <div class="section-header d-flex align-items-center mb-3">
+                        <div class="section-icon me-3">
+                            <i class="fas fa-plane text-primary fa-2x"></i>
+                        </div>
+                        <h4 class="mb-0 text-primary">Ulaşım Bilgileri</h4>
+                    </div>
+                    
+                    <!-- Ulaşım Kartları -->
+                    <div class="transportation-cards">
+                        {% if tour.transportations.all %}
+                            {% for transport in tour.transportations.all %}
+                            <div class="transport-card mb-3 border rounded overflow-hidden">
+                                <div class="row g-0">
+                                    <div class="col-md-3 bg-primary text-white p-3 d-flex flex-column justify-content-center align-items-center">
+                                        <div class="transport-date text-center">
+                                            <div class="date-calendar-horizontal">
+                                                <div class="calendar-day-horizontal">{{ transport.date|date:"d" }}</div>
+                                                <div class="calendar-month-year-horizontal">
+                                                    <span class="calendar-month">{{ transport.date|date:"F"|slice:":3" }}</span>
+                                                    <span class="calendar-day-name">{{ transport.date|date:"l" }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="transport-details p-3">
+                                            <div class="row">
+                                                {% if transport.flight_number %}
+                                                <div class="col-md-12 mb-3">
+                                                    <div class="transport-info-item text-center">
+                                                        <div class="info-label">Uçuş No</div>
+                                                        <div class="info-value">{{ transport.flight_number }}</div>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                <div class="col-md-5 mb-2">
+                                                    <div class="transport-info-item text-center">
+                                                        <div class="info-label">KALKIŞ SAATİ</div>
+                                                        <div class="info-value">{{ transport.departure_time|time:"H:i" }}</div>
+                                                        <div class="info-location">{{ transport.departure_city }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 mb-2 d-flex align-items-center justify-content-center">
+                                                    <div class="route-line position-relative">
+                                                        <div class="line"></div>
+                                                        <div class="plane-container">
+                                                            <i class="fas fa-plane text-primary flying-plane"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5 mb-2">
+                                                    <div class="transport-info-item text-center">
+                                                        <div class="info-label">VARIŞ SAATİ</div>
+                                                        <div class="info-value">{{ transport.arrival_time|time:"H:i" }}</div>
+                                                        <div class="info-location">{{ transport.arrival_city }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% elif tour.departure_city and tour.arrival_city %}
+                            <div class="transport-card mb-3 border rounded overflow-hidden">
+                                <div class="row g-0">
+                                    <div class="col-md-3 bg-primary text-white p-3 d-flex flex-column justify-content-center align-items-center">
+                                        <div class="transport-date text-center">
+                                            {% if tour.date %}
+                                                <div class="date-calendar">
+                                                    <div class="calendar-header">{{ tour.date|date:"F"|slice:":3" }}</div>
+                                                    <div class="calendar-body">
+                                                        <div class="calendar-day">{{ tour.date|date:"d" }}</div>
+                                                    </div>
+                                                    <div class="calendar-footer">{{ tour.date|date:"l"|slice:":3" }}</div>
+                                                </div>
+                                            {% else %}
+                                                <div class="date-calendar">
+                                                    <div class="calendar-header">---</div>
+                                                    <div class="calendar-body">
+                                                        <div class="calendar-day">--</div>
+                                                    </div>
+                                                    <div class="calendar-footer">---</div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="transport-details p-3">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-info mb-3">
+                                                        <i class="fas fa-info-circle me-2"></i> Detaylı ulaşım bilgileri için lütfen bizimle iletişime geçin.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Kalkış ve Varış Bilgileri -->
+                                            <div class="row">
+                                                <div class="col-md-5 mb-2">
+                                                    <div class="transport-info-item text-center">
+                                                        <div class="info-label">KALKIŞ SAATİ</div>
+                                                        <div class="info-value">{% if tour.departure_time %}{{ tour.departure_time|time:"H:i" }}{% else %}--:--{% endif %}</div>
+                                                        <div class="info-location">{{ tour.departure_city }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 mb-2 d-flex align-items-center justify-content-center">
+                                                    <div class="route-line position-relative">
+                                                        <div class="line"></div>
+                                                        <div class="plane-container">
+                                                            <i class="fas fa-plane text-primary flying-plane"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5 mb-2">
+                                                    <div class="transport-info-item text-center">
+                                                        <div class="info-label">VARIŞ SAATİ</div>
+                                                        <div class="info-value">{% if tour.arrival_time %}{{ tour.arrival_time|time:"H:i" }}{% else %}--:--{% endif %}</div>
+                                                        <div class="info-location">{{ tour.arrival_city }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i> Bu tur için henüz ulaşım bilgisi eklenmemiştir. Detaylı bilgi için lütfen bizimle iletişime geçin.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Tur Programı -->
+                <div class="tour-program-section bg-white p-4 rounded shadow mb-4">
+                    <div class="section-header d-flex align-items-center mb-3">
+                        <div class="section-icon me-3">
+                            <i class="fas fa-calendar-alt text-primary fa-2x"></i>
+                        </div>
+                        <h4 class="mb-0 text-primary">Tur Programı</h4>
+                    </div>
+                    
+                    <div class="timeline">
+                        {% for day in tour.program.all %}
+                        <div class="timeline-item mb-4">
+                            <div class="timeline-day-badge">
+                                <div class="day-number">{{ day.day }}</div>
+                                <div class="day-label">GÜN</div>
+                            </div>
+                            
+                            <div class="timeline-content bg-light p-4 rounded">
+                                <h5 class="timeline-title mb-3">{{ day.title }}</h5>
+                                
+                                <!-- Program Detayları -->
+                                <div class="program-details mb-3">
+                                    {% if day.start_time or day.end_time %}
+                                    <div class="program-time mb-2">
+                                        <i class="fas fa-clock text-primary me-2"></i>
+                                        {% if day.start_time and day.end_time %}
+                                            <span>{{ day.start_time|time:"H:i" }} - {{ day.end_time|time:"H:i" }}</span>
+                                        {% elif day.start_time %}
+                                            <span>Başlangıç: {{ day.start_time|time:"H:i" }}</span>
+                                        {% elif day.end_time %}
+                                            <span>Bitiş: {{ day.end_time|time:"H:i" }}</span>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if day.location %}
+                                    <div class="program-location mb-2">
+                                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                        <span>{{ day.location }}</span>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if day.meals != 'none' %}
+                                    <div class="program-meals mb-2">
+                                        <i class="fas fa-utensils text-primary me-2"></i>
+                                        <span>
+                                            {% if day.meals == 'breakfast' %}
+                                                Kahvaltı dahil
+                                            {% elif day.meals == 'lunch' %}
+                                                Öğle yemeği dahil
+                                            {% elif day.meals == 'dinner' %}
+                                                Akşam yemeği dahil
+                                            {% elif day.meals == 'breakfast_lunch' %}
+                                                Kahvaltı ve öğle yemeği dahil
+                                            {% elif day.meals == 'breakfast_dinner' %}
+                                                Kahvaltı ve akşam yemeği dahil
+                                            {% elif day.meals == 'lunch_dinner' %}
+                                                Öğle ve akşam yemeği dahil
+                                            {% elif day.meals == 'all_inclusive' %}
+                                                Tüm öğünler dahil
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if day.accommodation %}
+                                    <div class="program-accommodation mb-2">
+                                        <i class="fas fa-bed text-primary me-2"></i>
+                                        <span>Konaklama: {{ day.accommodation }}</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <p>{{ day.description }}</p>
+                                
+                                {% if day.activities.all %}
+                                <div class="program-activities mt-3">
+                                    <h5 class="mb-2">Günün Aktiviteleri</h5>
+                                    <ul class="activities-list">
+                                        {% for activity in day.activities.all %}
+                                        <li>
+                                            <div class="activity-item">
+                                                <div class="activity-icon">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <strong>{{ activity.name }}</strong>
+                                                    {% if activity.duration %}
+                                                    <span class="activity-duration ms-2">({{ activity.duration }})</span>
+                                                    {% endif %}
+                                                    {% if activity.description %}
+                                                    <p class="activity-description small text-muted mt-1">{{ activity.description }}</p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Tur Hakkında Bölümü -->
+                <div class="tour-about-section bg-white p-4 rounded shadow mb-4">
+                    <div class="section-header d-flex align-items-center mb-3">
+                        <div class="section-icon me-3">
+                            <i class="fas fa-info-circle text-primary fa-2x"></i>
+                        </div>
+                        <h4 class="mb-0 text-primary">Tur Hakkında</h4>
+                    </div>
+                    <div class="tour-description-content">
+                        <p>{{ tour.description|linebreaks }}</p>
+                    </div>
+                </div>
+                
+                <!-- Tur Özellikleri Bölümü -->
+                <div class="tour-features-section bg-white p-4 rounded shadow mb-4">
+                    <div class="section-header d-flex align-items-center mb-3">
+                        <div class="section-icon me-3">
+                            <i class="fas fa-list-check text-primary fa-2x"></i>
+                        </div>
+                        <h4 class="mb-0 text-primary">Tur Özellikleri</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="feature-item d-flex align-items-center p-3 mb-3 bg-light rounded">
+                                <div class="feature-icon me-3">
+                                    <i class="fas fa-user-tie text-primary"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h6 class="mb-0">Profesyonel rehber eşliğinde</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item d-flex align-items-center p-3 mb-3 bg-light rounded">
+                                <div class="feature-icon me-3">
+                                    <i class="fas fa-hotel text-primary"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h6 class="mb-0">Lüks otellerde konaklama</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item d-flex align-items-center p-3 mb-3 bg-light rounded">
+                                <div class="feature-icon me-3">
+                                    <i class="fas fa-shuttle-van text-primary"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h6 class="mb-0">Tüm transferler dahil</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item d-flex align-items-center p-3 mb-3 bg-light rounded">
+                                <div class="feature-icon me-3">
+                                    <i class="fas fa-utensils text-primary"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h6 class="mb-0">Sabah kahvaltıları dahil</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- İletişim Bilgileri -->
+                {% comment %} <div class="contact-info mt-4">
+                    <h4 class="mb-3 text-primary">İletişim Bilgileri</h4>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                        <i class="fas fa-phone-alt me-3 text-primary"></i>
+                        <div>
+                            <small class="text-muted d-block">Telefon</small>
+                            <strong>+90 555 123 4567</strong>
+                        </div>
+                    </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                        <i class="fas fa-envelope me-3 text-primary"></i>
+                        <div>
+                            <small class="text-muted d-block">E-posta</small>
+                                    <strong>info@mirzadetur.com</strong>
+                        </div>
+                    </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-map-marker-alt me-3 text-primary"></i>
+                        <div>
+                            <small class="text-muted d-block">Adres</small>
+                            <strong>İstanbul, Türkiye</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Tur Galerisi -->
+    <div class="tour-gallery-section bg-white p-4 rounded shadow mb-4 mt-5">
+        <div class="section-header d-flex align-items-center mb-3">
+            <div class="section-icon me-3">
+                <i class="fas fa-images text-primary fa-2x"></i>
+            </div>
+            <h4 class="mb-0 text-primary">Tur Galerisi</h4>
+        </div>
+        <div class="row g-3">
+            {% if tour.gallery.all %}
+                {% for image in tour.gallery.all %}
+                <div class="col-md-4 col-6">
+                    <a href="{{ image.image.url }}" data-fslightbox="tour-gallery">
+                        <img src="{{ image.image.url }}" class="img-fluid rounded gallery-img" alt="{{ image.title|default:'Tur Görseli' }}">
+                    </a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center py-4">
+                    <p class="text-muted">Bu tur için henüz galeri görseli eklenmemiştir.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Sık Sorulan Sorular - Özelleştirilmiş tasarım -->
+    <div class="tour-faq-section bg-white p-4 rounded shadow mb-4 mt-5">
+        <div class="section-header d-flex align-items-center mb-3">
+            <div class="section-icon me-3">
+                <i class="fas fa-question-circle text-primary fa-2x"></i>
+            </div>
+            <h4 class="mb-0 text-primary">Sık Sorulan Sorular</h4>
+        </div>
+        <div class="faq-container">
+            {% for faq in tour.faqs.all %}
+            <div class="faq-item">
+                <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faqCollapse{{ forloop.counter }}">
+                    <div class="faq-question-text">
+                        <i class="fas fa-question-circle text-primary me-2"></i>
+                        {{ faq.question }}
+                    </div>
+                    <div class="faq-icon">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div id="faqCollapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %} faq-answer">
+                    <div class="faq-answer-content">
+                        <i class="fas fa-info-circle text-primary me-2"></i>
+                        {{ faq.answer }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Rezervasyon Formu -->
+    <div class="reservation-section bg-white p-4 rounded shadow mb-4 mt-5" id="reservation-form">
+        <div class="section-header d-flex align-items-center mb-3">
+            <div class="section-icon me-3">
+                <i class="fas fa-clipboard-check text-primary fa-2x"></i>
+            </div>
+            <h4 class="mb-0 text-primary">Rezervasyon Yap</h4>
+        </div>
+        <form action="{% url 'main:tour_reservation' tour.slug %}" method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Ad Soyad</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="invalid-feedback">
+                        Lütfen adınızı ve soyadınızı girin.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">E-posta</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div class="invalid-feedback">
+                        Lütfen geçerli bir e-posta adresi girin.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Telefon</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                    <div class="invalid-feedback">
+                        Lütfen telefon numaranızı girin.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="room_type" class="form-label">Oda Tipi</label>
+                    <select class="form-select" id="room_type" name="room_type">
+                        <option value="double" {% if tour.double_room_price %}selected{% endif %}>İki Kişilik Oda</option>
+                        <option value="triple" {% if tour.triple_room_price %}selected{% endif %}>Üç Kişilik Oda</option>
+                        <option value="quad" {% if tour.quad_room_price %}selected{% endif %}>Dört Kişilik Oda</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="room-price" class="form-label">Oda Fiyatı</label>
+                    <div class="form-control bg-light" id="room-price"></div>
+                </div>
+                <div class="col-12">
+                    <label for="notes" class="form-label">Notlar</label>
+                    <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Eklemek istediğiniz notlar..."></textarea>
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            <small>Rezervasyon koşullarını ve gizlilik politikasını okudum, kabul ediyorum.</small>
+                        </label>
+                        <div class="invalid-feedback">
+                            Devam etmek için onaylamanız gerekmektedir.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check-circle me-2"></i>Rezervasyon Yap
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Şartlar ve Koşullar Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Şartlar ve Koşullar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Rezervasyon Koşulları</h6>
+                    <p>Rezervasyon yaptırdığınızda, tur ücretinin %30'u kapora olarak alınır. Kalan ödeme tur başlangıcından en geç 7 gün önce yapılmalıdır.</p>
+                    
+                    <h6>İptal Koşulları</h6>
+                    <ul>
+                        <li>Tur başlangıcından 30 gün öncesine kadar yapılan iptallerde, ödenen tutarın tamamı iade edilir.</li>
+                        <li>Tur başlangıcından 15-29 gün öncesine kadar yapılan iptallerde, ödenen tutarın %70'i iade edilir.</li>
+                        <li>Tur başlangıcından 7-14 gün öncesine kadar yapılan iptallerde, ödenen tutarın %50'si iade edilir.</li>
+                        <li>Tur başlangıcından 7 günden az bir süre kala yapılan iptallerde iade yapılmaz.</li>
+                    </ul>
+                    
+                    <h6>Sorumluluk</h6>
+                    <p>Tur sırasında kişisel eşyalarınızınızın sorumluluğu size aittir. Değerli eşyalarınızı yanınızda bulundurmanızı öneririz.</p>
+                    
+                    <h6>Sağlık</h6>
+                    <p>Herhangi bir sağlık sorununuz varsa, tur öncesinde bize bildirmenizi rica ederiz. Bazı turlar fiziksel aktivite gerektirebilir.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anladım</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Geri Sayım -->
+    <div class="countdown-timer mt-5 text-center">
+        <h3 class="section-title mb-4 text-primary">Tura Kalan Süre</h3>
+        <div class="countdown-container" data-tour-date="{{ tour.date|date:'Y-m-d' }}">
+            <div class="countdown-item">
+                <span class="days">00</span>
+                <span class="label">Gün</span>
+            </div>
+            <div class="countdown-item">
+                <span class="hours">00</span>
+                <span class="label">Saat</span>
+            </div>
+            <div class="countdown-item">
+                <span class="minutes">00</span>
+                <span class="label">Dakika</span>
+            </div>
+            <div class="countdown-item">
+                <span class="seconds">00</span>
+                <span class="label">Saniye</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sosyal Medya Paylaşım - Kalan süre altına taşındı -->
+    <div class="social-share mt-5 text-center">
+        <h3 class="section-title mb-4 text-primary">Paylaş</h3>
+        <div class="social-share-buttons d-flex justify-content-center flex-wrap">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="social-btn facebook-btn" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+                <span>Facebook'ta Paylaş</span>
+            </a>
+            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ tour.title }}" class="social-btn twitter-btn" target="_blank">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter'da Paylaş</span>
+            </a>
+            <a href="https://wa.me/?text={{ tour.title }} - {{ request.build_absolute_uri }}" class="social-btn whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp'ta Paylaş</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Benzer Turlar -->
+    <div class="related-tours mt-5">
+        <h3 class="section-title mb-4 text-primary">Benzer Turlar</h3>
+        
+        <!-- Carousel yapısı -->
+        <div id="similarToursCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        {% for tour in similar_tours|slice:":3" %}
+                            <div class="col-md-4 mb-4">
+                                <div class="card tour-card h-100">
+                                    <div class="tour-image-container">
+                                        {% if tour.image %}
+                                            <img src="{{ tour.image.url }}" class="card-img-top" alt="{{ tour.title }}" loading="lazy">
+                                        {% else %}
+                                            <img src="{% static 'img/placeholder.jpg' %}" class="card-img-top" alt="{{ tour.title }}" loading="lazy">
+                                        {% endif %}
+                                        <div class="tour-category-badge">{{ tour.category }}</div>
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">{{ tour.title }}</h5>
+                                        <div class="tour-details">
+                                            <span class="tour-duration"><i class="fas fa-clock me-1"></i> {{ tour.duration }} Gün {% if tour.duration > 1 %}{{ tour.duration|add:"-1" }} Gece{% endif %}</span>
+                                            <span class="tour-location"><i class="fas fa-map-marker-alt me-1"></i> {{ tour.arrival_city }}</span>
+                                        </div>
+                                        <div class="tour-price mt-auto">
+                                            <span class="price">{{ tour.price }} {{ tour.currency }}</span>
+                                            <span class="price-info">kişi başı</span>
+                                        </div>
+                                        <a href="{% url 'main:tour_detail' tour.id %}" class="btn btn-primary mt-3">Detayları Gör</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="col-md-4 mx-auto">
+                                <div class="card tour-card h-100">
+                                    <div class="tour-image-container">
+                                        <img src="{% static 'img/placeholder.jpg' %}" class="card-img-top" alt="Tur">
+                                        <div class="tour-category-badge">Kültür</div>
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">Şu anda benzer tur bulunmamaktadır</h5>
+                                        <div class="tour-details">
+                                            <span class="tour-duration"><i class="fas fa-clock me-1"></i> 7 Gün 6 Gece</span>
+                                            <span class="tour-location"><i class="fas fa-map-marker-alt me-1"></i> İstanbul</span>
+                                        </div>
+                                        <div class="tour-price mt-auto">
+                                            <span class="price">1500 TL</span>
+                                            <span class="price-info">kişi başı</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                {% if similar_tours|length > 3 %}
+                <div class="carousel-item">
+                    <div class="row">
+                        {% for tour in similar_tours|slice:"3:6" %}
+                            <div class="col-md-4 mb-4">
+                                <div class="card tour-card h-100">
+                                    <div class="tour-image-container">
+                                        {% if tour.image %}
+                                            <img src="{{ tour.image.url }}" class="card-img-top" alt="{{ tour.title }}" loading="lazy">
+                                        {% else %}
+                                            <img src="{% static 'img/placeholder.jpg' %}" class="card-img-top" alt="{{ tour.title }}" loading="lazy">
+                                        {% endif %}
+                                        <div class="tour-category-badge">{{ tour.category }}</div>
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">{{ tour.title }}</h5>
+                                        <div class="tour-details">
+                                            <span class="tour-duration"><i class="fas fa-clock me-1"></i> {{ tour.duration }} Gün {% if tour.duration > 1 %}{{ tour.duration|add:"-1" }} Gece{% endif %}</span>
+                                            <span class="tour-location"><i class="fas fa-map-marker-alt me-1"></i> {{ tour.arrival_city }}</span>
+                                        </div>
+                                        <div class="tour-price mt-auto">
+                                            <span class="price">{{ tour.price }} {{ tour.currency }}</span>
+                                            <span class="price-info">kişi başı</span>
+                                        </div>
+                                        <a href="{% url 'main:tour_detail' tour.id %}" class="btn btn-primary mt-3">Detayları Gör</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Carousel kontrolleri -->
+            {% if similar_tours|length > 3 %}
+            <div class="carousel-controls mt-4">
+                <button class="carousel-control-prev position-relative d-inline-block mx-2" type="button" data-bs-target="#similarToursCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-primary rounded-circle p-3" aria-hidden="true"></span>
+                    <span class="visually-hidden">Önceki</span>
+                </button>
+                <button class="carousel-control-next position-relative d-inline-block mx-2" type="button" data-bs-target="#similarToursCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-primary rounded-circle p-3" aria-hidden="true"></span>
+                    <span class="visually-hidden">Sonraki</span>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Özel Renk Tanımlamaları */
+    :root {
+        --bs-primary: #00927E;
+        --bs-primary-rgb: 0, 146, 126;
+        --bs-primary-hover: #007a69;
+        --bs-primary-text: #006d5b;
+        --bs-primary-light: #e6f5f3;
+        --border-radius: 12px;
+        --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        --primary-color: #00927E;
+        --primary-dark: #007A69;
+        --primary-light: rgba(0, 146, 126, 0.1);
+        --primary-gradient: linear-gradient(135deg, #00927E, #007A69);
+    }
+    
+    .text-primary {
+        color: var(--bs-primary) !important;
+    }
+    
+    
+    .bg-primary {
+        background-color: var(--bs-primary) !important;
+    }
+    
+    .btn-primary {
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+        border-radius: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s;
+        font-size: 1.1rem;
+        padding: 12px 20px;
+    }
+    
+    .btn-primary:hover {
+        background-color: var(--bs-primary-hover);
+        border-color: var(--bs-primary-hover);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(var(--bs-primary-rgb), 0.3);
+    }
+    
+    .btn-whatsapp {
+        background-color: #25D366;
+        color: white;
+        border-radius: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s;
+        font-size: 1.1rem;
+        padding: 12px 20px;
+    }
+    
+    .btn-whatsapp:hover {
+        background-color: #128C7E;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+    }
+    
+    .tour-image-container {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    }
+    
+    .tour-image-container .tour-main-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .tour-image-container:hover .tour-main-image {
+        transform: scale(1.05);
+    }
+    
+    .price-card {
+        border: none;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
+    
+    .custom-card-header {
+        background: var(--primary-gradient);
+        padding: 2rem 1.5rem;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .custom-table-header {
+        background: linear-gradient(135deg, var(--bs-primary), var(--bs-primary-hover));
+        color: white;
+    }
+    
+    .price-tag {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        position: relative;
+        display: inline-block;
+        padding: 0.5rem 0;
+    }
+    
+    .price-tag:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 3px;
+        background: var(--primary-gradient);
+        border-radius: 3px;
+        opacity: 0.7;
+    }
+    
+    .tour-info {
+        background-color: var(--bs-primary-light);
+        border-radius: var(--border-radius);
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .tour-features .list-group-item {
+        border-left: none;
+        border-right: none;
+        transition: background-color 0.3s;
+    }
+    
+    .tour-features .list-group-item:hover {
+        background-color: var(--bs-primary-light);
+    }
+    
+    .tour-features .list-group-item:first-child {
+        border-top: none;
+    }
+    
+    /* Tur Kartları Stilleri */
+    .tour-card {
+        border: none;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+    }
+    
+    .tour-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    
+    .tour-card .tour-image-container {
+        position: relative;
+        height: 0;
+        padding-bottom: 66.67%; /* 3:2 aspect ratio */
+        overflow: hidden;
+    }
+    
+    .tour-card .card-img-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+    
+    .tour-card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+    
+    .tour-category-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: var(--bs-primary);
+        color: white;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        opacity: 0.85;
+        letter-spacing: 0.5px;
+        max-width: 80px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .tour-details {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+        font-size: 0.85rem;
+        color: #666;
+    }
+    
+    .tour-price {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .tour-price .price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--bs-primary);
+    }
+    
+    .tour-price .price-info {
+        font-size: 0.8rem;
+        color: #666;
+    }
+    
+    .card-link-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+    }
+    
+    @media (max-width: 992px) {
+        .tour-card .tour-image-container {
+            padding-bottom: 66.67%; /* 3:2 aspect ratio */
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .price-card {
+            margin-top: 30px;
+        }
+        
+        .tour-card .tour-image-container {
+            padding-bottom: 66.67%; /* 3:2 aspect ratio */
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .tour-card .tour-image-container {
+            padding-bottom: 66.67%; /* 3:2 aspect ratio */
+        }
+    }
+
+    /* Timeline Styles */
+    .timeline {
+        position: relative;
+        padding: 20px 0;
+    }
+
+    .timeline:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 18px;
+        width: 2px;
+        background-color: var(--bs-primary-light);
+    }
+
+    .timeline-item {
+        position: relative;
+        padding-left: 50px;
+        margin-bottom: 40px;
+    }
+
+    .timeline-badge {
+        position: absolute;
+        left: 0;
+        width: 36px;
+        height: 36px;
+        background-color: var(--bs-primary);
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        line-height: 36px;
+        font-weight: bold;
+        z-index: 1;
+    }
+
+    .timeline-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+    }
+    
+    .timeline-content h4 {
+        color: var(--bs-primary);
+        margin-bottom: 15px;
+        border-bottom: 1px solid var(--bs-primary-light);
+        padding-bottom: 10px;
+    }
+    
+    /* Program Detayları */
+    .program-details {
+        background-color: var(--bs-primary-light);
+        padding: 15px;
+        border-radius: var(--border-radius);
+        margin-bottom: 15px;
+    }
+    
+    .program-time, .program-location, .program-meals, .program-accommodation {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    
+    .program-time i, .program-location i, .program-meals i, .program-accommodation i {
+        font-size: 1.1rem;
+        width: 24px;
+    }
+    
+    /* Aktiviteler */
+    .program-activities {
+        margin-top: 20px;
+    }
+    
+    .program-activities h5 {
+        color: var(--bs-primary);
+        margin-bottom: 10px;
+    }
+    
+    .activities-list {
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    .activity-item {
+        display: flex;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #eee;
+    }
+    
+    .activity-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    
+    .activity-icon {
+        margin-right: 10px;
+        font-size: 1.1rem;
+    }
+    
+    .activity-content {
+        flex: 1;
+    }
+    
+    .activity-duration {
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    .activity-description {
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+    
+    /* Önemli Notlar */
+    .program-notes .alert {
+        margin-bottom: 0;
+    }
+    
+    @media (max-width: 768px) {
+        .timeline:before {
+            left: 15px;
+        }
+        
+        .timeline-badge {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .timeline-item {
+            padding-left: 40px;
+        }
+    }
+
+    /* Review Styles */
+    .review-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+    }
+
+    .review-avatar img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .review-avatar i {
+        font-size: 50px;
+        color: #ccc;
+    }
+
+    /* Sık Sorulan Sorular - Özelleştirilmiş Stil */
+    .faq-container {
+        margin-top: 20px;
+    }
+    
+    .faq-item {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        margin-bottom: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .faq-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+    
+    .faq-question {
+        padding: 18px 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-left: 4px solid var(--bs-primary);
+        transition: background-color 0.3s;
+    }
+    
+    .faq-question:hover {
+        background-color: var(--bs-primary-light);
+    }
+    
+    .faq-question-text {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #333;
+        display: flex;
+        align-items: center;
+    }
+    
+    .faq-question-text i {
+        font-size: 1.2rem;
+        margin-right: 10px;
+    }
+    
+    .faq-icon {
+        transition: transform 0.3s;
+    }
+    
+    .faq-question[aria-expanded="true"] .faq-icon i {
+        transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .faq-answer-content {
+        padding: 20px;
+        color: #555;
+        line-height: 1.6;
+        display: flex;
+    }
+    
+    .faq-answer-content i {
+        font-size: 1.2rem;
+        margin-top: 3px;
+        flex-shrink: 0;
+    }
+    
+    /* Galeri Stilleri - Geliştirilmiş */
+    .gallery-item {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--border-radius);
+        height: 0;
+        padding-bottom: 75%; /* 4:3 aspect ratio */
+        box-shadow: var(--box-shadow);
+        transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+    
+    /* Countdown Styles */
+    .countdown-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .countdown-item {
+        background-color: var(--bs-primary);
+        color: white;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        min-width: 100px;
+        text-align: center;
+    }
+
+    .countdown-item span {
+        display: block;
+    }
+
+    .countdown-item .days,
+    .countdown-item .hours,
+    .countdown-item .minutes,
+    .countdown-item .seconds {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .countdown-item .label {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+    }
+
+    /* Mobil Ulaşım Kartları */
+    .transport-card {
+        background-color: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+    }
+    
+    .transport-card-header {
+        background-color: var(--bs-primary-light);
+        padding: 15px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .transport-date {
+        display: flex;
+        align-items: center;
+    }
+    
+    .transport-date i {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+    
+    .transport-card-body {
+        padding: 15px;
+    }
+    
+    .transport-detail {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .transport-detail:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    .transport-label {
+        font-weight: 600;
+        color: #666;
+    }
+    
+    .transport-value {
+        text-align: right;
+        color: #333;
+    }
+
+    /* Rezervasyon Formu Stilleri */
+    .reservation-container {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        overflow: hidden;
+    }
+    
+    .reservation-info {
+        height: 100%;
+        background-color: var(--bs-primary-light);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .reservation-info-header {
+        background: linear-gradient(135deg, var(--bs-primary), var(--bs-primary-hover));
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .reservation-info-header h4 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+    
+    .reservation-info-content {
+        padding: 20px;
+        flex-grow: 1;
+    }
+    
+    .reservation-detail {
+        display: flex;
+        margin-bottom: 15px;
+        align-items: flex-start;
+    }
+    
+    .reservation-detail i {
+        font-size: 1.2rem;
+        margin-right: 15px;
+        margin-top: 3px;
+    }
+    
+    .reservation-detail div {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .detail-label {
+        font-size: 0.85rem;
+        color: #666;
+        margin-bottom: 3px;
+    }
+    
+    .detail-value {
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .reservation-contact {
+        background-color: rgba(0,0,0,0.03);
+        padding: 20px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .reservation-contact p {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    
+    .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    
+    .contact-item i {
+        font-size: 1rem;
+        margin-right: 10px;
+        width: 20px;
+    }
+    
+    .reservation-form-container {
+        padding: 30px;
+    }
+    
+    .form-label {
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+    
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        transition: all 0.3s;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+    }
+    
+    .form-check-input:checked {
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+    
+    /* Sosyal Medya Paylaşım Butonları - Yeni Stil */
+    .social-share-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .social-btn {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        border-radius: 30px;
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        min-width: 200px;
+    }
+    
+    .social-btn i {
+        font-size: 1.2rem;
+        margin-right: 10px;
+    }
+    
+    .social-btn span {
+        font-size: 0.9rem;
+    }
+    
+    .facebook-btn {
+        background-color: #3b5998;
+    }
+    
+    .facebook-btn:hover {
+        background-color: #2d4373;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(59, 89, 152, 0.3);
+        color: white;
+    }
+    
+    .twitter-btn {
+        background-color: #1da1f2;
+    }
+    
+    .twitter-btn:hover {
+        background-color: #0c85d0;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(29, 161, 242, 0.3);
+        color: white;
+    }
+    
+    .whatsapp-btn {
+        background-color: #25d366;
+    }
+    
+    .whatsapp-btn:hover {
+        background-color: #128c7e;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+        color: white;
+    }
+    
+    @media (max-width: 768px) {
+        .social-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .reservation-info {
+            margin-bottom: 30px;
+        }
+    }
+    
+    /* Carousel Stilleri */
+    #similarToursCarousel {
+        margin-bottom: 40px;
+    }
+    
+    #similarToursCarousel .carousel-inner {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
+    
+    #similarToursCarousel .carousel-item {
+        padding: 10px 0;
+    }
+    
+    #similarToursCarousel .carousel-control-prev,
+    #similarToursCarousel .carousel-control-next {
+        width: 40px;
+        height: 40px;
+        background-color: var(--bs-primary);
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.8;
+    }
+    
+    #similarToursCarousel .carousel-control-prev {
+        left: 10px;
+    }
+    
+    #similarToursCarousel .carousel-control-next {
+        right: 10px;
+    }
+    
+    #similarToursCarousel .carousel-control-prev:hover,
+    #similarToursCarousel .carousel-control-next:hover {
+        opacity: 1;
+    }
+    
+    #similarToursCarousel .carousel-indicators {
+        bottom: -30px;
+    }
+    
+    #similarToursCarousel .carousel-indicators button {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--bs-primary-light);
+        opacity: 0.5;
+        margin: 0 4px;
+    }
+    
+    #similarToursCarousel .carousel-indicators button.active {
+        background-color: var(--bs-primary);
+        opacity: 1;
+    }
+    
+    @media (max-width: 768px) {
+        #similarToursCarousel .carousel-control-prev,
+        #similarToursCarousel .carousel-control-next {
+            width: 30px;
+            height: 30px;
+        }
+        
+        #similarToursCarousel .carousel-control-prev {
+            left: 5px;
+        }
+        
+        #similarToursCarousel .carousel-control-next {
+            right: 5px;
+        }
+    }
+
+    /* Benzer Turlar Carousel Stilleri */
+    .related-tours {
+        position: relative;
+        padding: 20px 0;
+    }
+
+    .related-tours .section-title {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
+
+    .related-tours .tour-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        height: 100%;
+    }
+
+    .related-tours .tour-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .related-tours .tour-image-container {
+        height: 180px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .related-tours .tour-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+    .related-tours .tour-card:hover .tour-image-container img {
+        transform: scale(1.05);
+    }
+
+    .related-tours .tour-category-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--bs-primary);
+        color: white;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        opacity: 0.85;
+        letter-spacing: 0.5px;
+        max-width: 80px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .related-tours .card-body {
+        padding: 15px;
+    }
+
+    .related-tours .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--bs-primary);
+    }
+
+    .related-tours .tour-details {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 15px;
+    }
+
+    .related-tours .tour-duration,
+    .related-tours .tour-location {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .related-tours .tour-price {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+        background-color: var(--bs-primary-light);
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .related-tours .price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--bs-primary);
+    }
+
+    .related-tours .price-info {
+        font-size: 0.8rem;
+        color: #666;
+    }
+
+    .related-tours .carousel-controls {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .related-tours .carousel-control-prev,
+    .related-tours .carousel-control-next {
+        position: relative;
+        display: inline-block;
+        width: auto;
+        height: auto;
+        margin: 0 10px;
+        opacity: 1;
+    }
+
+    .related-tours .carousel-control-prev-icon,
+    .related-tours .carousel-control-next-icon {
+        background-color: var(--bs-primary);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s;
+    }
+
+    .related-tours .carousel-control-prev:hover .carousel-control-prev-icon,
+    .related-tours .carousel-control-next:hover .carousel-control-next-icon {
+        background-color: var(--bs-primary-hover);
+    }
+
+    @media (max-width: 767px) {
+        .related-tours .tour-card {
+            margin-bottom: 20px;
+        }
+        
+        .related-tours .tour-image-container {
+            height: 160px;
+        }
+        
+        .related-tours .card-title {
+            font-size: 1rem;
+        }
+        
+        .related-tours .tour-duration,
+        .related-tours .tour-location {
+            font-size: 0.8rem;
+        }
+        
+        .related-tours .price {
+            font-size: 1.1rem;
+        }
+    }
+
+    .room-price-card {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 20px;
+    }
+
+    .room-price-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 146, 126, 0.15);
+    }
+
+    .custom-card-header {
+        background: var(--primary-gradient);
+        padding: 2rem 1.5rem;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-header-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        pointer-events: none;
+    }
+
+    .room-icons {
+        position: relative;
+        z-index: 2;
+    }
+
+    .user-icon-circle {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        backdrop-filter: blur(5px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .user-icon-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+    }
+
+    .user-icon-group i {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .room-price-card:hover .user-icon-group i {
+        transform: scale(1.1);
+        color: #fff;
+    }
+
+    .custom-card-header h5 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .text-light-emphasis {
+        opacity: 0.9;
+        font-size: 0.85rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 2;
+    }
+
+    .price-tag {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        position: relative;
+        display: inline-block;
+        padding: 0.5rem 0;
+    }
+
+    .price-tag:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 3px;
+        background: var(--primary-gradient);
+        border-radius: 3px;
+        opacity: 0.7;
+    }
+
+    .card-body {
+        padding: 2rem 1.5rem;
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        position: relative;
+    }
+
+    .card-body:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(0, 146, 126, 0.1), transparent);
+    }
+
+    @media (max-width: 768px) {
+        .room-price-card {
+            margin-bottom: 1.5rem;
+        }
+        
+        .user-icon-circle {
+            width: 70px;
+            height: 70px;
+        }
+        
+        .user-icon-group i {
+            font-size: 1.1rem;
+        }
+        
+        .price-tag {
+            font-size: 2rem;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .room-price-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+    }
+
+    /* Galeri Stilleri */
+    .tour-gallery {
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .gallery-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        border: 1px solid #eee;
+    }
+
+    .gallery-img:hover {
+        transform: scale(1.03);
+    }
+
+    /* Rezervasyon Formu Stilleri */
+    .reservation-section {
+        background-color: #fff;
+        padding: 25px !important;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    /* Responsive Ayarlar */
+    @media (max-width: 767px) {
+        .gallery-img {
+            height: 140px;
+        }
+        
+        .tour-gallery, .reservation-section {
+            padding: 15px !important;
+        }
+    }
+
+    /* Tur Detay Sayfası Özel Stilleri */
+    .tour-about-section,
+    .tour-features-section,
+    .transportation-section {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .tour-about-section:hover,
+    .tour-features-section:hover,
+    .transportation-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .section-header {
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .section-icon {
+        background-color: rgba(var(--bs-primary-rgb), 0.1);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Tur Özellikleri */
+    .feature-item {
+        transition: all 0.3s;
+        border-left: 3px solid var(--bs-primary);
+    }
+    
+    .feature-item:hover {
+        background-color: rgba(var(--bs-primary-rgb), 0.1);
+        transform: translateX(5px);
+    }
+    
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(var(--bs-primary-rgb), 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .feature-icon i {
+        font-size: 1.2rem;
+    }
+    
+    /* Ulaşım Kartları */
+    .transport-card {
+        transition: all 0.3s;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .transport-card:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    /* Takvim Tasarımı */
+    .date-calendar {
+        width: 100%;
+        max-width: 120px;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .calendar-header {
+        background-color: rgba(0, 0, 0, 0.2);
+        color: white;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .calendar-body {
+        padding: 10px 0;
+        text-align: center;
+    }
+    
+    .calendar-day {
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .calendar-footer {
+        background-color: rgba(0, 0, 0, 0.2);
+        color: white;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    
+    .route-info {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    
+    .route-line {
+        position: relative;
+        height: 2px;
+        background-color: var(--bs-primary);
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .route-line i {
+        background-color: white;
+        padding: 0 5px;
+        color: var(--bs-primary);
+    }
+    
+    .info-label {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        color: var(--bs-primary);
+        margin-bottom: 5px;
+    }
+    
+    .info-value {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    
+    .info-location {
+        font-size: 0.9rem;
+        color: var(--bs-primary);
+        margin-top: 3px;
+        font-weight: 500;
+    }
+    
+    .route-icon {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(var(--bs-primary-rgb), 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    
+    /* Uçak Animasyonu */
+    .flying-plane {
+        transform: rotate(0deg);
+        animation: flyPlane 3s infinite;
+    }
+    
+    @keyframes flyPlane {
+        0% {
+            transform: translateX(-10px);
+        }
+        50% {
+            transform: translateX(10px);
+        }
+        100% {
+            transform: translateX(-10px);
+        }
+    }
+    
+    /* Duyarlı Tasarım - Ulaşım Kartları */
+    @media (max-width: 767px) {
+        .calendar-day {
+            font-size: 2rem;
+        }
+        
+        .calendar-header,
+        .calendar-footer {
+            font-size: 0.8rem;
+        }
+        
+        .route-info {
+            font-size: 1rem;
+        }
+        
+        .info-value {
+            font-size: 1rem;
+        }
+    }
+    
+    /* Tur Programı Stilleri */
+    .timeline {
+        position: relative;
+        padding-left: 40px;
+    }
+    
+    .timeline:before {
+        content: '';
+        position: absolute;
+        left: 20px;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background: var(--bs-primary);
+    }
+    
+    .timeline-item {
+        position: relative;
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s;
+    }
+    
+    .timeline-day-badge {
+        position: absolute;
+        left: -40px;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        background: var(--bs-primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        box-shadow: 0 0 0 4px rgba(var(--bs-primary-rgb), 0.2);
+    }
+    
+    .day-number {
+        font-size: 1.2rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+    
+    .day-label {
+        font-size: 0.6rem;
+        font-weight: 600;
+        line-height: 1;
+    }
+    
+    .timeline-content {
+        position: relative;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        transition: all 0.3s;
+    }
+    
+    .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .timeline-title {
+        color: var(--bs-primary);
+        font-weight: 600;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .program-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    
+    .program-icon {
+        width: 30px;
+        height: 30px;
+        background-color: rgba(var(--bs-primary-rgb), 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+    }
+    
+    .program-text {
+        font-size: 0.9rem;
+    }
+    
+    .activities-title {
+        font-weight: 600;
+        color: var(--bs-primary);
+        padding-bottom: 8px;
+        border-bottom: 1px dashed rgba(0,0,0,0.1);
+    }
+    
+    .activity-item {
+        transition: all 0.3s;
+    }
+    
+    .activity-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    
+    .activity-name {
+        font-weight: 500;
+    }
+    
+    .activity-duration {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+    
+    .activity-description {
+        color: #6c757d;
+    }
+    
+    /* Duyarlı Tasarım - Tur Programı */
+    @media (max-width: 767px) {
+        .timeline {
+            padding-left: 30px;
+        }
+        
+        .timeline:before {
+            left: 15px;
+        }
+        
+        .timeline-day-badge {
+            left: -30px;
+            width: 30px;
+            height: 30px;
+        }
+        
+        .day-number {
+            font-size: 1rem;
+        }
+        
+        .day-label {
+            font-size: 0.5rem;
+        }
+        
+        .timeline-content {
+            padding: 15px;
+        }
+        
+        .timeline-title {
+            font-size: 1.1rem;
+        }
+        
+        .program-text {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Uçak Animasyonu */
+    .route-line {
+        width: 100%;
+        height: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .route-line .line {
+        width: 100%;
+        height: 2px;
+        background-color: #ccc;
+        position: relative;
+    }
+    
+    .plane-container {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .flying-plane {
+        font-size: 1.2rem;
+        animation: flyPlane 3s infinite linear;
+    }
+    
+    @keyframes flyPlane {
+        0% {
+            transform: translateX(-50px);
+        }
+        100% {
+            transform: translateX(50px);
+        }
+    }
+
+    /* Tarih Tasarımı */
+    .date-calendar-horizontal {
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 10px 15px;
+        width: 100%;
+    }
+    
+    .calendar-day-horizontal {
+        font-size: 2.5rem;
+        font-weight: bold;
+        line-height: 1;
+        margin-right: 15px;
+    }
+    
+    .calendar-month-year-horizontal {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+    
+    .calendar-month {
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .calendar-day-name {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // WhatsApp butonları için tıklama olayı
+        const whatsappButtons = document.querySelectorAll('.btn-whatsapp, .whatsapp-btn');
+        whatsappButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open(this.getAttribute('href'), '_blank');
+            });
+        });
+
+        // Oda tipi değiştiğinde fiyatı güncelleme
+        const roomTypeSelect = document.getElementById('room_type');
+        const roomPriceElement = document.getElementById('room-price');
+        
+        if (roomTypeSelect && roomPriceElement) {
+            // Kişi başı fiyat bilgilerini tanımlayalım
+            const pricesPerPerson = {
+                'double': '{{ tour.double_room_price|default:tour.price }}',
+                'triple': '{{ tour.triple_room_price|default:tour.price }}',
+                'quad': '{{ tour.quad_room_price|default:tour.price }}'
+            };
+            
+            // Oda tipine göre kişi sayısı
+            const personCount = {
+                'double': 2,
+                'triple': 3,
+                'quad': 4
+            };
+            
+            const currency = '{{ tour.currency }}';
+            
+            // Oda tipi değiştiğinde fiyatı güncelle
+            roomTypeSelect.addEventListener('change', function() {
+                const selectedRoomType = this.value;
+                updateRoomPrice(selectedRoomType);
+            });
+            
+            function updateRoomPrice(roomType) {
+                // String'i sayıya çevir
+                const pricePerPerson = parseFloat(pricesPerPerson[roomType]) || parseFloat(pricesPerPerson['double']); 
+                const count = personCount[roomType] || 2;
+                
+                // Kişi başı fiyatı kişi sayısıyla çarp
+                const totalPrice = pricePerPerson * count;
+                
+                // Toplam fiyatı göster
+                roomPriceElement.textContent = totalPrice + ' ' + currency + ' (Toplam)';
+            }
+            
+            // Sayfa yüklendiğinde varsayılan oda tipine göre fiyatı güncelle
+            const defaultRoomType = roomTypeSelect.value;
+            updateRoomPrice(defaultRoomType);
+        }
+
+        // Geri sayım fonksiyonu
+        function updateCountdown() {
+            const countdownContainer = document.querySelector('.countdown-container');
+            if (!countdownContainer) return;
+
+            const tourDate = new Date(countdownContainer.dataset.tourDate).getTime();
+            const now = new Date().getTime();
+            const distance = tourDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.querySelector('.countdown-item .days').textContent = String(days).padStart(2, '0');
+            document.querySelector('.countdown-item .hours').textContent = String(hours).padStart(2, '0');
+            document.querySelector('.countdown-item .minutes').textContent = String(minutes).padStart(2, '0');
+            document.querySelector('.countdown-item .seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // Her saniye geri sayımı güncelle
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Form doğrulama
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            });
+        });
+        
+        // SSS için ikon değişimi
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+                this.setAttribute('aria-expanded', !expanded);
+            });
+        });
+        
+        // Tur özellikleri ve ulaşım kartları için animasyon efektleri
+        const animatedElements = document.querySelectorAll('.feature-item, .transport-card');
+        animatedElements.forEach((element, index) => {
+            // Sayfa yüklendiğinde kademeli olarak görünür hale getir
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
+        
+        // Tur programı için animasyon
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        function animateTimelineItems() {
+            timelineItems.forEach((item, index) => {
+                // Görünür olduğunda animasyonu başlat
+                if (isElementInViewport(item) && item.style.opacity !== '1') {
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 200 * index);
+                }
+            });
+        }
+        
+        // Bir elementin görünür olup olmadığını kontrol et
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+        
+        // Sayfa yüklendiğinde ve kaydırıldığında animasyonu kontrol et
+        animateTimelineItems();
+        window.addEventListener('scroll', animateTimelineItems);
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/fslightbox@3.3.1/index.min.js"></script>
+{% endblock %}

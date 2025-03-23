@@ -1,0 +1,23 @@
+Bu klasöre aşağıdaki görselleri eklemeniz gerekiyor:
+
+1. hotel1.jpg - 5 yıldızlı otel görseli
+2. hotel2.jpg - Lüks oda görseli
+3. food1.jpg - Özel menü görseli
+4. transfer1.jpg - VIP transfer aracı görseli
+5. guide1.jpg - Rehberlik hizmeti görseli
+6. worship1.jpg - İbadet rehberliği görseli
+7. kaaba_experience.jpg - Unutulmaz Bir Umre Deneyimi bölümü için görsel
+
+/* 3D Dönen Kartlar bölümü için gerekli görseller */
+8. tour1.jpg - Lüks Umre Paketi kartı için görsel
+9. tour2.jpg - Premium Umre Paketi kartı için görsel
+10. tour3.jpg - VIP Umre Paketi kartı için görsel
+
+Bu görseller, luxury.html sayfasındaki galeri bölümünde, Unutulmaz Bir Umre Deneyimi bölümünde ve 3D Dönen Kartlar bölümünde kullanılacaktır. Görselleri ekledikten sonra bu dosyayı silebilirsiniz.
+
+Not: Görseller yüksek kaliteli ve profesyonel olmalıdır. Boyutları yaklaşık olarak 800x600 piksel veya daha büyük olabilir. kaaba_experience.jpg görseli özellikle yüksek çözünürlüklü ve etkileyici bir Kabe fotoğrafı olmalıdır. 
+
+3D Dönen Kartlar için görseller (tour1.jpg, tour2.jpg, tour3.jpg) her bir tur paketini temsil eden etkileyici görseller olmalıdır:
+- tour1.jpg: Lüks Umre Paketi için lüks otel ve hizmetleri gösteren bir görsel
+- tour2.jpg: Premium Umre Paketi için kaliteli konaklama ve grup aktivitelerini gösteren bir görsel
+- tour3.jpg: VIP Umre Paketi için en üst düzey hizmet ve konfor unsurlarını gösteren bir görsel 

@@ -1,0 +1,96 @@
+{% extends 'editor/base.html' %}
+
+{% block title %}Rezervasyonlar - Mirzade Editör Paneli{% endblock %}
+{% block page_title %}Rezervasyonlar{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h4>Rezervasyon Listesi</h4>
+    </div>
+    <div class="col-md-4 text-end">
+        <div class="btn-group">
+            <a href="{% url 'editor:reservation_list' %}?status=PENDING" class="btn btn-warning">
+                <i class="fas fa-clock me-2"></i> Bekleyen
+            </a>
+            <a href="{% url 'editor:reservation_list' %}?status=CONFIRMED" class="btn btn-success">
+                <i class="fas fa-check me-2"></i> Onaylanan
+            </a>
+            <a href="{% url 'editor:reservation_list' %}?status=CANCELLED" class="btn btn-danger">
+                <i class="fas fa-times me-2"></i> İptal Edilen
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ad Soyad</th>
+                        <th>Tur</th>
+                        <th>Telefon</th>
+                        <th>Katılımcı</th>
+                        <th>Oda Tipi</th>
+                        <th>Tarih</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.id }}</td>
+                        <td>{{ reservation.name }}</td>
+                        <td>{{ reservation.tour.title|truncatechars:30 }}</td>
+                        <td>{{ reservation.phone }}</td>
+                        <td>{{ reservation.participants }}</td>
+                        <td>
+                            {% if reservation.room_type == 'single' %}
+                                Tek Kişilik
+                            {% elif reservation.room_type == 'double' %}
+                                İki Kişilik
+                            {% elif reservation.room_type == 'triple' %}
+                                Üç Kişilik
+                            {% elif reservation.room_type == 'quad' %}
+                                Dört Kişilik
+                            {% else %}
+                                {{ reservation.room_type }}
+                            {% endif %}
+                        </td>
+                        <td>{{ reservation.created_at|date:"d.m.Y H:i" }}</td>
+                        <td>
+                            {% if reservation.status == 'PENDING' %}
+                                <span class="badge bg-warning">Bekliyor</span>
+                            {% elif reservation.status == 'CONFIRMED' %}
+                                <span class="badge bg-success">Onaylandı</span>
+                            {% elif reservation.status == 'CANCELLED' %}
+                                <span class="badge bg-danger">İptal Edildi</span>
+                            {% elif reservation.status == 'COMPLETED' %}
+                                <span class="badge bg-info">Tamamlandı</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ reservation.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{% url 'admin:main_tourreservation_change' reservation.id %}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="9" class="text-center">Henüz rezervasyon bulunmuyor.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 

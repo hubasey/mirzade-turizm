@@ -1,0 +1,241 @@
+{% load static %}
+<header class="header-area">
+    <!-- Belge No Bandı -->
+    <div class="license-banner">
+        <div class="container text-center py-1">
+            <strong>MİRZADE TURİZM</strong> Seyahat Acentası Belge No: 10664
+        </div>
+    </div>
+    
+    <!-- Üst Bilgi Çubuğu -->
+    <div class="top-header d-none d-md-block">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="top-contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:02126130070">0212 613 00 70</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@mirzadeturizm.com">info@mirzadeturizm.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="top-social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ana Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'main:home' %}">
+                <img src="{% static 'img/logo.png' %}" alt="Mirzade TUR Logo" class="me-3 logo-img" width="140" height="140" onerror="this.style.display='none'">
+                {% comment %} <div class="logo-text">
+                    <span class="fw-bold brand-name">Mirzade Turizm</span>
+                    <span class="brand-slogan">Rotamız Huzura...</span>
+                </div> {% endcomment %}
+            </a>
+            
+            <!-- Mobil Menü Butonu -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Menüyü Aç">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Menü İçeriği -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-semibold" href="#" id="turlarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            TURLAR
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="turlarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'main:category_filter' 'hac' %}">Hac Turları</a></li>
+                            <li><a class="dropdown-item" href="{% url 'main:category_filter' 'umre' %}">Umre Turları</a></li>
+                            <li><a class="dropdown-item" href="{% url 'main:category_filter' 'kultur' %}">Kültür Turları</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'main:search_tours' %}">Tüm Turlar</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold" href="{% url 'main:luxury' %}">LÜKS UMRE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'hotel_list' %}active{% endif %}" href="{% url 'main:hotel_list' %}">
+                            </i> OTELLER
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'blog' in request.path %}active{% endif %}" href="{% url 'main:blog_home' %}">
+                            BLOG
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-semibold" href="#" id="kurumsalDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            KURUMSAL
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="kurumsalDropdown">
+                            <li><a class="dropdown-item" href="{% url 'main:about' %}">Hakkımızda</a></li>
+                            <li><a class="dropdown-item" href="{% url 'main:documents' %}">Belgelerimiz</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:contact' %}">İLETİŞİM</a>
+                    </li>
+
+                </ul>
+                
+                <!-- Mobil için WhatsApp Butonu -->
+                <div class="d-lg-none mt-3">
+                    <a href="https://wa.me/905334364372" target="_blank" class="btn btn-success w-100">
+                        <i class="fab fa-whatsapp me-2"></i> WhatsApp İletişim
+                    </a>
+                </div>
+                
+                <!-- Masaüstü için WhatsApp Butonu -->
+                <div class="d-none d-lg-block ms-3">
+                    <a href="https://wa.me/905334364372" target="_blank" class="btn btn-success rounded-pill px-3">
+                        <i class="fab fa-whatsapp"></i> <span class="d-none d-xl-inline-block ms-1">WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+</header>
+
+<style>
+    /* Belge No Bandı Stilleri */
+    .license-banner {
+        background-color: #00927E;
+        color: white;
+        font-size: 0.9rem;
+        position: relative;
+        z-index: 1001;
+    }
+    
+    .license-banner strong {
+        font-weight: 600;
+    }
+    
+    /* Logo Stilleri */
+    .logo-img {
+        width: 120px;
+        height: auto;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+    
+    .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+    }
+    
+    .brand-name {
+        font-size: 1.5rem;
+        color: #00927E;
+    }
+    
+    .brand-slogan {
+        font-size: 0.85rem;
+        color: #666;
+        font-style: italic;
+    }
+    
+    .navbar-brand:hover .logo-img {
+        transform: scale(1.05);
+    }
+    
+    @media (max-width: 576px) {
+        .logo-img {
+            width: 90px;
+        }
+        
+        .brand-name {
+            font-size: 1.2rem;
+        }
+        
+        .brand-slogan {
+            font-size: 0.75rem;
+        }
+    }
+    
+    /* Kategori Menüsü Stilleri */
+    .category-menu {
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .category-menu .nav-item {
+        margin: 0 15px;
+    }
+    
+    .category-menu .nav-link {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        background-color: white;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+    
+    .category-menu .nav-link:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        background-color: var(--bs-primary-light, #e6f5f3);
+    }
+    
+    .category-menu .nav-link.active {
+        background-color: var(--bs-primary, #00927E);
+    }
+    
+    .category-menu .nav-link.active i {
+        color: white !important;
+    }
+    
+    @media (max-width: 991px) {
+        .category-menu .nav-link {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .category-menu .nav-item {
+            margin: 0 10px;
+        }
+    }
+    
+    /* Sosyal Medya İkonları */
+    .top-social-links .social-link {
+        margin-left: 10px;
+        font-size: 14px;
+        color: white !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    
+    .top-social-links .social-link:hover {
+        background-color: white;
+        color: #00927E !important;
+        transform: translateY(-3px);
+    }
+</style>

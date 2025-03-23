@@ -1,0 +1,270 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Sıkça Sorulan Sorular | Mirzade TUR{% endblock %}
+
+{% block content %}
+<!-- SSS Banner -->
+<div class="page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-white">Sıkça Sorulan Sorular</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'main:home' %}" class="text-white">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Sıkça Sorulan Sorular</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SSS İçeriği -->
+<section class="faq-content py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="content-wrapper bg-white p-4 rounded shadow">
+                    <h2 class="section-title mb-4" style="color: #00927E;">Sıkça Sorulan Sorular</h2>
+                    
+                    <div class="accordion" id="faqAccordion">
+                        <!-- Rezervasyon ile İlgili Sorular -->
+                        <div class="accordion-item mb-3 border">
+                            <h3 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Rezervasyon ile İlgili Sorular
+                                </button>
+                            </h3>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Tur rezervasyonu nasıl yapabilirim?</h4>
+                                        <p class="faq-answer">Tur rezervasyonlarınızı web sitemiz üzerinden, telefonla veya ofisimizi ziyaret ederek yapabilirsiniz. Web sitemizden rezervasyon yapmak için, ilgilendiğiniz turu seçin ve "Rezervasyon Yap" butonuna tıklayın. Gerekli bilgileri doldurduktan sonra ödeme işlemini tamamlayabilirsiniz.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Rezervasyon iptali durumunda iade politikanız nedir?</h4>
+                                        <p class="faq-answer">İptal politikamız, turun başlangıç tarihine olan süreye göre değişmektedir:</p>
+                                        <ul>
+                                            <li>Tur başlangıç tarihinden 30 gün veya daha önce yapılan iptallerde, ödenen tutarın %80'i iade edilir.</li>
+                                            <li>Tur başlangıç tarihinden 15-29 gün önce yapılan iptallerde, ödenen tutarın %50'si iade edilir.</li>
+                                            <li>Tur başlangıç tarihinden 14 gün veya daha az süre kala yapılan iptallerde iade yapılmaz.</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="faq-item">
+                                        <h4 class="faq-question">Rezervasyon onayını nasıl alacağım?</h4>
+                                        <p class="faq-answer">Rezervasyon işleminiz tamamlandıktan sonra, belirttiğiniz e-posta adresine bir onay mesajı gönderilecektir. Bu e-postada rezervasyon detaylarınız ve ödeme bilgileriniz yer alacaktır. Ayrıca, rezervasyon onayınızı SMS ile de alabilirsiniz.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Ödeme ile İlgili Sorular -->
+                        <div class="accordion-item mb-3 border">
+                            <h3 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Ödeme ile İlgili Sorular
+                                </button>
+                            </h3>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Hangi ödeme yöntemlerini kabul ediyorsunuz?</h4>
+                                        <p class="faq-answer">Kredi kartı (Visa, MasterCard, American Express), banka havalesi ve nakit ödeme kabul ediyoruz. Web sitemiz üzerinden yapılan ödemelerde, güvenli ödeme sistemleri kullanılmaktadır.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Taksitli ödeme yapabilir miyim?</h4>
+                                        <p class="faq-answer">Evet, anlaşmalı bankaların kredi kartlarına 3, 6 ve 9 taksit imkanı sunuyoruz. Taksit seçenekleri, tur fiyatına ve bankanızın kampanyalarına göre değişebilir.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item">
+                                        <h4 class="faq-question">Ön ödeme yapabilir miyim?</h4>
+                                        <p class="faq-answer">Evet, bazı turlarımız için ön ödeme seçeneği bulunmaktadır. Tur fiyatının %30'unu ön ödeme olarak yapabilir, kalan tutarı tur başlangıç tarihinden en geç 15 gün önce ödeyebilirsiniz.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Turlar ile İlgili Sorular -->
+                        <div class="accordion-item mb-3 border">
+                            <h3 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Turlar ile İlgili Sorular
+                                </button>
+                            </h3>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Tur fiyatlarına neler dahildir?</h4>
+                                        <p class="faq-answer">Tur fiyatlarına genellikle ulaşım, konaklama, belirtilen öğünler, rehberlik hizmetleri ve programda belirtilen giriş ücretleri dahildir. Her turun detayları, tur sayfasında "Fiyata Dahil Olan Hizmetler" başlığı altında belirtilmektedir.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Çocuklar için indirim var mı?</h4>
+                                        <p class="faq-answer">Evet, çoğu turumuzda 0-2 yaş arası çocuklar için %90, 3-6 yaş arası çocuklar için %50 ve 7-12 yaş arası çocuklar için %30 indirim uygulanmaktadır. İndirim oranları, tur tipine ve konaklama şartlarına göre değişebilir.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Tur programında değişiklik olabilir mi?</h4>
+                                        <p class="faq-answer">Hava koşulları, trafik durumu, yerel etkinlikler veya beklenmedik durumlar nedeniyle tur programında küçük değişiklikler olabilir. Bu tür değişiklikler, tur kalitesini ve güvenliğini sağlamak amacıyla yapılmaktadır. Önemli değişiklikler olması durumunda, katılımcılar önceden bilgilendirilecektir.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item">
+                                        <h4 class="faq-question">Turlarınızda rehber var mı?</h4>
+                                        <p class="faq-answer">Evet, tüm turlarımızda profesyonel ve deneyimli rehberler eşlik etmektedir. Rehberlerimiz, ziyaret edilen yerler hakkında detaylı bilgi vermekte ve tur boyunca size yardımcı olmaktadır.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Vize ve Seyahat Belgeleri -->
+                        <div class="accordion-item mb-3 border">
+                            <h3 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Vize ve Seyahat Belgeleri
+                                </button>
+                            </h3>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Yurt dışı turları için vize gerekli mi?</h4>
+                                        <p class="faq-answer">Evet, çoğu yurt dışı turu için vize gereklidir. Vize gereksinimleri, gidilecek ülkeye ve vatandaşlık durumunuza göre değişmektedir. Tur sayfasında vize gereksinimleri hakkında bilgi verilmektedir. Vize başvurusu konusunda size yardımcı olabiliriz.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Hangi seyahat belgelerine ihtiyacım var?</h4>
+                                        <p class="faq-answer">Yurt dışı seyahatler için geçerli bir pasaport, vize (gerekli ise) ve seyahat sigortası gereklidir. Pasaportunuzun, seyahat dönüş tarihinden itibaren en az 6 ay geçerli olması gerekmektedir. Yurt içi seyahatler için kimlik kartı yeterlidir.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item">
+                                        <h4 class="faq-question">Seyahat sigortası yaptırmak zorunlu mu?</h4>
+                                        <p class="faq-answer">Yurt dışı turları için seyahat sigortası yaptırmanızı şiddetle tavsiye ediyoruz. Bazı ülkeler, vize başvurusu için seyahat sigortası talep etmektedir. Seyahat sigortası, sağlık sorunları, bagaj kaybı veya tur iptali gibi durumlar için koruma sağlar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Diğer Sorular -->
+                        <div class="accordion-item border">
+                            <h3 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    Diğer Sorular
+                                </button>
+                            </h3>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Özel tur düzenleyebilir misiniz?</h4>
+                                        <p class="faq-answer">Evet, özel gruplar için özel turlar düzenleyebiliriz. Aile, arkadaş grubu veya şirket etkinlikleri için özel tur talebinde bulunabilirsiniz. Özel tur fiyatları, katılımcı sayısı, seyahat tarihi ve istenen hizmetlere göre değişmektedir.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item mb-4">
+                                        <h4 class="faq-question">Tek başıma seyahat edebilir miyim?</h4>
+                                        <p class="faq-answer">Evet, turlarımıza tek başınıza katılabilirsiniz. Tek kişilik oda için ek ücret talep edilmektedir. Alternatif olarak, oda paylaşımı seçeneğini tercih edebilirsiniz. Bu durumda, aynı cinsiyetten başka bir katılımcı ile oda paylaşımı yapılacaktır.</p>
+                                    </div>
+                                    
+                                    <div class="faq-item">
+                                        <h4 class="faq-question">Engelli yolcular için özel hizmetleriniz var mı?</h4>
+                                        <p class="faq-answer">Engelli yolcuların seyahat ihtiyaçlarını karşılamak için elimizden geleni yapıyoruz. Rezervasyon sırasında özel ihtiyaçlarınızı belirtmeniz durumunda, size uygun çözümler sunmaya çalışacağız. Bazı turlarımız, engelli erişimine daha uygundur. Detaylı bilgi için lütfen bizimle iletişime geçin.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info mt-5">
+                        <h3 class="mb-3">Başka Sorularınız mı Var?</h3>
+                        <p>Eğer burada cevabını bulamadığınız sorularınız varsa, lütfen bizimle iletişime geçin:</p>
+                        <p>
+                            <strong>E-posta:</strong> info@mirzadeturizm.com<br>
+                            <strong>Telefon:</strong> 0212 613 00 70<br>
+                            <strong>Adres:</strong> Ali Kuşçu Mah. Hulusi Noyan Sk. No: 4 D:4<br>Fatih, İstanbul, Türkiye
+                            <div class="d-lg-none mt-3">
+                                <a href="https://wa.me/905334364372" target="_blank" class="btn btn-success w-100">
+                                    <i class="fab fa-whatsapp me-2"></i> WhatsApp İletişim
+                                </a>
+                            </div>
+                            
+                            <!-- Masaüstü için WhatsApp Butonu -->
+                            <div class="d-none d-lg-block ms-3">
+                                <a href="https://wa.me/905334364372" target="_blank" class="btn btn-success rounded-pill px-3">
+                                    <i class="fab fa-whatsapp"></i> <span class="d-none d-xl-inline-block ms-1">WhatsApp İletişim</span>
+                                </a>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Sayfa Banner Stili */
+    .page-banner {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/random/1920x1080/?question') no-repeat center center;
+        background-size: cover;
+        padding: 100px 0;
+        margin-bottom: 50px;
+    }
+    
+    /* Accordion Stilleri */
+    .accordion-button:not(.collapsed) {
+        background-color: #00927E;
+        color: white;
+    }
+    
+    .accordion-button:focus {
+        box-shadow: 0 0 0 0.25rem rgba(0, 146, 126, 0.25);
+    }
+    
+    .faq-question {
+        color: #00927E;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    
+    .faq-answer {
+        color: #555;
+        line-height: 1.6;
+    }
+    
+    /* İçerik Stilleri */
+    .content-wrapper {
+        line-height: 1.8;
+    }
+    
+    .content-wrapper h3 {
+        color: #00927E;
+        font-weight: 600;
+    }
+    
+    .content-wrapper ul {
+        margin-bottom: 20px;
+    }
+    
+    .content-wrapper ul li {
+        margin-bottom: 10px;
+    }
+    
+    .contact-info {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        border-left: 4px solid #00927E;
+    }
+    
+    @media (max-width: 768px) {
+        .page-banner {
+            padding: 60px 0;
+        }
+    }
+</style>
+{% endblock %} 

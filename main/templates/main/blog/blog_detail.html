@@ -1,0 +1,368 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} - Mirzade Turizm Blog{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="{{ post.meta_description|default:post.summary }}">
+    {% if post.meta_keywords %}
+        <meta name="keywords" content="{{ post.meta_keywords }}">
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<style>
+    /* Blog detay sayfası stilleri */
+    .blog-detail {
+        padding: 60px 0;
+        background-color: #f8f9fa;
+    }
+    
+    .blog-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .blog-title {
+        color: #333;
+        margin-bottom: 1rem;
+    }
+    
+    .blog-meta {
+        color: #666;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+    }
+    
+    .blog-meta i {
+        color: #00927E;
+        margin-right: 5px;
+    }
+    
+    .blog-meta span {
+        margin-right: 20px;
+    }
+    
+    .blog-tags {
+        margin: 2rem 0;
+    }
+    
+    .blog-tags a {
+        display: inline-block;
+        padding: 5px 12px;
+        margin: 0 5px 8px 0;
+        background-color: #f8f9fa;
+        color: #666;
+        border-radius: 15px;
+        font-size: 0.875rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .blog-tags a:hover {
+        background-color: #00927E;
+        color: white;
+    }
+    
+    /* Yorum bölümü stilleri */
+    .comments-section {
+        margin-top: 3rem;
+    }
+    
+    .comment {
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .comment-meta {
+        color: #666;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .comment-content {
+        color: #333;
+    }
+    
+    /* Yorum formu stilleri */
+    .comment-form {
+        background: #fff;
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .form-control:focus {
+        border-color: #00927E;
+        box-shadow: 0 0 0 0.2rem rgba(0, 146, 126, 0.25);
+    }
+    
+    .btn-primary {
+        background-color: #00927E;
+        border-color: #00927E;
+    }
+    
+    .btn-primary:hover {
+        background-color: #006e5f;
+        border-color: #006e5f;
+    }
+    
+    /* Sidebar stilleri */
+    .sidebar-widget {
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .widget-title {
+        color: #333;
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #00927E;
+    }
+    
+    .widget-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .widget-content ul li {
+        margin-bottom: 10px;
+    }
+    
+    .widget-content ul li a {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .widget-content ul li a:hover {
+        color: #00927E;
+    }
+    
+    .post-count {
+        background-color: #00927E;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+    }
+    
+    /* Benzer yazılar stilleri */
+    .similar-posts {
+        margin-top: 3rem;
+    }
+    
+    .similar-post-card {
+        border: none;
+        transition: transform 0.3s ease;
+    }
+    
+    .similar-post-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .similar-post-card .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .similar-post-card .card-title a {
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .similar-post-card .card-title a:hover {
+        color: #00927E;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Blog Banner -->
+<div class="py-4 blog-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center py-3">
+                <h1 class="display-5 text-white fw-bold mb-2">{{ post.title }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'main:home' %}">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'main:blog_home' %}">Blog</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'main:blog_category' post.category.slug %}">{{ post.category.name }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ post.title|truncatechars:30 }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="row g-4">
+        <!-- Ana İçerik -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <!-- Yazı Başlığı ve Meta Bilgileri -->
+                    <div class="mb-3">
+                        <div class="d-flex flex-wrap align-items-center mb-2">
+                            <a href="{% url 'main:blog_category' post.category.slug %}" class="badge me-2 mb-2" style="background-color: #00927E;">{{ post.category.name }}</a>
+                            <span class="text-muted me-3 mb-2"><i class="far fa-calendar-alt me-1"></i> {{ post.published_date|date:"d.m.Y" }}</span>
+                            <span class="text-muted me-3 mb-2"><i class="far fa-user me-1"></i> {{ post.author }}</span>
+                            <span class="text-muted me-3 mb-2"><i class="far fa-eye me-1"></i> {{ post.view_count }} görüntülenme</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Öne Çıkan Görsel -->
+                    {% if post.image %}
+                        <div class="mb-3">
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded shadow-sm">
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Yazı Özeti -->
+                    <div class="mb-3">
+                        <p class="lead border-start ps-3" style="border-left: 3px solid #00927E !important;">{{ post.summary }}</p>
+                    </div>
+                    
+                    <!-- Yazı İçeriği -->
+                    <div class="blog-content mb-3">
+                        {{ post.content|safe }}
+                    </div>
+                    
+                    <!-- Etiketler -->
+                    {% if post.tags.exists %}
+                        <div class="mb-3">
+                            <h5 class="section-title" style="color: #00927E;">Etiketler:</h5>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                {% for tag in post.tags.all %}
+                                    <a href="{% url 'main:blog_tag' tag.slug %}" class="tag-badge" style="background-color: #00927E20; color: #00927E;">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Paylaşım Butonları -->
+                    <div class="p-3 bg-light rounded-3">
+                        <h5 class="section-title mb-2" style="color: #00927E;">Bu Yazıyı Paylaş:</h5>
+                        <div class="share-buttons">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn btn-sm share-button" style="border-color: #00927E; color: #00927E;">
+                                <i class="fab fa-facebook-f me-1"></i> Facebook
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}" target="_blank" class="btn btn-sm share-button" style="border-color: #00927E; color: #00927E;">
+                                <i class="fab fa-twitter me-1"></i> Twitter
+                            </a>
+                            <a href="https://wa.me/?text={{ post.title }} {{ request.build_absolute_uri }}" target="_blank" class="btn btn-sm share-button" style="border-color: #00927E; color: #00927E;">
+                                <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                            </a>
+                            <a href="mailto:?subject={{ post.title }}&body={{ request.build_absolute_uri }}" class="btn btn-sm share-button" style="border-color: #00927E; color: #00927E;">
+                                <i class="fas fa-envelope me-1"></i> E-posta
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Yan Menü -->
+        <div class="col-lg-4">
+            <!-- Yazar Bilgisi -->
+            <div class="sidebar-card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0"><i class="fas fa-user me-2"></i> Yazar</h3>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar me-3" style="width: 60px; height: 60px; font-size: 1.5rem; background-color: #00927E;">
+                            {{ post.author|slice:":1"|upper }}
+                        </div>
+                        <div>
+                            <h5 class="mb-1">{{ post.author }}</h5>
+                            <p class="text-muted mb-0">Mirzade Turizm Yazarı</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Benzer Yazılar -->
+            <div class="sidebar-card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0"><i class="fas fa-newspaper me-2"></i> Benzer Yazılar</h3>
+                </div>
+                <div class="card-body">
+                    {% if similar_posts %}
+                        <ul class="list-group list-group-flush">
+                            {% for similar_post in similar_posts %}
+                                <li class="list-group-item bg-transparent border-bottom px-0">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            {% if similar_post.image %}
+                                                <img src="{{ similar_post.image.url }}" alt="{{ similar_post.title }}" class="rounded" width="60" height="60" style="object-fit: cover;">
+                                            {% else %}
+                                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                                    <i class="fas fa-newspaper text-muted"></i>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1"><a href="{% url 'main:blog_detail' similar_post.slug %}" class="text-decoration-none" style="color: #00927E;">{{ similar_post.title|truncatechars:50 }}</a></h6>
+                                            <small class="text-muted"><i class="far fa-calendar-alt me-1"></i> {{ similar_post.published_date|date:"d.m.Y" }}</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted mb-0">Benzer yazı bulunamadı.</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Kategoriler -->
+            <div class="sidebar-widget">
+                <h4 style="color: #00927E;"><i class="fas fa-th-list me-2"></i> Kategoriler</h4>
+                <ul class="list-group list-group-flush">
+                    {% for category in categories %}
+                        <li class="list-group-item bg-transparent border-bottom px-0">
+                            <a href="{% url 'main:blog_category' category.slug %}" class="text-decoration-none" style="color: #333;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span {% if category.id == post.category.id %}style="color: #00927E; font-weight: 600;"{% endif %}>{{ category.name }}</span>
+                                    <span class="badge rounded-pill" style="background-color: {% if category.id == post.category.id %}#00927E; color: white;{% else %}#00927E20; color: #00927E;{% endif %}">
+                                        {{ category.post_count }}
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <!-- Etiketler -->
+            <div class="sidebar-widget">
+                <h4 style="color: #00927E;"><i class="fas fa-tags me-2"></i> Popüler Etiketler</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for tag in tags %}
+                        <a href="{% url 'main:blog_tag' tag.slug %}" class="tag-badge" style="background-color: {% if tag in post.tags.all %}#00927E; color: white;{% else %}#00927E20; color: #00927E;{% endif %}">
+                            {{ tag.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

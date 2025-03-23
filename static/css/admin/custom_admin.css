@@ -1,0 +1,566 @@
+/* Mirzade Turizm Admin Panel Özel CSS */
+
+/* Ana renkler */
+:root {
+    --primary-color: #00927E;
+    --primary-dark: #007A68;
+    --secondary-color: #D4AF37;
+    --dark-color: #333;
+    --light-color: #f9f7f2;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --text-color: #333;
+    --text-light: #666;
+    --text-dark: #222;
+    --link-color: #00927E;
+    --link-hover: #007A68;
+    --border-color: #eee;
+    --background-light: #f5f5f5;
+    --background-white: #fff;
+}
+
+/* Genel Stiller */
+body {
+    background-color: var(--background-light);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+/* Header Stili */
+#header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 15px 40px;
+    height: auto;
+}
+
+#header a:link, #header a:visited {
+    color: white;
+}
+
+#branding h1 {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#branding h1 a {
+    display: flex;
+    align-items: center;
+}
+
+#branding h1 a i {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+#user-tools {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+#user-tools a {
+    border-bottom: none;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+#user-tools a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.password-change-link, .view-site-link {
+    display: inline-flex;
+    align-items: center;
+}
+
+.password-change-link i, .view-site-link i {
+    margin-right: 5px;
+}
+
+/* Sidebar Stili */
+.module h2, .module caption, .inline-group h2 {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    padding: 12px 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+div.breadcrumbs {
+    background: var(--secondary-color);
+    color: var(--dark-color);
+    padding: 15px 40px;
+    font-size: 14px;
+    border: none;
+}
+
+div.breadcrumbs a {
+    color: var(--dark-color);
+}
+
+/* Buton Stilleri */
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 10px 15px;
+    font-weight: 600;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover, a.button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    color: white;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: var(--secondary-color);
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.button.default:hover, input[type=submit].default:hover, .submit-row input.default:hover {
+    background: #C09F27;
+}
+
+/* Form Stilleri */
+.form-row {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.aligned label {
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 5px 0;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=url], input[type=number], input[type=tel], textarea, select, .vTextField {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 12px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    width: 100%;
+    max-width: 500px;
+    color: var(--text-dark);
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=url]:focus, input[type=number]:focus, input[type=tel]:focus, textarea:focus, select:focus, .vTextField:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 146, 126, 0.25);
+    outline: none;
+}
+
+/* Tablo Stilleri */
+#changelist {
+    background: var(--background-white);
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+#changelist table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#changelist table thead th {
+    background: var(--light-color);
+    color: var(--text-dark);
+    font-weight: 600;
+    padding: 12px 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+#changelist table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+#changelist table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.row1 {
+    background: var(--background-white);
+}
+
+.row2 {
+    background: #f9f9f9;
+}
+
+#changelist table tbody tr:hover td {
+    background-color: var(--background-light);
+}
+
+/* Mesaj Stilleri */
+.success {
+    background: var(--success-color);
+}
+
+.warning {
+    background: var(--warning-color);
+}
+
+.errornote {
+    background: var(--danger-color);
+}
+
+/* Dashboard Stilleri */
+.dashboard .module table th {
+    width: 100%;
+}
+
+.dashboard .module table td {
+    white-space: nowrap;
+}
+
+.dashboard .module h2 {
+    background: var(--primary-color);
+    color: white;
+}
+
+.dashboard .module {
+    background: var(--background-white);
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+/* Filtreleme Stilleri */
+#changelist-filter {
+    background: var(--background-white);
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 15px;
+}
+
+#changelist-filter h2 {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 5px 5px 0 0;
+    margin: -15px -15px 15px -15px;
+    padding: 12px 15px;
+}
+
+#changelist-filter h3 {
+    font-weight: 600;
+    margin-top: 15px;
+    color: var(--text-dark);
+}
+
+#changelist-filter ul {
+    padding-left: 0;
+}
+
+#changelist-filter li {
+    list-style-type: none;
+    margin: 5px 0;
+}
+
+#changelist-filter li.selected {
+    border-left: 3px solid var(--primary-color);
+    padding-left: 10px;
+    font-weight: 600;
+}
+
+#changelist-filter a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+#changelist-filter a:hover {
+    text-decoration: underline;
+}
+
+/* Arama Formu */
+#changelist-search {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#changelist-search input[type=text] {
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+}
+
+#changelist-search input[type=submit] {
+    border-radius: 0 4px 4px 0;
+    padding: 10px 15px;
+}
+
+/* Sayfalama */
+.paginator {
+    margin: 20px 0;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paginator a, .paginator .this-page {
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+.paginator a {
+    background: var(--background-light);
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.paginator a:hover {
+    background: #e5e5e5;
+}
+
+.paginator .this-page {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 767px) {
+    #header {
+        padding: 10px 20px;
+    }
+    
+    #branding h1 {
+        font-size: 18px;
+    }
+    
+    .aligned label {
+        width: 100%;
+        padding: 0 0 5px 0;
+    }
+    
+    form .aligned p.help {
+        margin-left: 0;
+        padding-left: 0;
+    }
+    
+    div.breadcrumbs {
+        padding: 10px 20px;
+    }
+}
+
+/* Özel Animasyonlar */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.module {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Özel Dashboard Stilleri */
+.app-list-container {
+    background: var(--background-white);
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.app-list-container h2 {
+    color: var(--primary-color) !important;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--background-light);
+}
+
+.app-list-container table {
+    width: 100%;
+}
+
+.app-list-container caption {
+    background: var(--light-color) !important;
+    color: var(--text-dark) !important;
+    font-weight: 600;
+    padding: 12px 15px;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 2px solid var(--border-color);
+    text-align: left;
+}
+
+.app-list-container th {
+    padding: 12px 15px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.app-list-container td {
+    padding: 12px 15px;
+    color: var(--text-color);
+}
+
+.app-list-container tr:hover {
+    background-color: var(--background-light);
+}
+
+.app-list-container a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.app-list-container a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+.addlink, .changelink {
+    padding-left: 25px;
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.addlink:before {
+    content: "+";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.changelink:before {
+    content: "✎";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    background: var(--secondary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Son Eylemler Bölümü */
+.recent-actions-container {
+    background: var(--background-white);
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.recent-actions-container h2 {
+    color: var(--primary-color) !important;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--background-light);
+    display: flex;
+    align-items: center;
+}
+
+.recent-actions-container h2 i {
+    margin-right: 10px;
+}
+
+.recent-actions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recent-action-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--background-light);
+    display: flex;
+    align-items: flex-start;
+}
+
+.recent-action-item:last-child {
+    border-bottom: none;
+}
+
+.action-time {
+    font-size: 12px;
+    color: var(--text-light);
+    min-width: 100px;
+    display: inline-block;
+}
+
+.action-label {
+    margin-right: 10px;
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+}
+
+.action-content {
+    flex: 1;
+    color: var(--text-color);
+}
+
+.action-content a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.action-content a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+.action-type {
+    display: block;
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 3px;
+}
+
+.text-success {
+    color: var(--success-color);
+}
+
+.text-warning {
+    color: var(--warning-color);
+}
+
+.text-danger {
+    color: var(--danger-color);
+}
+
+/* Django'nun varsayılan son eylemler bölümünü gizle */
+#recent-actions-module {
+    display: none !important;
+} 

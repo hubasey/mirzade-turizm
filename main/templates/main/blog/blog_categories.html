@@ -1,0 +1,217 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Blog Kategorileri - Mirzade Turizm{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<style>
+    .blog-banner {
+        background: linear-gradient(45deg, #00927E, #006B5C);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    
+    .breadcrumb-item a:hover {
+        color: #fff;
+    }
+    
+    .breadcrumb-item.active {
+        color: #fff;
+    }
+    
+    .section-title {
+        color: #00927E;
+        border-left: 4px solid #00927E;
+        padding-left: 1rem;
+    }
+    
+    .category-card {
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    }
+    
+    .category-card .card-body {
+        padding: 1.5rem;
+    }
+    
+    .category-card .category-icon {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(0, 146, 126, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+    
+    .category-card .category-icon i {
+        font-size: 1.5rem;
+        color: #00927E;
+    }
+    
+    .category-card .category-title {
+        color: #333;
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .category-card .post-count {
+        color: #00927E;
+        font-weight: 500;
+    }
+    
+    .tag-badge {
+        display: inline-block;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 50rem;
+        text-decoration: none;
+        background-color: rgba(0, 146, 126, 0.1);
+        color: #00927E;
+        transition: all 0.3s ease;
+    }
+    
+    .tag-badge:hover {
+        background-color: #00927E;
+        color: #fff;
+    }
+    
+    .sidebar-widget {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+    }
+    
+    .sidebar-widget h4 {
+        color: #00927E;
+        margin-bottom: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Blog Banner -->
+<div class="py-5 blog-banner">
+    <div class="banner-shape">
+        <svg width="500" height="500" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#FFFFFF" d="M39.9,-65.7C51.1,-58.5,59.5,-46.8,65.8,-34C72.1,-21.2,76.3,-7.3,74.9,5.8C73.5,18.9,66.5,31.2,57.4,41.4C48.3,51.6,37.1,59.8,24.8,64.8C12.5,69.8,-0.9,71.7,-14.9,70.1C-28.9,68.5,-43.5,63.4,-53.1,53.6C-62.7,43.8,-67.3,29.3,-70.3,14.5C-73.3,-0.3,-74.7,-15.4,-70.2,-28.7C-65.7,-42,-55.3,-53.5,-42.9,-60C-30.5,-66.5,-15.2,-68,-0.9,-66.5C13.5,-65,28.7,-72.9,39.9,-65.7Z" transform="translate(100 100)" />
+        </svg>
+    </div>
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-12 text-center py-4">
+                <h1 class="display-4 text-white fw-bold mb-3">Blog Kategorileri</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'main:home' %}">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'main:blog_home' %}">Blog</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Kategoriler</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Ana İçerik -->
+        <div class="col-lg-8">
+            <div class="row">
+                {% for category in categories %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card category-card shadow-sm">
+                            <div class="card-body">
+                                <div class="category-icon">
+                                    {% if category.icon %}
+                                        <i class="{{ category.icon }}"></i>
+                                    {% else %}
+                                        <i class="fas fa-folder"></i>
+                                    {% endif %}
+                                </div>
+                                <h3 class="category-title">{{ category.name }}</h3>
+                                <p class="text-muted mb-3">
+                                    {% if category.description %}
+                                        {{ category.description|truncatechars:100 }}
+                                    {% else %}
+                                        Bu kategoride {{ category.post_count }} yazı bulunuyor.
+                                    {% endif %}
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="post-count">{{ category.post_count }} Yazı</span>
+                                    <a href="{% url 'main:blog_category' category.slug %}" class="btn btn-sm" style="background-color: #00927E; color: white;">
+                                        Yazıları Gör <i class="fas fa-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i> Henüz kategori bulunmamaktadır.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Yan Menü -->
+        <div class="col-lg-4">
+            <!-- Popüler Etiketler -->
+            <div class="sidebar-widget">
+                <h4><i class="fas fa-tags me-2"></i> Popüler Etiketler</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for tag in tags %}
+                        <a href="{% url 'main:blog_tag' tag.slug %}" class="tag-badge">
+                            {{ tag.name }} ({{ tag.post_count }})
+                        </a>
+                    {% empty %}
+                        <p class="text-muted mb-0">Henüz etiket bulunmamaktadır.</p>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Popüler Yazılar -->
+            <div class="sidebar-widget">
+                <h4><i class="fas fa-fire me-2"></i> Popüler Yazılar</h4>
+                <div class="list-group list-group-flush">
+                    {% for post in popular_posts %}
+                        <a href="{% url 'main:blog_detail' post.slug %}" class="list-group-item list-group-item-action bg-transparent px-0">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ post.title }}</h6>
+                                <small class="text-muted"><i class="far fa-eye me-1"></i> {{ post.view_count }}</small>
+                            </div>
+                            <small class="text-muted">{{ post.published_date|date:"d.m.Y" }}</small>
+                        </a>
+                    {% empty %}
+                        <p class="text-muted mb-0">Henüz yazı bulunmamaktadır.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

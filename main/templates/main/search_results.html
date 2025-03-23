@@ -1,0 +1,683 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load date_filters %}
+
+{% block title %}Tur Arama Sonuçları | Mirzade TUR{% endblock %}
+
+{% block content %}
+<div class="search-results-header py-4 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="mb-2">Tur Arama Sonuçları</h1>
+                <p class="lead mb-0">Arama kriterlerinize uygun turlar aşağıda listelenmiştir</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <a href="{% url 'main:home' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-search me-2"></i> Yeni Arama
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <!-- Arama Filtreleri Özeti -->
+            <div class="search-filters p-4 rounded mb-4 shadow-sm">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="mb-3 text-primary">Arama Kriterleri</h5>
+                        <div class="filter-badges">
+                            {% if search_params.departure_city %}
+                                <span class="filter-badge"><i class="fas fa-plane-departure me-1"></i> Kalkış: {{ search_params.departure_city }}</span>
+                            {% endif %}
+                            {% if search_params.arrival_city %}
+                                <span class="filter-badge"><i class="fas fa-plane-arrival me-1"></i> Varış: {{ search_params.arrival_city }}</span>
+                            {% endif %}
+                            {% if search_params.category %}
+                                <span class="filter-badge">
+                                    {% if search_params.category == 'hac' %}
+                                        <i class="fas fa-kaaba me-1"></i> Kategori: Hac
+                                    {% elif search_params.category == 'umre' %}
+                                        <i class="fas fa-mosque me-1"></i> Kategori: Umre
+                                    {% elif search_params.category == 'kultur' %}
+                                        <i class="fas fa-landmark me-1"></i> Kategori: Kültür
+                                    {% endif %}
+                                </span>
+                            {% endif %}
+                            {% if search_params.duration %}
+                                <span class="filter-badge"><i class="fas fa-clock me-1"></i> Süre: {{ search_params.duration }} Gün</span>
+                            {% endif %}
+                            {% if search_params.date %}
+                                <span class="filter-badge"><i class="fas fa-calendar-alt me-1"></i> Tarih: {{ search_params.date }}</span>
+                            {% endif %}
+                            {% if search_params.month %}
+                                <span class="filter-badge">
+                                    <i class="fas fa-calendar-day me-1"></i> Ay: 
+                                    {% if search_params.month == '1' %}Ocak
+                                    {% elif search_params.month == '2' %}Şubat
+                                    {% elif search_params.month == '3' %}Mart
+                                    {% elif search_params.month == '4' %}Nisan
+                                    {% elif search_params.month == '5' %}Mayıs
+                                    {% elif search_params.month == '6' %}Haziran
+                                    {% elif search_params.month == '7' %}Temmuz
+                                    {% elif search_params.month == '8' %}Ağustos
+                                    {% elif search_params.month == '9' %}Eylül
+                                    {% elif search_params.month == '10' %}Ekim
+                                    {% elif search_params.month == '11' %}Kasım
+                                    {% elif search_params.month == '12' %}Aralık
+                                    {% endif %}
+                                </span>
+                            {% endif %}
+                            {% if search_params.tour_no %}
+                                <span class="filter-badge"><i class="fas fa-hashtag me-1"></i> Tur No: {{ search_params.tour_no }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                        <div class="results-count">
+                            <span class="badge bg-primary rounded-pill">{{ tours.count }} sonuç bulundu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sonuçlar -->
+            <div class="search-results">
+                {% if tours %}
+                    <div class="row">
+                        {% for tour in tours %}
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="card h-100 tour-card">
+                                    <a href="{% url 'main:tour_detail' tour.slug %}" class="card-link-overlay"></a>
+                                    {% if tour.image %}
+                                        <div class="tour-image-container">
+                                            <img src="{{ tour.image.url }}" class="card-img-top" alt="{{ tour.title }}" loading="lazy">
+                                            <div class="tour-category-badge">
+                                                {% if tour.category == 'hac' %}
+                                                    <span class="badge bg-danger">HAC</span>
+                                                {% elif tour.category == 'umre' %}
+                                                    <span class="badge bg-success">UMRE</span>
+                                                {% elif tour.category == 'kultur' %}
+                                                    <span class="badge bg-info">KÜLTÜR</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="tour-overlay">
+                                                <a href="{% url 'main:tour_detail' tour.slug %}" class="btn btn-light btn-sm">
+                                                    <i class="fas fa-eye me-1"></i> İncele
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="tour-image-container">
+                                            <img src="{% static 'img/placeholder.jpg' %}" class="card-img-top" alt="{{ tour.title }}" loading="lazy">
+                                            <div class="tour-category-badge">
+                                                {% if tour.category == 'hac' %}
+                                                    <span class="badge bg-danger">HAC</span>
+                                                {% elif tour.category == 'umre' %}
+                                                    <span class="badge bg-success">UMRE</span>
+                                                {% elif tour.category == 'kultur' %}
+                                                    <span class="badge bg-info">KÜLTÜR</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="tour-overlay">
+                                                <a href="{% url 'main:tour_detail' tour.slug %}" class="btn btn-light btn-sm">
+                                                    <i class="fas fa-eye me-1"></i> İncele
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">{{ tour.title }}</h5>
+                                        <div class="tour-info-badges mb-3">
+                                            <div class="tour-date-badge">
+                                                <div class="tour-date-range">
+                                                    <span class="tour-date-start">{{ tour.date|turkce_tarih:"d M" }}</span>
+                                                    <span class="tour-date-separator">-</span>
+                                                    <span class="tour-date-end">{% if tour.end_date %}{{ tour.end_date|turkce_tarih:"d M" }}{% else %}{{ tour.date|add_days_tr:tour.duration }}{% endif %}</span>
+                                                </div>
+                                            </div>
+                                            <div class="tour-details">
+                                                <div class="tour-detail-item">
+                                                    <i class="fas fa-clock me-2"></i>
+                                                    <span>{{ tour.duration }} Gün {% if tour.duration > 1 %}{{ tour.duration|add:"-1" }} Gece{% endif %}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tour-highlights mb-3">
+                                            <div class="tour-highlight-item">
+                                                <i class="fas fa-pray text-primary"></i> Dini Rehberlik
+                                            </div>
+                                            <div class="tour-highlight-item">
+                                                <i class="fas fa-hotel text-primary"></i> Özel Konaklama
+                                            </div>
+                                            <div class="tour-highlight-item">
+                                                <i class="fas fa-bus text-primary"></i> Tüm Transferler
+                                            </div>
+                                        </div>
+                                        <div class="price-info mt-auto">
+                                            <div class="price-tag mb-2">
+                                                <div class="price-label">Program Ücreti</div>
+                                                <div class="current-price">{{ tour.price }} {{ tour.currency }}</div>
+                                            </div>
+                                            <div class="d-grid gap-2">
+                                                <div class="row g-2">
+                                                    <div class="col-6">
+                                                        <a href="{% url 'main:tour_detail' tour.slug %}" class="btn btn-primary w-100 reservation-btn">
+                                                            <i class="fas fa-calendar-check me-1"></i> Detaylar
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <a href="https://wa.me/905334364372?text=Merhaba%2C%20{{ tour.title|urlencode }}%20turu%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" class="btn btn-success w-100 whatsapp-btn">
+                                                            <i class="fab fa-whatsapp fa-lg me-2"></i> WhatsApp
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-white border-0">
+                                        <div class="limited-offer">
+                                            <i class="fas fa-mosque text-primary me-1"></i> Kutsal Topraklara Yolculuk
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-info-circle fa-2x me-3"></i>
+                            <div>
+                                <h5 class="mb-1">Sonuç Bulunamadı</h5>
+                                <p class="mb-0">Arama kriterlerinize uygun tur bulunamadı. Lütfen farklı kriterlerle tekrar arayın.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Özel Renk Tanımlamaları */
+    :root {
+        --bs-primary: #00927E;
+        --bs-primary-rgb: 0, 146, 126;
+        --bs-primary-hover: #007a69;
+        --bs-primary-text: #006d5b;
+        --bs-primary-light: #e6f5f3;
+    }
+    
+    /* Arama Sonuçları Başlık */
+    .search-results-header {
+        background-color: var(--bs-primary-light);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding: 30px 0;
+    }
+    
+    .search-results-header h1 {
+        color: var(--bs-primary-text);
+        font-weight: 700;
+    }
+    
+    .search-results-header .lead {
+        color: #555;
+    }
+    
+    /* Arama Filtreleri */
+    .search-filters {
+        background-color: #fff;
+        border-left: 4px solid var(--bs-primary);
+        margin-bottom: 30px;
+    }
+    
+    .filter-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .filter-badge {
+        display: inline-flex;
+        align-items: center;
+        background-color: var(--bs-primary-light);
+        color: var(--bs-primary-text);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .results-count .badge {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+    
+    /* Tur Kartları */
+    .tour-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        background-color: #fff;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .card-link-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+    }
+    
+    .tour-card .btn-primary, 
+    .tour-card .btn-light, 
+    .tour-overlay,
+    .whatsapp-btn,
+    .reservation-btn {
+        position: relative;
+        z-index: 5;
+    }
+    
+    .tour-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+    }
+    
+    .tour-image-container {
+        position: relative;
+        height: 180px;
+        overflow: hidden;
+    }
+    
+    .tour-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+    
+    .tour-card:hover .tour-image-container img {
+        transform: scale(1.05);
+    }
+    
+    .tour-category-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 2;
+    }
+    
+    .tour-category-badge .badge {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .tour-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    
+    .tour-card:hover .tour-overlay {
+        opacity: 1;
+    }
+    
+    .tour-card .card-title {
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+        color: var(--bs-primary-text);
+        line-height: 1.3;
+    }
+    
+    .tour-card .card-body {
+        padding: 15px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Tur Bilgi Tasarımı */
+    .tour-info-badges {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        gap: 10px;
+    }
+    
+    .tour-date-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        background: linear-gradient(135deg, var(--bs-primary), var(--bs-primary-hover));
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 3px 6px rgba(var(--bs-primary-rgb), 0.2);
+        padding: 8px 10px;
+    }
+    
+    .tour-date-range {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        font-weight: 600;
+    }
+    
+    .tour-date-start, 
+    .tour-date-end {
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+    
+    .tour-date-separator {
+        margin: 0 8px;
+        font-size: 1rem;
+    }
+    
+    .tour-details {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .tour-detail-item {
+        display: flex;
+        align-items: center;
+        font-size: 0.85rem;
+        color: var(--bs-primary-text);
+        background-color: var(--bs-primary-light);
+        padding: 6px 10px;
+        border-radius: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+    }
+    
+    .tour-detail-item i {
+        color: var(--bs-primary);
+        min-width: 16px;
+        margin-right: 8px !important;
+        font-size: 0.9rem;
+    }
+    
+    .tour-highlights {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 15px;
+    }
+    
+    .tour-highlight-item {
+        font-size: 0.85rem;
+        color: var(--bs-primary-text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 0;
+        font-weight: 500;
+    }
+    
+    .tour-highlight-item i {
+        color: var(--bs-primary);
+        font-size: 0.9rem;
+        min-width: 16px;
+    }
+    
+    .price-tag {
+        text-align: center;
+        background-color: var(--bs-primary-light);
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    
+    .price-label {
+        font-size: 0.9rem;
+        color: var(--bs-primary-text);
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+    
+    .current-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--bs-primary);
+        line-height: 1.2;
+    }
+    
+    .limited-offer {
+        text-align: center;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--bs-primary-text);
+        padding: 8px 0;
+    }
+    
+    .tour-card .card-footer {
+        padding: 10px 15px;
+        background-color: #fff;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    /* Buton Stilleri */
+    .btn-primary {
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+    
+    .btn-primary:hover, 
+    .btn-primary:focus, 
+    .btn-primary:active {
+        background-color: var(--bs-primary-hover) !important;
+        border-color: var(--bs-primary-hover) !important;
+    }
+    
+    .btn-outline-primary {
+        color: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+    
+    .tour-card .btn-primary {
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+    
+    .tour-card .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(var(--bs-primary-rgb), 0.3);
+    }
+    
+    /* WhatsApp Butonu Stilleri */
+    .whatsapp-btn {
+        background-color: #25D366;
+        border-color: #25D366;
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+        padding: 8px 15px;
+        border-radius: 6px;
+        position: relative;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .whatsapp-btn:hover {
+        background-color: #128C7E;
+        border-color: #128C7E;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+    }
+    
+    .whatsapp-btn i {
+        font-size: 1.2rem;
+        margin-right: 5px;
+    }
+    
+    /* Responsive Ayarlar */
+    @media (max-width: 767px) {
+        .search-filters {
+            padding: 15px;
+        }
+        
+        .filter-badges {
+            gap: 5px;
+        }
+        
+        .filter-badge {
+            font-size: 0.8rem;
+            padding: 6px 10px;
+        }
+        
+        .results-count .badge {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+            margin-top: 10px;
+        }
+        
+        .tour-info-badges {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+        
+        .tour-details {
+            max-width: calc(100% - 70px);
+        }
+        
+        .tour-detail-item {
+            font-size: 0.8rem;
+            padding: 5px 8px;
+        }
+        
+        .tour-highlight-item {
+            font-size: 0.8rem;
+        }
+        
+        .price-label {
+            font-size: 0.85rem;
+        }
+        
+        .current-price {
+            font-size: 1.3rem;
+        }
+        
+        .limited-offer {
+            font-size: 0.8rem;
+        }
+        
+        .tour-date-start, 
+        .tour-date-end {
+            font-size: 0.9rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .search-results-header {
+            padding: 20px 0;
+        }
+        
+        .search-results-header h1 {
+            font-size: 1.8rem;
+        }
+        
+        .tour-image-container {
+            height: 160px;
+        }
+        
+        .tour-card .card-body {
+            padding: 12px;
+        }
+        
+        .tour-card .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .tour-date-badge {
+            padding: 6px 8px;
+        }
+        
+        .tour-date-start, 
+        .tour-date-end {
+            font-size: 0.85rem;
+        }
+        
+        .tour-date-separator {
+            margin: 0 5px;
+        }
+        
+        .tour-card .btn-primary,
+        .tour-card .whatsapp-btn {
+            font-size: 0.75rem;
+            padding: 6px 4px;
+        }
+        
+        .tour-card .btn-primary i,
+        .tour-card .whatsapp-btn i {
+            font-size: 1rem;
+            margin-right: 3px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // WhatsApp butonları için tıklama olayı
+        const whatsappButtons = document.querySelectorAll('.whatsapp-btn');
+        whatsappButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                const url = this.getAttribute('href');
+                window.open(url, '_blank');
+            });
+        });
+    });
+</script>
+{% endblock %} 

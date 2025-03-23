@@ -1,0 +1,54 @@
+{% extends "admin/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Mirzade Turizm Yönetim Paneli') }}{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    {% for css in extra_css %}
+        <link rel="stylesheet" type="text/css" href="{{ css }}">
+    {% endfor %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock %}
+
+{% block extrahead %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script src="{% static 'js/admin/custom_admin.js' %}" defer></script>
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a>
+    </h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block welcome-msg %}
+    <strong>{% firstof user.get_short_name user.get_username %}</strong> |
+    <a href="{% url 'admin:password_change' %}" class="password-change-link">
+        <i class="fas fa-key"></i> Şifre Değiştir
+    </a> |
+    <a href="/" target="_blank" class="view-site-link">
+        <i class="fas fa-external-link-alt"></i> Siteyi Görüntüle
+    </a>
+{% endblock %}
+
+{% block userlinks %}
+    {% if site_url %}
+        <a href="{{ site_url }}" class="view-site-link">
+            <i class="fas fa-external-link-alt"></i> {% trans 'View site' %}
+        </a> /
+    {% endif %}
+    {% if user.is_active and user.is_staff %}
+        {% url 'django-admindocs-docroot' as docsroot %}
+        {% if docsroot %}
+            <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+        {% endif %}
+    {% endif %}
+    {% if user.has_usable_password %}
+        <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+    {% endif %}
+    <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+{% endblock %} 

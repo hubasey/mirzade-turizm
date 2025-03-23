@@ -1,0 +1,448 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}İletişim | Mirzade Turizm{% endblock %}
+
+{% block content %}
+<!-- İletişim Sayfası Başlık Bölümü -->
+<div class="contact-header py-5 mb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-5 fw-bold" style="color: #00927E;">İletişim</h1>
+                <p class="lead text-muted">Sorularınız ve önerileriniz için bizimle iletişime geçebilirsiniz.</p>
+                <div class="divider mx-auto"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-4">
+        <!-- İletişim Bilgileri -->
+        <div class="col-lg-5 mb-4 mb-lg-0">
+            <div class="contact-info-box p-4 h-100">
+                <h3 class="section-title mb-4">İletişim Bilgilerimiz</h3>
+                
+                <div class="contact-item d-flex align-items-center mb-4">
+                    <div class="icon-box me-3 flex-shrink-0">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h5>Adres</h5>
+                        <p class="mb-0">Mirzade Turizm<br>
+                            Ali Kuşçu Mah.<br>
+                            Hulusi Noyan Sk. No: 4 D:4<br>
+                            Fatih, İstanbul, Türkiye</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item d-flex align-items-center mb-4">
+                    <div class="icon-box me-3 flex-shrink-0">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div>
+                        <h5>Telefon</h5>
+                        <p class="mb-0"><a href="tel:+905334364372" class="contact-link">+90 533 436 43 72</a></p>
+                        <p class="mb-0"><a href="tel:+902126130070" class="contact-link">+90 212 613 00 70</a></p>
+                    </div>
+                </div>
+                
+                <div class="contact-item d-flex align-items-center mb-4">
+                    <div class="icon-box me-3 flex-shrink-0">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h5>E-posta</h5>
+                        <p class="mb-0"><a href="mailto:info@mirzadeturizm.com" class="contact-link">info@mirzadeturizm.com</a></p>
+                        <p class="mb-0"><a href="mailto:rezervasyon@mirzadeturizm.com" class="contact-link">rezervasyon@mirzadeturizm.com</a></p>
+                    </div>
+                </div>
+                
+                <div class="contact-item d-flex align-items-center mb-4">
+                    <div class="icon-box me-3 flex-shrink-0">
+                        <i class="far fa-clock"></i>
+                    </div>
+                    <div>
+                        <h5>Çalışma Saatleri</h5>
+                        <p class="mb-0">Pazartesi - Cuma: 09:00 - 18:00<br>
+                        Cumartesi: 10:00 - 15:00<br>
+                        Pazar: Kapalı</p>
+                    </div>
+                </div>
+                
+                <div class="contact-social mt-4 pt-3 border-top">
+                    <h5 class="mb-3">Sosyal Medya</h5>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/mirzadetur" target="_blank" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/mirzadetur" target="_blank" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.twitter.com/mirzadetur" target="_blank" class="social-icon" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://wa.me/905334364372" target="_blank" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- İletişim Formu -->
+        <div class="col-lg-7">
+            <div class="contact-form-box p-4">
+                <h3 class="section-title mb-4">Bize Mesaj Gönderin</h3>
+                <p class="text-muted mb-4">Aşağıdaki formu doldurarak bize mesaj gönderebilirsiniz. En kısa sürede size dönüş yapacağız.</p>
+                
+                <form id="contactForm" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Ad Soyad <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Adınız ve soyadınız" required>
+                            <div class="invalid-feedback">
+                                Lütfen adınızı ve soyadınızı girin.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">E-posta <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="E-posta adresiniz" required>
+                            <div class="invalid-feedback">
+                                Lütfen geçerli bir e-posta adresi girin.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Telefon <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Telefon numaranız" required>
+                            <div class="invalid-feedback">
+                                Lütfen telefon numaranızı girin.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="subject" class="form-label">Konu <span class="text-danger">*</span></label>
+                            <select class="form-select" id="subject" name="subject" required>
+                                <option value="" selected disabled>Konu seçiniz</option>
+                                <option value="reservation">Rezervasyon</option>
+                                <option value="information">Bilgi Talebi</option>
+                                <option value="complaint">Şikayet</option>
+                                <option value="suggestion">Öneri</option>
+                                <option value="other">Diğer</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Lütfen bir konu seçin.
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="message" class="form-label">Mesajınız <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="message" name="message" rows="5" placeholder="Mesajınızı buraya yazın..." required></textarea>
+                            <div class="invalid-feedback">
+                                Lütfen mesajınızı girin.
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="privacy" required>
+                                <label class="form-check-label" for="privacy">
+                                    <small>Kişisel verilerimin işlenmesine izin veriyorum. <a href="#" class="text-primary">Gizlilik Politikası</a>'nı okudum ve kabul ediyorum.</small>
+                                </label>
+                                <div class="invalid-feedback">
+                                    Devam etmek için onaylamanız gerekmektedir.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Mesaj Gönder
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Harita -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.374951806718!2d28.950806128836053!3d41.017052095060656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caba7eb90fa7c3%3A0x1a1522724f3826ad!2sMirzade%20Turizm!5e0!3m2!1str!2str!4v1741210315736!5m2!1str!2str"
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* İletişim Sayfası Stilleri */
+.contact-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.divider {
+    width: 60px;
+    height: 3px;
+    background-color: var(--bs-primary, #00927E);
+    margin-top: 20px;
+}
+
+.section-title {
+    position: relative;
+    font-weight: 600;
+    color: #333;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--bs-primary, #00927E);
+}
+
+.contact-info-box, .contact-form-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-info-box:hover, .contact-form-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.icon-box {
+    width: 45px;
+    height: 45px;
+    background-color: rgba(0, 146, 126, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bs-primary, #00927E);
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover .icon-box {
+    background-color: var(--bs-primary, #00927E);
+    color: white;
+}
+
+.contact-item h5 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.contact-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.contact-link {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: inline-block;
+}
+
+.contact-link:hover {
+    color: var(--bs-primary, #00927E);
+    text-decoration: underline;
+}
+
+.contact-social {
+    position: relative;
+}
+
+.social-icons {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.social-icon:hover {
+    background-color: var(--bs-primary, #00927E);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.form-control, .form-select {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--bs-primary, #00927E);
+    box-shadow: 0 0 0 0.25rem rgba(0, 146, 126, 0.15);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.btn-primary {
+    background-color: var(--bs-primary, #00927E);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #007a68;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 146, 126, 0.2);
+}
+
+.map-container {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.map-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 767px) {
+    .contact-info-box, .contact-form-box {
+        padding: 25px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    
+    // Telefon numarası formatı
+    const phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', function(e) {
+        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+    
+    form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+        
+        event.preventDefault();
+        
+        // Form gönderildiğinde yükleniyor durumunu göster
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Gönderiliyor...';
+        submitBtn.disabled = true;
+        
+        // Form verilerini topla
+        const formData = new FormData(form);
+        
+        // AJAX isteği gönder
+        fetch('{% url "main:contact_form_submit" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Başarılı mesaj göster
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-success mt-3';
+                alertDiv.innerHTML = '<i class="fas fa-check-circle me-2"></i>' + data.message;
+                
+                form.reset();
+                form.classList.remove('was-validated');
+                form.parentNode.insertBefore(alertDiv, form.nextSibling);
+                
+                // Mesajı 5 saniye sonra kaldır
+                setTimeout(function() {
+                    alertDiv.classList.add('fade');
+                    setTimeout(function() {
+                        alertDiv.remove();
+                    }, 500);
+                }, 5000);
+            } else {
+                // Hata mesajı göster
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-danger mt-3';
+                alertDiv.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>' + (data.message || 'Mesaj gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+                
+                form.parentNode.insertBefore(alertDiv, form.nextSibling);
+                
+                // Mesajı 5 saniye sonra kaldır
+                setTimeout(function() {
+                    alertDiv.classList.add('fade');
+                    setTimeout(function() {
+                        alertDiv.remove();
+                    }, 500);
+                }, 5000);
+            }
+        })
+        .catch(error => {
+            // Ağ hatası durumunda mesaj göster
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger mt-3';
+            alertDiv.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>Mesaj gönderilirken bir hata oluştu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.';
+            
+            form.parentNode.insertBefore(alertDiv, form.nextSibling);
+        })
+        .finally(() => {
+            // Yükleniyor durumunu kaldır
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+        
+        form.classList.add('was-validated');
+    });
+});
+</script>
+{% endblock %} 

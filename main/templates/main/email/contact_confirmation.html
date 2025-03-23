@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>İletişim Talebiniz Alındı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .header {
+            background-color: #0a2c54;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #f5f5f5;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            border-radius: 0 0 5px 5px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 200px;
+        }
+        .social {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .social a {
+            margin: 0 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>İletişim Formunuz Alındı</h2>
+        </div>
+        <div class="content">
+            <div class="logo">
+                <img src="https://mirzadeturizm.com/static/img/logo.png" alt="Mirzade Turizm Logo">
+            </div>
+            
+            <p>Sayın {{ name }},</p>
+            
+            <p>İletişim formunuzu aldık. En kısa sürede sizinle iletişime geçeceğiz.</p>
+            
+            <p><strong>İletişim Bilgileriniz:</strong></p>
+            <ul>
+                <li>İsim: {{ name }}</li>
+                <li>E-posta: {{ email }}</li>
+                <li>Telefon: {{ phone }}</li>
+                <li>Gönderim Tarihi: {{ datetime }}</li>
+            </ul>
+            
+            <p><strong>Mesajınız:</strong></p>
+            <p style="border-left: 3px solid #0a2c54; padding-left: 10px;">{{ message }}</p>
+            
+            <p>Bir sorunuz olursa lütfen bize ulaşmaktan çekinmeyin.</p>
+            
+            <p>Teşekkürler,<br>
+            Mirzade Turizm Ekibi</p>
+            
+            <div class="social">
+                <a href="https://www.instagram.com/mirzadeturizm/" target="_blank">Instagram</a> |
+                <a href="https://www.facebook.com/mirzadeturizm/" target="_blank">Facebook</a> |
+                <a href="https://wa.me/905325883486" target="_blank">WhatsApp</a>
+            </div>
+        </div>
+        <div class="footer">
+            <p>© 2025 Mirzade Turizm. Tüm hakları saklıdır.</p>
+            <p>Bu e-posta, web sitemiz üzerinden gönderdiğiniz iletişim formu için otomatik olarak oluşturulmuştur. Lütfen bu adrese yanıt vermeyiniz.</p>
+        </div>
+    </div>
+</body>
+</html> 

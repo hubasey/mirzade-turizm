@@ -1,0 +1,162 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}KVKK | Mirzade TUR{% endblock %}
+
+{% block content %}
+<!-- KVKK Banner -->
+<div class="page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-white">Kişisel Verilerin Korunması</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'main:home' %}" class="text-white">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">KVKK</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- KVKK İçeriği -->
+<section class="kvkk-content py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="content-wrapper bg-white p-4 rounded shadow">
+                    <h2 class="section-title mb-4" style="color: #00927E;">Kişisel Verilerin Korunması Hakkında Bilgilendirme</h2>
+                    
+                    <p class="mb-4">Son güncelleme tarihi: {% now "d.m.Y" %}</p>
+                    
+                    <p>Mirzade TUR olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verilerinizin işlenmesi, saklanması ve aktarılması konusunda sizleri bilgilendirmek isteriz.</p>
+                    
+                    <h3 class="mt-4 mb-3">1. Veri Sorumlusu</h3>
+                    <p>KVKK uyarınca, Mirzade TUR olarak, veri sorumlusu sıfatıyla, kişisel verilerinizi aşağıda açıklanan amaçlar kapsamında; hukuka ve dürüstlük kurallarına uygun bir şekilde işleyebilecek, kaydedebilecek, saklayabilecek, sınıflandırabilecek, güncelleyebilecek ve mevzuatın izin verdiği hallerde ve/veya işlendikleri amaçla sınırlı olarak üçüncü kişilere açıklayabilecek/aktarabilecektir.</p>
+                    
+                    <h3 class="mt-4 mb-3">2. Kişisel Verilerin İşlenme Amacı</h3>
+                    <p>Kişisel verileriniz, Mirzade TUR tarafından aşağıdaki amaçlarla işlenmektedir:</p>
+                    <ul>
+                        <li>Tur ve seyahat hizmetlerinin sunulması, rezervasyon işlemlerinin gerçekleştirilmesi</li>
+                        <li>Müşteri ilişkileri yönetimi, müşteri memnuniyetinin ölçülmesi, şikayet ve önerilerin değerlendirilmesi</li>
+                        <li>Pazarlama faaliyetlerinin yürütülmesi, kampanya ve promosyonların duyurulması</li>
+                        <li>İş süreçlerinin iyileştirilmesi ve geliştirilmesi</li>
+                        <li>Yasal yükümlülüklerin yerine getirilmesi</li>
+                        <li>Güvenlik ve dolandırıcılık tespiti</li>
+                    </ul>
+                    
+                    <h3 class="mt-4 mb-3">3. İşlenen Kişisel Veri Kategorileri</h3>
+                    <p>Mirzade TUR tarafından işlenen kişisel veri kategorileri aşağıdaki gibidir:</p>
+                    <ul>
+                        <li><strong>Kimlik Bilgileri:</strong> Ad, soyad, T.C. kimlik numarası, pasaport numarası, doğum tarihi vb.</li>
+                        <li><strong>İletişim Bilgileri:</strong> Telefon numarası, e-posta adresi, adres vb.</li>
+                        <li><strong>Müşteri İşlem Bilgileri:</strong> Rezervasyon bilgileri, satın alınan hizmetler, ödeme bilgileri vb.</li>
+                        <li><strong>İşlem Güvenliği Bilgileri:</strong> IP adresi, internet sitesi giriş-çıkış bilgileri, şifre ve parola bilgileri vb.</li>
+                        <li><strong>Pazarlama Bilgileri:</strong> Alışkanlık ve beğenileriniz, çerez kayıtları vb.</li>
+                    </ul>
+                    
+                    <h3 class="mt-4 mb-3">4. Kişisel Verilerin Aktarılması</h3>
+                    <p>Kişisel verileriniz, yukarıda belirtilen amaçlar doğrultusunda, KVKK'nın 8. ve 9. maddelerinde belirtilen şartlara uygun olarak, aşağıdaki alıcı gruplarına aktarılabilecektir:</p>
+                    <ul>
+                        <li>Yasal düzenlemeler ve hukuki yükümlülüklerimiz gereği yetkili kamu kurum ve kuruluşları</li>
+                        <li>Tur ve seyahat hizmetlerinin sunulması amacıyla iş ortaklarımız (oteller, havayolları, transfer şirketleri vb.)</li>
+                        <li>Hizmet alınan tedarikçiler (bilgi teknolojileri, güvenlik, çağrı merkezi, danışmanlık vb.)</li>
+                        <li>Hukuki süreçlerin yürütülmesi amacıyla avukatlar, denetçiler ve danışmanlar</li>
+                    </ul>
+                    
+                    <h3 class="mt-4 mb-3">5. Kişisel Veri Toplama Yöntemi ve Hukuki Sebebi</h3>
+                    <p>Kişisel verileriniz, Mirzade TUR tarafından farklı kanallar aracılığıyla ve farklı hukuki sebeplere dayanarak toplanmaktadır:</p>
+                    <ul>
+                        <li>Web sitesi, mobil uygulama, e-posta, telefon, sosyal medya kanalları üzerinden elektronik ortamda</li>
+                        <li>Çağrı merkezi, ofislerimiz ve acentelerimiz aracılığıyla fiziki ortamda</li>
+                    </ul>
+                    <p>Kişisel verilerinizin işlenmesinin hukuki sebepleri şunlardır:</p>
+                    <ul>
+                        <li>Açık rızanızın bulunması</li>
+                        <li>Kanunlarda açıkça öngörülmesi</li>
+                        <li>Bir sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması</li>
+                        <li>Hukuki yükümlülüğümüzün yerine getirilmesi</li>
+                        <li>Bir hakkın tesisi, kullanılması veya korunması için veri işlemenin zorunlu olması</li>
+                        <li>Temel hak ve özgürlüklerinize zarar vermemek kaydıyla, meşru menfaatlerimiz için veri işlenmesinin zorunlu olması</li>
+                    </ul>
+                    
+                    <h3 class="mt-4 mb-3">6. Kişisel Veri Sahibinin Hakları</h3>
+                    <p>KVKK'nın 11. maddesi uyarınca, kişisel veri sahibi olarak aşağıdaki haklara sahipsiniz:</p>
+                    <ul>
+                        <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
+                        <li>Kişisel verileriniz işlenmişse buna ilişkin bilgi talep etme</li>
+                        <li>Kişisel verilerinizin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme</li>
+                        <li>Yurt içinde veya yurt dışında kişisel verilerinizin aktarıldığı üçüncü kişileri bilme</li>
+                        <li>Kişisel verilerinizin eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteme</li>
+                        <li>KVKK'nın 7. maddesinde öngörülen şartlar çerçevesinde kişisel verilerinizin silinmesini veya yok edilmesini isteme</li>
+                        <li>Kişisel verilerinizin aktarıldığı üçüncü kişilere yukarıda belirtilen düzeltme, silme veya yok etme işlemlerinin bildirilmesini isteme</li>
+                        <li>İşlenen verilerinizin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme</li>
+                        <li>Kişisel verilerinizin kanuna aykırı olarak işlenmesi sebebiyle zarara uğramanız hâlinde zararın giderilmesini talep etme</li>
+                    </ul>
+                    
+                    <h3 class="mt-4 mb-3">7. Başvuru Yöntemi</h3>
+                    <p>Yukarıda belirtilen haklarınızı kullanmak için, kimliğinizi tespit edici gerekli bilgiler ile KVKK'nın 11. maddesinde belirtilen haklardan kullanmayı talep ettiğiniz hakkınıza yönelik açıklamalarınızı içeren talebinizi aşağıdaki yöntemlerle iletebilirsiniz:</p>
+                    <ul>
+                        <li>Merkez Mah. Cumhuriyet Cad. No:123, Ümraniye, İstanbul adresine şahsen başvuru ile</li>
+                        <li>Merkez Mah. Cumhuriyet Cad. No:123, Ümraniye, İstanbul adresine noter vasıtasıyla göndereceğiniz bir mektup ile</li>
+                        <li>kvkk@mirzadetur.com e-posta adresine güvenli elektronik imzalı olarak</li>
+                    </ul>
+                    <p>Başvurunuzda yer alan talepleriniz, talebin niteliğine göre en kısa sürede ve en geç 30 (otuz) gün içinde ücretsiz olarak sonuçlandırılacaktır. Ancak, işlemin ayrıca bir maliyet gerektirmesi hâlinde, Kişisel Verileri Koruma Kurulu tarafından belirlenen tarifedeki ücret alınabilecektir.</p>
+                    
+                    <h3 class="mt-4 mb-3">8. Değişiklikler</h3>
+                    <p>Mirzade TUR, işbu KVKK Aydınlatma Metni'ni değiştirme hakkını saklı tutar. Güncel aydınlatma metni, web sitemizde yayınlandığı tarihte yürürlük kazanır.</p>
+                    
+                    <h3 class="mt-4 mb-3">9. İletişim</h3>
+                    <p>KVKK kapsamındaki haklarınız ve başvurularınız ile ilgili sorularınız için:</p>
+                    <p>
+                        <strong>E-posta:</strong> kvkk@mirzadetur.com<br>
+                        <strong>Telefon:</strong> 0212 613 00 70<br>
+                        <strong>Telefon:</strong> 0533 436 43 72<br>
+                        <strong>Adres:</strong>
+                        Ali Kuşçu Mah. Hulusi Noyan Sk. No: 4 D:4
+                        Fatih, İstanbul, Türkiye
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Sayfa Banner Stili */
+    .page-banner {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/random/1920x1080/?privacy') no-repeat center center;
+        background-size: cover;
+        padding: 100px 0;
+        margin-bottom: 50px;
+    }
+    
+    /* İçerik Stilleri */
+    .content-wrapper {
+        line-height: 1.8;
+    }
+    
+    .content-wrapper h3 {
+        color: #00927E;
+        font-weight: 600;
+    }
+    
+    .content-wrapper ul {
+        margin-bottom: 20px;
+    }
+    
+    .content-wrapper ul li {
+        margin-bottom: 10px;
+    }
+    
+    @media (max-width: 768px) {
+        .page-banner {
+            padding: 60px 0;
+        }
+    }
+</style>
+{% endblock %} 

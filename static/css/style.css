@@ -1,0 +1,441 @@
+/* Optimize edilmiş CSS */
+/* Genel Stiller */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Bootstrap Renk Değişkenleri */
+:root {
+    --bs-primary: #00927E;
+    --bs-primary-dark: #007a69;
+    --bs-primary-light: #e6f5f3;
+}
+
+/* Üst Bilgi Çubuğu Stilleri */
+.top-header {
+    background-color: var(--bs-primary) !important;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.top-header .contact-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.top-header .contact-item i {
+    margin-right: 6px;
+    font-size: 14px;
+}
+
+.top-header a {
+    color: #fff !important;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.top-header a:hover {
+    opacity: 0.8;
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.top-social-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.top-social-links .social-link {
+    margin-left: 12px;
+    font-size: 16px;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.top-social-links .social-link:hover {
+    transform: translateY(-3px);
+    background-color: #fff;
+    color: var(--bs-primary) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Facebook */
+.top-social-links .social-link:hover .fa-facebook-f {
+    color: #4267B2 !important;
+}
+
+/* Instagram */
+.top-social-links .social-link:hover .fa-instagram {
+    color: #C13584 !important;
+}
+
+/* Twitter */
+.top-social-links .social-link:hover .fa-twitter {
+    color: #1DA1F2 !important;
+}
+
+/* YouTube */
+.top-social-links .social-link:hover .fa-youtube {
+    color: #FF0000 !important;
+}
+
+/* Layout Shift Önleme */
+main {
+    min-height: 60vh; /* Ana içerik için minimum yükseklik */
+    width: 100%;
+    display: block;
+    contain: layout paint; /* Tarayıcıya düzen ve boyama sınırlarını bildirir */
+    content-visibility: auto; /* Görünür olmayan içeriği geciktirir */
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* Navbar Stilleri */
+.navbar {
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    will-change: transform; /* GPU hızlandırması için */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: translateY(-2px);
+}
+
+/* Logo Stilleri */
+.logo-img {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1));
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.brand-name {
+    font-size: 1.7rem;
+    color: var(--bs-primary);
+    font-weight: 700;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.05);
+}
+
+.brand-slogan {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+.navbar-brand:hover .logo-img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 576px) {
+    .logo-img {
+        width: 70px;
+    }
+    
+    .brand-name {
+        font-size: 1.3rem;
+    }
+    
+    .brand-slogan {
+        font-size: 0.8rem;
+    }
+}
+
+.nav-item {
+    margin: 0 0.25rem;
+    height: 40px; /* Sabit yükseklik */
+    display: flex;
+    align-items: center;
+}
+
+/* Carousel Stilleri */
+#mainCarousel {
+    margin-bottom: 30px;
+}
+
+.carousel-item {
+    height: 65vh;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Kartlar ve Bölümler */
+.section-title {
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.card {
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 100%; /* Tüm kartların aynı yükseklikte olmasını sağlar */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    contain: content; /* İçerik sınırlarını bildirir */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    height: auto; /* Aspect ratio ile kontrol edilecek */
+    object-fit: cover; /* Resmi kırpmadan sığdırır */
+    width: 100%;
+    aspect-ratio: 4/3; /* Sabit en-boy oranı */
+}
+
+.card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.btn-primary {
+    margin-top: auto; /* Butonları kartın altına hizalar */
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+/* Alt Kategori Menüsü */
+.bg-light {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background-color: #f8f9fa !important;
+}
+
+.nav-link {
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+    padding: 0.5rem 1rem;
+}
+
+.nav-link:hover {
+    color: #00917D;
+}
+
+/* Mobil Görünüm */
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 50vh;
+    }
+    
+    #mainCarousel .carousel-caption {
+        padding: 10px;
+        bottom: 10%;
+    }
+    
+    #mainCarousel .carousel-caption h3 {
+        font-size: 1.2rem;
+    }
+    
+    #mainCarousel .carousel-caption p {
+        font-size: 0.9rem;
+    }
+    
+    .card-img-top {
+        aspect-ratio: 3/2; /* Mobilde farklı en-boy oranı */
+    }
+    
+    .navbar-nav {
+        width: 100%;
+    }
+    
+    .nav-item {
+        width: 100%;
+        margin: 0;
+        padding: 0.25rem 0;
+    }
+    
+    .top-social-links {
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
+
+/* Animasyonlar ve Geçişler */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Yazdırma Stilleri */
+@media print {
+    .navbar, .footer, .carousel {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* Resmi Belgeler Bölümü Stilleri */
+.official-documents {
+    padding: 20px 0;
+}
+
+.documents-title {
+    color: var(--bs-primary);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.documents-subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.document-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    background-color: #fff;
+}
+
+.document-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.document-preview {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.document-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.document-card:hover .document-preview img {
+    transform: scale(1.05);
+}
+
+.document-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.document-card:hover .document-overlay {
+    opacity: 1;
+}
+
+.document-info {
+    background-color: #fff;
+    padding: 15px;
+}
+
+.document-info h5 {
+    color: var(--bs-primary);
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.document-info p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .document-preview {
+        height: 180px;
+    }
+    
+    .document-info h5 {
+        font-size: 1rem;
+    }
+    
+    .document-info p {
+        font-size: 0.85rem;
+    }
+} 

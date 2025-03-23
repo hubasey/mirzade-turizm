@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Rezervasyon Bildirimi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #00927E;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .footer {
+            background-color: #f1f1f1;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .reservation-info {
+            background-color: white;
+            border-left: 4px solid #00927E;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .customer-info {
+            background-color: white;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #00927E;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .alert {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Yeni Rezervasyon Bildirimi</h1>
+        </div>
+        
+        <div class="content">
+            <p><strong>Dikkat:</strong> Yeni bir tur rezervasyonu alındı.</p>
+            
+            <div class="reservation-info">
+                <h2>Rezervasyon Detayları</h2>
+                <p><strong>Rezervasyon ID:</strong> #{{ reservation.id }}</p>
+                <p><strong>Tur:</strong> {{ tour.title }}</p>
+                <p><strong>Tarih:</strong> {{ tour.date|date:"d F Y" }}</p>
+                <p><strong>Süre:</strong> {{ tour.duration }} Gün</p>
+                <p><strong>Oda Tipi:</strong> {{ reservation.room_type }}</p>
+                <p><strong>Katılımcı Sayısı:</strong> {{ reservation.participants }}</p>
+                <p><strong>Rezervasyon Tarihi:</strong> {{ reservation.created_at|date:"d F Y H:i" }}</p>
+            </div>
+            
+            <div class="customer-info">
+                <h2>Müşteri Bilgileri</h2>
+                <p><strong>Ad Soyad:</strong> {{ reservation.name }}</p>
+                <p><strong>E-posta:</strong> {{ reservation.email }}</p>
+                <p><strong>Telefon:</strong> {{ reservation.phone }}</p>
+                <p><strong>Mesaj:</strong> {{ reservation.notes }}</p>
+            </div>
+            
+            <div class="alert">
+                <p>Lütfen en kısa sürede müşteri ile iletişime geçin ve rezervasyon durumunu güncelleyin.</p>
+            </div>
+            
+            <a href="https://mirzadeturizm.com/admin/main/tourreservation/{{ reservation.id }}/change/" class="button">Rezervasyonu Yönet</a>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; {% now "Y" %} Mirzade TUR. Tüm hakları saklıdır.</p>
+            <p>Bu e-posta, Mirzade TUR rezervasyon sistemi tarafından otomatik olarak gönderilmiştir.</p>
+        </div>
+    </div>
+</body>
+</html> 

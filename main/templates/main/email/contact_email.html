@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Yeni İletişim Formu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .header {
+            background-color: #0a2c54;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #f5f5f5;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            border-radius: 0 0 5px 5px;
+        }
+        .field {
+            margin-bottom: 15px;
+        }
+        .field-name {
+            font-weight: bold;
+        }
+        .field-value {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Yeni İletişim Formu Bildirimi</h2>
+        </div>
+        <div class="content">
+            <p>Sayın Yönetici,</p>
+            <p>Web siteniz üzerinden yeni bir iletişim formu gönderildi. İlgili bilgiler aşağıdadır:</p>
+            
+            <div class="field">
+                <div class="field-name">Gönderen:</div>
+                <div class="field-value">{{ name }}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-name">E-posta:</div>
+                <div class="field-value"><a href="mailto:{{ email }}">{{ email }}</a></div>
+            </div>
+            
+            <div class="field">
+                <div class="field-name">Telefon:</div>
+                <div class="field-value">{{ phone }}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-name">Mesaj:</div>
+                <div class="field-value">{{ message }}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-name">Gönderim Tarihi:</div>
+                <div class="field-value">{{ datetime }}</div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Bu e-posta Mirzade Turizm web sitesi üzerinden otomatik olarak gönderilmiştir.</p>
+        </div>
+    </div>
+</body>
+</html> 

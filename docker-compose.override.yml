@@ -1,0 +1,35 @@
+version: '3.8'
+
+# Bu dosya sadece geliştirme ortamı için ek yapılandırmalar içerir
+services:
+  web:
+    # Geliştirme için DEBUG modunu etkinleştir
+    environment:
+      - DEBUG=True
+      - SECURE_SSL_REDIRECT=False
+      - SECURE_PROXY_SSL_HEADER=
+      - ALLOWED_HOSTS=*
+    # Canlı kod yenileme için hacimler
+    volumes:
+      - .:/app
+      - ./static:/app/static
+      - ./media:/app/media
+    # Port açma (yerel erişim için)
+    ports:
+      - "80:8000"
+    # Geliştirme modunda Django'yu doğrudan çalıştır
+    command: python manage.py runserver 0.0.0.0:8000
+    # Entrypoint'i devre dışı bırak (geliştirme için)
+    entrypoint: ""
+
+  db:
+    # Veritabanına doğrudan erişim için port açma (geliştirme amaçlı)
+    ports:
+      - "5432:5432"
+
+  # Geliştirme ortamında nginx'i devre dışı bırakmak için ayrı bir örnek
+  nginx:
+    # Geliştirme ortamında nginx'i devre dışı bırak
+    # (sadece port 8000'den web servisine doğrudan erişim kullanılacak)
+    profiles:
+      - donotstart 

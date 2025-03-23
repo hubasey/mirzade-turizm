@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Kategoriler</h1>
+    
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'blog_category' category.slug %}" class="text-decoration-none">
+                            {{ category.name }}
+                        </a>
+                    </h5>
+                    <p class="card-text">{{ category.post_count }} yazı</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p>Henüz kategori bulunmuyor.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

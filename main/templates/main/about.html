@@ -1,0 +1,518 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Hakkımızda | Mirzade TUR{% endblock %}
+
+{% block content %}
+<!-- Hakkımızda Banner -->
+<div class="about-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-white">Hakkımızda</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'main:home' %}" class="text-white">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Hakkımızda</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Şirket Tanıtımı -->
+<section class="company-intro py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <img src="{% static 'img/kaaba.jpg' %}" alt="Mirzade Tur" class="img-fluid rounded shadow-lg">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="section-title mb-4 text-primary">Mirzade Tur'a Hoş Geldiniz</h2>
+                <p class="lead">2005 yılından bu yana, Türkiye'nin önde gelen tur operatörlerinden biri olarak hizmet vermekteyiz.</p>
+                <p>Mirzade Tur olarak, müşterilerimize unutulmaz seyahat deneyimleri sunmak için çalışıyoruz. Hac, Umre ve Kültür turları alanında uzmanlaşmış ekibimizle, her detayı düşünülmüş, konforlu ve güvenli seyahatler organize ediyoruz.</p>
+                <p>Yıllar içinde edindiğimiz tecrübe ve güvenilirlik sayesinde, binlerce misafirimizi kutsal topraklara ve dünyanın dört bir yanındaki kültürel destinasyonlara ulaştırdık.</p>
+                <div class="company-stats mt-4">
+                    <div class="row">
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="stat-item text-center">
+                                <div class="stat-number">18+</div>
+                                <div class="stat-label">Yıllık Tecrübe</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="stat-item text-center">
+                                <div class="stat-number">10K+</div>
+                                <div class="stat-label">Mutlu Müşteri</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="stat-item text-center">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">Başarılı Tur</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Misyon ve Vizyon -->
+<section class="mission-vision py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body p-4">
+                        <div class="mission-icon mb-3">
+                            <i class="fas fa-bullseye fa-3x"></i>
+                        </div>
+                        <h3 class="card-title text-primary">Misyonumuz</h3>
+                        <p class="card-text">Mirzade Tur olarak misyonumuz, müşterilerimize en yüksek kalitede hizmet sunarak, güvenli, konforlu ve unutulmaz seyahat deneyimleri yaşatmaktır. Hac ve Umre ziyaretlerinde manevi rehberlik sağlayarak, kutsal topraklarda ibadetlerini huzur içinde gerçekleştirmelerine yardımcı olmak ve kültür turlarında zengin tarih ve kültür mirasını keşfetmelerini sağlamak temel hedefimizdir.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body p-4">
+                        <div class="vision-icon mb-3">
+                            <i class="fas fa-eye fa-3x"></i>
+                        </div>
+                        <h3 class="card-title text-primary">Vizyonumuz</h3>
+                        <p class="card-text">Vizyonumuz, Türkiye'nin ve bölgenin en güvenilir ve tercih edilen tur operatörü olmaktır. Teknolojik yenilikleri takip ederek hizmet kalitemizi sürekli artırmak, müşteri memnuniyetini en üst seviyede tutmak ve sektörde öncü uygulamalarla fark yaratmak için çalışıyoruz. Sürdürülebilir turizm anlayışıyla, gelecek nesillere daha iyi bir dünya bırakmayı hedefliyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Değerlerimiz -->
+<section class="our-values py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="section-title text-primary">Değerlerimiz</h2>
+                <p class="section-subtitle">Mirzade Tur olarak, tüm faaliyetlerimizde bizi yönlendiren temel değerlerimiz</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="value-item text-center">
+                    <div class="value-icon mb-3">
+                        <i class="fas fa-handshake fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="value-title">Güvenilirlik</h4>
+                    <p class="value-description">Müşterilerimize verdiğimiz her sözü tutarak, güven temelli ilişkiler kurarız.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="value-item text-center">
+                    <div class="value-icon mb-3">
+                        <i class="fas fa-star fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="value-title">Kalite</h4>
+                    <p class="value-description">Her detayı düşünülmüş, yüksek kalitede hizmet sunmak için sürekli çalışırız.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="value-item text-center">
+                    <div class="value-icon mb-3">
+                        <i class="fas fa-heart fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="value-title">Saygı</h4>
+                    <p class="value-description">Farklı kültürlere, inançlara ve değerlere saygı göstererek hizmet veririz.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="value-item text-center">
+                    <div class="value-icon mb-3">
+                        <i class="fas fa-users fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="value-title">Müşteri Odaklılık</h4>
+                    <p class="value-description">Müşterilerimizin ihtiyaç ve beklentilerini her zaman ön planda tutarız.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="value-item text-center">
+                    <div class="value-icon mb-3">
+                        <i class="fas fa-lightbulb fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="value-title">Yenilikçilik</h4>
+                    <p class="value-description">Sürekli gelişim ve yenilik ile hizmetlerimizi iyileştiririz.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="value-item text-center">
+                    <div class="value-icon mb-3">
+                        <i class="fas fa-leaf fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="value-title">Sürdürülebilirlik</h4>
+                    <p class="value-description">Çevreye ve topluma karşı sorumluluklarımızın bilincinde hareket ederiz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ekibimiz -->
+{% comment %} <section class="our-team py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="section-title text-primary">Profesyonel Ekibimiz</h2>
+                <p class="section-subtitle">Sizlere en iyi hizmeti sunmak için çalışan uzman kadromuz</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Ahmet Yılmaz" class="img-fluid rounded">
+                    </div>
+                    <div class="member-info text-center py-3">
+                        <h4 class="member-name">Ahmet Yılmaz</h4>
+                        <p class="member-position text-primary">Genel Müdür</p>
+                        <p class="member-description">20 yılı aşkın turizm sektörü tecrübesiyle şirketimize liderlik etmektedir.</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link linkedin"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                            <a href="#" class="social-link twitter"><i class="fab fa-twitter fa-lg"></i></a>
+                            <a href="#" class="social-link facebook"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Ayşe Kaya" class="img-fluid rounded">
+                    </div>
+                    <div class="member-info text-center py-3">
+                        <h4 class="member-name">Ayşe Kaya</h4>
+                        <p class="member-position text-primary">Operasyon Müdürü</p>
+                        <p class="member-description">Turlarımızın sorunsuz ve mükemmel şekilde gerçekleşmesini sağlar.</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link linkedin"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                            <a href="#" class="social-link twitter"><i class="fab fa-twitter fa-lg"></i></a>
+                            <a href="#" class="social-link facebook"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mehmet Demir" class="img-fluid rounded">
+                    </div>
+                    <div class="member-info text-center py-3">
+                        <h4 class="member-name">Mehmet Demir</h4>
+                        <p class="member-position text-primary">Satış ve Pazarlama Müdürü</p>
+                        <p class="member-description">Müşterilerimize en uygun tur paketlerini sunmak için çalışır.</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link linkedin"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                            <a href="#" class="social-link twitter"><i class="fab fa-twitter fa-lg"></i></a>
+                            <a href="#" class="social-link facebook"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> {% endcomment %}
+
+<!-- Neden Bizi Seçmelisiniz -->
+<section class="why-choose-us py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="section-title text-primary">Neden Bizi Seçmelisiniz?</h2>
+                <p class="section-subtitle">Mirzade Tur ile seyahat etmenin avantajları</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="choose-item d-flex">
+                    <div class="choose-icon me-3">
+                        <i class="fas fa-check-circle fa-2x text-primary"></i>
+                    </div>
+                    <div class="choose-content">
+                        <h4 class="choose-title">Uzman Rehberler</h4>
+                        <p class="choose-description">Alanında uzman, deneyimli ve bilgili rehberlerimiz size her adımda eşlik eder.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="choose-item d-flex">
+                    <div class="choose-icon me-3">
+                        <i class="fas fa-check-circle fa-2x text-primary"></i>
+                    </div>
+                    <div class="choose-content">
+                        <h4 class="choose-title">Kaliteli Konaklama</h4>
+                        <p class="choose-description">Özenle seçilmiş, konforlu ve kaliteli otellerde konaklama imkanı sunuyoruz.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="choose-item d-flex">
+                    <div class="choose-icon me-3">
+                        <i class="fas fa-check-circle fa-2x text-primary"></i>
+                    </div>
+                    <div class="choose-content">
+                        <h4 class="choose-title">Güvenli Seyahat</h4>
+                        <p class="choose-description">Tüm seyahatlerinizde güvenliğiniz bizim için en önemli önceliktir.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="choose-item d-flex">
+                    <div class="choose-icon me-3">
+                        <i class="fas fa-check-circle fa-2x text-primary"></i>
+                    </div>
+                    <div class="choose-content">
+                        <h4 class="choose-title">7/24 Destek</h4>
+                        <p class="choose-description">Seyahatiniz boyunca ihtiyaç duyduğunuz her an yanınızdayız.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="choose-item d-flex">
+                    <div class="choose-icon me-3">
+                        <i class="fas fa-check-circle fa-2x text-primary"></i>
+                    </div>
+                    <div class="choose-content">
+                        <h4 class="choose-title">Uygun Fiyatlar</h4>
+                        <p class="choose-description">Kaliteli hizmeti uygun fiyatlarla sunmak için çalışıyoruz.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="choose-item d-flex">
+                    <div class="choose-icon me-3">
+                        <i class="fas fa-check-circle fa-2x text-primary"></i>
+                    </div>
+                    <div class="choose-content">
+                        <h4 class="choose-title">Özel Gruplar</h4>
+                        <p class="choose-description">Özel gruplar için kişiselleştirilmiş tur programları hazırlıyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- İletişim Çağrısı -->
+<section class="contact-cta py-5 bg-primary text-white text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-4">Hayalinizdeki Seyahate Hemen Başlayın!</h2>
+                <p class="lead mb-4">Sorularınız mı var? Bizimle iletişime geçin, size yardımcı olmaktan memnuniyet duyarız.</p>
+                <a href="{% url 'main:search_tours' %}"class="btn btn-outline-light btn-lg ms-2">Turlarımızı İnceleyin</a>
+                <a href="{% url 'main:contact' %}" class="btn btn-outline-light btn-lg ms-2">İletişime Geçin</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hakkımızda Sayfası Stilleri */
+    .about-banner {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+        background-size: cover;
+        padding: 100px 0;
+        margin-bottom: 50px;
+    }
+    
+    .section-title {
+        position: relative;
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
+    
+    .section-subtitle {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 40px;
+    }
+    
+    /* Şirket İstatistikleri */
+    .company-stats {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #00927E !important;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    /* Misyon ve Vizyon */
+    .mission-vision .card {
+        transition: transform 0.3s, box-shadow 0.3s;
+        border-radius: 10px;
+    }
+    
+    .mission-vision .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Değerlerimiz */
+    .value-item {
+        padding: 30px 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+        height: 100%;
+    }
+    
+    .value-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .value-icon {
+        margin-bottom: 20px;
+    }
+    
+    .value-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    
+    /* Ekip Üyeleri */
+    .team-member {
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .team-member:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .member-image {
+        position: relative;
+        overflow: hidden;
+        height: 300px;
+    }
+    
+    .member-image img {
+        transition: transform 0.5s;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .team-member:hover .member-image img {
+        transform: scale(1.05);
+    }
+    
+    .member-name {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    
+    .member-position {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .member-social {
+        margin-top: 15px;
+    }
+    
+    .social-link {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: white;
+        border-radius: 50%;
+        margin: 0 5px;
+        transition: all 0.3s;
+        font-size: 1.1rem;
+    }
+    
+    .social-link.linkedin {
+        background-color: #0077B5;
+    }
+    
+    .social-link.twitter {
+        background-color: #1DA1F2;
+    }
+    
+    .social-link.facebook {
+        background-color: #4267B2;
+    }
+    
+    .social-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        opacity: 0.9;
+    }
+    
+    /* Neden Bizi Seçmelisiniz */
+    .choose-item {
+        margin-bottom: 30px;
+    }
+    
+    .choose-icon {
+        flex-shrink: 0;
+        margin-top: 5px;
+    }
+    
+    .choose-title {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    
+    /* İletişim CTA */
+    .contact-cta {
+        background: linear-gradient(135deg, #00927E, #007a69);
+    }
+    
+    /* Responsive Ayarlar */
+    @media (max-width: 768px) {
+        .about-banner {
+            padding: 60px 0;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+        }
+        
+        .team-member {
+            margin-bottom: 30px;
+        }
+    }
+
+    /* Renk Düzenlemeleri */
+    .text-primary {
+        color: #00927E !important;
+    }
+
+    .bg-primary {
+        background-color: #00927E !important;
+    }
+</style>
+{% endblock %} 

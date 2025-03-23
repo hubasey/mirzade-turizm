@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirzade Turizm - İletişim Talebiniz Alındı</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .header {
+            background: #00927E;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .footer {
+            background-color: #f0f0f0;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .button {
+            display: inline-block;
+            background-color: #00927E;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .contact-info {
+            margin-top: 30px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .contact-info p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Mirzade Turizm - İletişim Talebiniz Alındı</h1>
+        </div>
+        <div class="content">
+            <p>Sayın {{ name }},</p>
+            
+            <p><strong>{{ subject_type }}</strong> konulu iletişim talebiniz bize ulaşmıştır. Talebiniz en kısa sürede değerlendirilecek ve sizinle iletişime geçilecektir.</p>
+            
+            <p>Mirzade Turizm'i tercih ettiğiniz için teşekkür ederiz.</p>
+            
+            <div class="contact-info">
+                <p><strong>İletişim Bilgilerimiz:</strong></p>
+                <p>Telefon: +90 533 436 43 72 / +90 212 613 00 70</p>
+                <p>E-posta: mirzadeturizm@gmail.com</p>
+                <p>Adres: Ali Kuşçu Mah. Hulusi Noyan Sk. No: 4 D:4, Fatih, İstanbul</p>
+            </div>
+            
+            <p>Diğer sorularınız için web sitemizi ziyaret edebilir veya sosyal medya hesaplarımızı takip edebilirsiniz.</p>
+            
+            <a href="https://mirzadeturizm.com" class="button">Web Sitemizi Ziyaret Edin</a>
+        </div>
+        <div class="footer">
+            <p>Bu e-posta otomatik olarak gönderilmiştir. Lütfen yanıtlamayınız.</p>
+            <p>&copy; {{ date|date:"Y" }} Mirzade Turizm. Tüm hakları saklıdır.</p>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mirzade TUR - Hac, Umre ve Kültür Turları">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="max-age=86400, public">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Preconnect ve DNS-Prefetch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    
+    <title>{% block title %}Mirzade Turizm{% endblock %}</title>
+
+    <!-- Kritik CSS'ler inline olarak ekleniyor -->
+    <style>
+        /* Kritik CSS - Sayfa yüklenirken görünen temel stiller */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        /* Navbar Stilleri */
+        .header-area {
+            position: relative;
+            z-index: 1000;
+        }
+        
+        .top-header {
+            font-size: 0.9rem;
+        }
+        
+        .top-header a:hover {
+            opacity: 0.8;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .nav-link {
+            font-size: 1rem;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--bs-primary) !important;
+        }
+        
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 0.5rem;
+        }
+        
+        .dropdown-item {
+            padding: 0.6rem 1.2rem;
+            transition: all 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--bs-primary-light);
+            color: var(--bs-primary);
+            transform: translateX(5px);
+        }
+        
+        .category-menu .nav-link {
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .category-menu .nav-link:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Diğer Kritik Stiller */
+        .carousel-item {
+            height: 80vh;
+        }
+        @media (max-width: 768px) {
+            .carousel-item {
+                height: 50vh;
+            }
+        }
+        .section-title {
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .card {
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+
+    <!-- CSS dosyaları -->
+    <link rel="preload" href="{% static 'css/bootstrap.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"></noscript>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- jQuery CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    {% include 'main/navbar.html' %}
+
+    <!-- Sayfa İçeriği -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include 'main/footer.html' %}
+
+    <!-- JavaScript dosyaları -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}" defer></script>
+    
+    <!-- Preload helper script -->
+    <script>
+        // Preload CSS helper
+        !function(n){"use strict";n.loadCSS||(n.loadCSS=function(){});var o=loadCSS.relpreload={};if(o.support=function(){var e;try{e=n.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),o.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.addEventListener?t.removeEventListener("load",a):t.attachEvent&&t.detachEvent("onload",a),t.setAttribute("onload",null),t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},o.poly=function(){if(!o.support())for(var t=n.document.getElementsByTagName("link"),e=0;e<t.length;e++){var a=t[e];"preload"!==a.rel||"style"!==a.getAttribute("as")||a.getAttribute("data-loadcss")||(a.setAttribute("data-loadcss",!0),o.bindMediaToggle(a))}},!o.support()){o.poly();var t=n.setInterval(o.poly,500);n.addEventListener?n.addEventListener("load",function(){o.poly(),n.clearInterval(t)}):n.attachEvent&&n.attachEvent("onload",function(){o.poly(),n.clearInterval(t)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:n.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

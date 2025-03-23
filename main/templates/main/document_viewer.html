@@ -1,0 +1,297 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Belge Görüntüleyici | Mirzade TUR{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <h1 class="text-center">Resmi Belgelerimiz</h1>
+            <p class="text-center text-muted">Hac ve Umre organizasyonları için gerekli tüm resmi izin ve belgelerimiz</p>
+        </div>
+    </div>
+    
+    <div class="row document-gallery">
+        <!-- Belge 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="document-card">
+                <div class="document-preview">
+                    <img src="{% static 'img/documents/belge1.jpg' %}" alt="Diyanet İşleri Başkanlığı İzin Belgesi" class="img-fluid document-image">
+                    <div class="document-overlay">
+                        <a href="{% static 'img/documents/belge1.pdf' %}" target="_blank" class="btn btn-primary pdf-btn">
+                            <i class="fas fa-file-pdf me-2"></i> PDF Görüntüle
+                        </a>
+                    </div>
+                </div>
+                <div class="document-info p-3">
+                    <h5>Diyanet İşleri Başkanlığı İzin Belgesi</h5>
+                    <p class="mb-0">Hac ve Umre organizasyonları için Diyanet İşleri Başkanlığı tarafından verilen resmi izin belgesi</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Belge 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="document-card">
+                <div class="document-preview">
+                    <img src="{% static 'img/documents/belge2.jpg' %}" alt="TÜRSAB Belgesi" class="img-fluid document-image">
+                    <div class="document-overlay">
+                        <a href="{% static 'img/documents/belge2.pdf' %}" target="_blank" class="btn btn-primary pdf-btn">
+                            <i class="fas fa-file-pdf me-2"></i> PDF Görüntüle
+                        </a>
+                    </div>
+                </div>
+                <div class="document-info p-3">
+                    <h5>TÜRSAB Belgemiz</h5>
+                    <p class="mb-0">Türkiye Seyahat Acentaları Birliği tarafından verilen resmi seyahat acentası belgesi</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Belge 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="document-card">
+                <div class="document-preview">
+                    <img src="{% static 'img/documents/belge3.jpg' %}" alt="Suudi Arabistan Vize Yetkisi" class="img-fluid document-image">
+                    <div class="document-overlay">
+                        <a href="{% static 'img/documents/belge3.pdf' %}" target="_blank" class="btn btn-primary pdf-btn">
+                            <i class="fas fa-file-pdf me-2"></i> PDF Görüntüle
+                        </a>
+                    </div>
+                </div>
+                <div class="document-info p-3">
+                    <h5>Suudi Arabistan Vize Yetkisi</h5>
+                    <p class="mb-0">Suudi Arabistan Krallığı tarafından verilen resmi vize düzenleme yetkisi belgesi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Belge Görüntüleme Modalı -->
+<div id="documentModal" class="document-modal">
+    <span class="document-modal-close">&times;</span>
+    <img class="document-modal-content" id="documentModalImg">
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Belge Kartları Stili */
+    .document-card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: #fff;
+        height: 100%;
+    }
+    
+    .document-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .document-preview {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px 10px 0 0;
+        cursor: zoom-in;
+    }
+    
+    .document-image {
+        transition: transform 0.5s ease;
+        height: 300px;
+        object-fit: cover;
+        width: 100%;
+    }
+    
+    .document-card:hover .document-image {
+        transform: scale(1.05);
+    }
+    
+    .document-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+    
+    .document-card:hover .document-overlay {
+        opacity: 1;
+    }
+    
+    .pdf-btn {
+        transform: translateY(20px);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        z-index: 2;
+        background-color: #00927E;
+        border-color: #00927E;
+    }
+    
+    .document-card:hover .pdf-btn {
+        transform: translateY(0);
+    }
+    
+    .pdf-btn:hover {
+        background-color: #007a69;
+        border-color: #007a69;
+    }
+    
+    /* Görsel büyütme simgesi */
+    .document-preview::after {
+        content: '\f00e';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #00927E;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    
+    .document-card:hover .document-preview::after {
+        opacity: 1;
+    }
+    
+    .document-info {
+        background-color: #fff;
+    }
+    
+    .document-info h5 {
+        color: #00927E;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    
+    /* Modal Görüntüleme Stili */
+    .document-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.9);
+        overflow: auto;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .document-modal-content {
+        max-width: 90%;
+        max-height: 90vh;
+        margin: auto;
+        display: block;
+        animation: zoom 0.6s;
+        object-fit: contain;
+    }
+    
+    @keyframes zoom {
+        from {transform: scale(0.1)}
+        to {transform: scale(1)}
+    }
+    
+    .document-modal-close {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+        z-index: 10000;
+        cursor: pointer;
+    }
+    
+    .document-modal-close:hover,
+    .document-modal-close:focus {
+        color: #00927E;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    /* Responsive ayarlar */
+    @media (max-width: 767px) {
+        .document-image {
+            height: 200px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Modal elemanları
+        const modal = document.getElementById('documentModal');
+        const modalImg = document.getElementById('documentModalImg');
+        const closeBtn = document.querySelector('.document-modal-close');
+        
+        // Belge görsellerine tıklama olayı
+        const documentImages = document.querySelectorAll('.document-image');
+        
+        documentImages.forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Orijinal görsel URL'sini al
+                const imgSrc = this.getAttribute('src');
+                
+                // Modal içindeki görsel için URL'yi ayarla
+                modalImg.src = imgSrc;
+                
+                // Modalı göster
+                modal.style.display = 'flex';
+            });
+        });
+        
+        // Modal kapatma düğmesi
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Modal dışına tıklama ile kapatma
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // ESC tuşu ile kapatma
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // PDF butonlarının tıklama olayını durdur
+        const pdfButtons = document.querySelectorAll('.pdf-btn');
+        pdfButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
+{% endblock %} 

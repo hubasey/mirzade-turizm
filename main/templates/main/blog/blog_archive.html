@@ -1,0 +1,177 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if month %}
+        {{ month_name }} {{ year }} Arşivi
+    {% else %}
+        {{ year }} Yılı Arşivi
+    {% endif %}
+    | Blog | Mirzade TUR
+{% endblock %}
+
+{% block content %}
+<!-- Blog Banner -->
+<div class="blog-banner py-5" style="background-color: #00927E;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3">
+                        <li class="breadcrumb-item"><a href="{% url 'main:home' %}" class="text-white opacity-75">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'main:blog_home' %}" class="text-white opacity-75">Blog</a></li>
+                        {% if month %}
+                            <li class="breadcrumb-item"><a href="{% url 'main:blog_archive_year' year=year %}" class="text-white opacity-75">{{ year }}</a></li>
+                            <li class="breadcrumb-item active text-white" aria-current="page">{{ month_name }}</li>
+                        {% else %}
+                            <li class="breadcrumb-item active text-white" aria-current="page">{{ year }}</li>
+                        {% endif %}
+                    </ol>
+                </nav>
+                <h1 class="display-4 mb-3 text-white">
+                    {% if month %}
+                        {{ month_name }} {{ year }} Arşivi
+                    {% else %}
+                        {{ year }} Yılı Arşivi
+                    {% endif %}
+                </h1>
+                <p class="lead text-white opacity-90">
+                    {% if month %}
+                        {{ month_name }} {{ year }} ayında yayınlanan blog yazıları
+                    {% else %}
+                        {{ year }} yılında yayınlanan blog yazıları
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Blog İçeriği -->
+<div class="blog-container py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Blog Yazıları -->
+            <div class="col-lg-8">
+                {% if posts %}
+                    <div class="row">
+                        {% for post in posts %}
+                            <div class="col-md-6 mb-4">
+                                <div class="card blog-card h-100">
+                                    {% if post.image %}
+                                        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ post.title }}</h5>
+                                        <p class="card-text">{{ post.summary|truncatewords:20 }}</p>
+                                    </div>
+                                    <div class="card-footer bg-white">
+                                        <div class="blog-meta">
+                                            <small class="text-muted">
+                                                <i class="fas fa-calendar-alt"></i> {{ post.published_date|date:"d F Y" }}
+                                            </small>
+                                            <small class="text-muted ms-3">
+                                                <i class="fas fa-eye"></i> {{ post.view_count }} görüntülenme
+                                            </small>
+                                        </div>
+                                        <a href="{% url 'main:blog_detail' post.slug %}" class="btn btn-sm mt-3" style="background-color: #00927E; color: white;">Devamını Oku</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        Bu dönemde yayınlanmış blog yazısı bulunmamaktadır.
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Yan Menü -->
+            <div class="col-lg-4">
+                <!-- Arşiv -->
+                <div class="sidebar-widget">
+                    <h4 style="color: #00927E;">Arşiv</h4>
+                    <ul class="list-group list-group-flush">
+                        {% if month %}
+                            <h6 class="mb-3" style="color: #00927E;">{{ year }} Yılı Ayları</h6>
+                            {% for archive in archive_months %}
+                                <li class="list-group-item bg-transparent border-bottom px-0">
+                                    <a href="{% url 'main:blog_archive_month' year=year month=archive.month %}" class="text-decoration-none" style="color: #333;">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>{{ archive.month|date:"F" }}</span>
+                                            <span class="badge rounded-pill" style="background-color: #00927E20; color: #00927E;">{{ archive.count }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            {% for archive in archive_years %}
+                                <li class="list-group-item bg-transparent border-bottom px-0">
+                                    <a href="{% url 'main:blog_archive_year' year=archive.year %}" class="text-decoration-none" style="color: #333;">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>{{ archive.year }}</span>
+                                            <span class="badge rounded-pill" style="background-color: #00927E20; color: #00927E;">{{ archive.count }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <!-- Kategoriler -->
+                <div class="sidebar-widget">
+                    <h4 style="color: #00927E;">Kategoriler</h4>
+                    <ul class="list-group list-group-flush">
+                        {% for category in categories %}
+                            <li class="list-group-item bg-transparent border-bottom px-0">
+                                <a href="{% url 'main:blog_category' category.slug %}" class="text-decoration-none" style="color: #333;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>{{ category.name }}</span>
+                                        <span class="badge rounded-pill" style="background-color: #00927E20; color: #00927E;">{{ category.post_count }}</span>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Etiketler -->
+                <div class="sidebar-widget">
+                    <h4 style="color: #00927E;">Etiketler</h4>
+                    <div>
+                        {% for tag in tags %}
+                            <a href="{% url 'main:blog_tag' tag.slug %}" class="tag-badge" style="background-color: #00927E20; color: #00927E;">
+                                {{ tag.name }} ({{ tag.post_count }})
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Popüler Yazılar -->
+                <div class="sidebar-widget">
+                    <h4 style="color: #00927E;">Popüler Yazılar</h4>
+                    {% for post in popular_posts %}
+                        <div class="popular-post">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="popular-post-img">
+                            {% else %}
+                                <div class="popular-post-img bg-light d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-image text-muted"></i>
+                                </div>
+                            {% endif %}
+                            <div class="popular-post-info">
+                                <h6 class="mb-1"><a href="{% url 'main:blog_detail' post.slug %}" class="text-decoration-none" style="color: #00927E;">{{ post.title|truncatechars:50 }}</a></h6>
+                                <span class="popular-post-date" style="color: #666;"><i class="far fa-calendar-alt me-1"></i> {{ post.published_date|date:"d M Y" }}</span>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="mb-0">Henüz popüler yazı bulunmuyor</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

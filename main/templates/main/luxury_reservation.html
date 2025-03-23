@@ -1,0 +1,771 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} - Mirzade Turizm{% endblock %}
+{% block meta_description %}{{ page_description }}{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<style>
+    /* Temel Stiller */
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        background-color: #f8f9fa;
+        overflow-x: hidden;
+    }
+    
+    .section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: #8B7D3A;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #D4AF37, #F5E7A3, #D4AF37);
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+        width: 100%;
+    }
+    
+    section {
+        padding: 80px 0;
+        position: relative;
+        width: 100%;
+    }
+    
+    /* Lüks Banner Stili */
+    .luxury-banner {
+        background: linear-gradient(135deg, #8B7D3A 0%, #D4AF37 100%);
+        padding: 100px 0 80px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        margin-bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .luxury-banner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('{% static "img/kaaba.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        opacity: 0.3;
+        z-index: 0;
+    }
+    
+    .luxury-banner .container {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .luxury-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        color: #fff;
+        font-family: 'Playfair Display', serif;
+        animation: fadeInDown 1.2s;
+        text-align: center;
+    }
+    
+    .luxury-subtitle {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin-bottom: 2.5rem;
+        max-width: 700px;
+        color: #fff;
+        animation: fadeInUp 1.2s;
+        line-height: 1.6;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    
+    /* Rezervasyon Formu Stilleri */
+    .reservation-section {
+        padding: 80px 0;
+        background-color: #fff;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .reservation-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin-top: -50px;
+    }
+    
+    .reservation-info {
+        flex: 0 0 100%;
+        padding: 40px;
+        background: linear-gradient(135deg, #8B7D3A 0%, #D4AF37 100%);
+        color: #fff;
+        position: relative;
+    }
+    
+    @media (min-width: 992px) {
+        .reservation-info {
+            flex: 0 0 40%;
+        }
+    }
+    
+    .reservation-info::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('{% static "img/kaaba.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+        z-index: 0;
+    }
+    
+    .reservation-info-content {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .reservation-info h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #fff;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    
+    .reservation-info p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 30px;
+    }
+    
+    .reservation-feature {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .reservation-feature i {
+        font-size: 1.5rem;
+        margin-right: 15px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+    }
+    
+    .reservation-feature span {
+        font-size: 1.1rem;
+    }
+    
+    .reservation-form-container {
+        flex: 0 0 100%;
+        padding: 40px;
+        background: #fff;
+    }
+    
+    @media (min-width: 992px) {
+        .reservation-form-container {
+            flex: 0 0 60%;
+        }
+    }
+    
+    .reservation-form h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        margin-bottom: 30px;
+        color: #8B7D3A;
+        text-align: center;
+    }
+    
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #555;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #D4AF37;
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        outline: none;
+    }
+    
+    .form-select {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 16px;
+    }
+    
+    .form-select:focus {
+        border-color: #D4AF37;
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        outline: none;
+    }
+    
+    .btn-gold {
+        background: linear-gradient(135deg, #D4AF37 0%, #F5E7A3 50%, #D4AF37 100%);
+        color: #333;
+        font-weight: 600;
+        padding: 15px 35px;
+        border-radius: 50px;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        width: 100%;
+        font-size: 1.1rem;
+    }
+    
+    .btn-gold:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        color: #000;
+    }
+    
+    .form-check {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .form-check-input {
+        margin-right: 10px;
+    }
+    
+    .form-check-label {
+        color: #666;
+    }
+    
+    .form-check-label a {
+        color: #D4AF37;
+        text-decoration: none;
+    }
+    
+    .form-check-label a:hover {
+        text-decoration: underline;
+    }
+    
+    /* Tur Seçim Kartları */
+    .tour-selection {
+        margin-top: 30px;
+    }
+    
+    .tour-card {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #eee;
+    }
+    
+    .tour-card:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        border-color: #D4AF37;
+    }
+    
+    .tour-card.selected {
+        border: 2px solid #D4AF37;
+        box-shadow: 0 3px 10px rgba(212, 175, 55, 0.2);
+    }
+    
+    .tour-card.selected::after {
+        content: "\f00c";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 22px;
+        height: 22px;
+        background: #D4AF37;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        z-index: 10;
+    }
+    
+    .tour-image {
+        position: relative;
+        height: 160px;
+        overflow: hidden;
+    }
+    
+    .tour-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .tour-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #D4AF37;
+        color: #fff;
+        padding: 3px 8px;
+        border-radius: 3px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        z-index: 5;
+    }
+    
+    .tour-content {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .tour-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+        line-height: 1.3;
+        text-align: center;
+    }
+    
+    .tour-duration {
+        text-align: center;
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .tour-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-align: center;
+        color: #D4AF37;
+        margin-top: auto;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+    }
+    
+    .tour-price small {
+        font-size: 0.8rem;
+        color: #777;
+        font-weight: 400;
+        display: block;
+        margin-top: 3px;
+    }
+    
+    @media (min-width: 768px) {
+        .tour-detail {
+            width: 50%;
+        }
+    }
+    
+    @media (max-width: 767px) {
+        .tour-detail {
+            width: 100%;
+        }
+    }
+    
+    /* Animasyonlar */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 40px, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+    
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -40px, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+    
+    .animate__fadeInUp {
+        animation: fadeInUp 1s;
+    }
+    
+    .animate__fadeInDown {
+        animation: fadeInDown 1s;
+    }
+    
+    /* Responsive Düzenlemeler */
+    @media (max-width: 992px) {
+        .luxury-title {
+            font-size: 2.8rem;
+        }
+        
+        .luxury-subtitle {
+            font-size: 1.3rem;
+        }
+        
+        .reservation-info,
+        .reservation-form-container {
+            flex: 0 0 100%;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .luxury-title {
+            font-size: 2.2rem;
+        }
+        
+        .luxury-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .reservation-info {
+            padding: 30px;
+        }
+        
+        .reservation-form-container {
+            padding: 30px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .luxury-title {
+            font-size: 1.8rem;
+        }
+        
+        .luxury-subtitle {
+            font-size: 1rem;
+        }
+        
+        .reservation-info {
+            padding: 20px;
+        }
+        
+        .reservation-form-container {
+            padding: 20px;
+        }
+    }
+    
+    @media (max-width: 1200px) {
+        .tour-detail {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Lüks Umre Banner -->
+<section class="luxury-banner">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="luxury-title">Lüks Umre Rezervasyon</h1>
+                <p class="luxury-subtitle">Mirzade Turizm ile kutsal topraklarda premium hizmet ve konfor. VIP konaklama, özel rehberlik ve unutulmaz bir umre deneyimi için hemen rezervasyon yapın.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Rezervasyon Formu -->
+<section class="reservation-section">
+    <div class="container">
+        <div class="reservation-container">
+            <div class="reservation-info">
+                <div class="reservation-info-content">
+                    <h3>Lüks Umre Ayrıcalıkları</h3>
+                    <p>Mirzade Turizm'in lüks umre paketleri ile kutsal topraklarda eşsiz bir deneyim yaşayın. VIP hizmetlerimiz ve özel ayrıcalıklarımız ile umre ibadetinizi konforlu bir şekilde gerçekleştirin.</p>
+                    
+                    <div class="reservation-feature">
+                        <i class="fas fa-hotel"></i>
+                        <span>Harem'e Yakın 5 Yıldızlı Oteller</span>
+                    </div>
+                    <div class="reservation-feature">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Özel VIP Rehberlik Hizmeti</span>
+                    </div>
+                    <div class="reservation-feature">
+                        <i class="fas fa-utensils"></i>
+                        <span>Özel Menü Seçenekleri</span>
+                    </div>
+                    <div class="reservation-feature">
+                        <i class="fas fa-car"></i>
+                        <span>VIP Transfer Hizmetleri</span>
+                    </div>
+                    <div class="reservation-feature">
+                        <i class="fas fa-users"></i>
+                        <span>Küçük Gruplar (15-20 Kişi)</span>
+                    </div>
+                    <div class="reservation-feature">
+                        <i class="fas fa-headset"></i>
+                        <span>7/24 Türkçe Destek</span>
+                    </div>
+                    <div class="reservation-feature">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <span>Özel İbadet Rehberliği</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="reservation-form-container">
+                <form action="{% url 'main:luxury_reservation' %}" method="post" class="reservation-form needs-validation" novalidate>
+                    {% csrf_token %}
+                    <h3>Rezervasyon Bilgileri</h3>
+                    
+                    {% if messages %}
+                    <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Ad Soyad</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">
+                                    Lütfen adınızı ve soyadınızı girin.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email" class="form-label">E-posta</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">
+                                    Lütfen geçerli bir e-posta adresi girin.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Telefon</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                                <div class="invalid-feedback">
+                                    Lütfen telefon numaranızı girin.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="participants" class="form-label">Katılımcı Sayısı</label>
+                                <select class="form-select" id="participants" name="participants" required>
+                                    <option value="1">1 Kişi</option>
+                                    <option value="2">2 Kişi</option>
+                                    <option value="3">3 Kişi</option>
+                                    <option value="4">4 Kişi</option>
+                                    <option value="5">5 Kişi</option>
+                                    <option value="6">6+ Kişi (Grup)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="room_type" class="form-label">Oda Tipi</label>
+                        <select class="form-select" id="room_type" name="room_type" required>
+                            <option value="single">Tek Kişilik Oda</option>
+                            <option value="double">İki Kişilik Oda</option>
+                            <option value="triple">Üç Kişilik Oda</option>
+                            <option value="quad">Dört Kişilik Oda</option>
+                            <option value="suite">Suit Oda</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes" class="form-label">Özel İstekler / Notlar</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Özel istekleriniz veya eklemek istediğiniz notlar..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Lütfen Tur Seçiniz</label>
+                        <div class="row tour-selection">
+                            {% for tour in luxury_tours %}
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="tour-card" data-tour-id="{{ tour.id }}">
+                                    <div class="tour-image">
+                                        {% if tour.image %}
+                                            <img src="{{ tour.image.url }}" alt="{{ tour.title }}">
+                                        {% else %}
+                                            <img src="{% static 'img/placeholder.jpg' %}" alt="{{ tour.title }}">
+                                        {% endif %}
+                                        <div class="tour-badge">{{ tour.category|upper }}</div>
+                                    </div>
+                                    <div class="tour-content">
+                                        <h4 class="tour-title">{{ tour.title }}</h4>
+                                        <div class="tour-duration">
+                                            <i class="fas fa-clock"></i> {{ tour.duration }} Gün
+                                        </div>
+                                        <div class="tour-price">
+                                            {{ tour.price }} {{ tour.currency }} <small>/ kişi başı</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="col-12">
+                                <div class="alert alert-warning">
+                                    Şu anda aktif lüks umre turu bulunmamaktadır. Lütfen daha sonra tekrar kontrol ediniz veya bizimle iletişime geçiniz.
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" name="tour_id" id="selected_tour_id" required>
+                        <div class="invalid-feedback" id="tour-selection-feedback" style="display: none;">
+                            Lütfen bir tur seçiniz.
+                        </div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            <small>Rezervasyon koşullarını ve <a href="{% url 'main:privacy_policy' %}" target="_blank">gizlilik politikasını</a> okudum, kabul ediyorum.</small>
+                        </label>
+                        <div class="invalid-feedback">
+                            Devam etmek için onaylamanız gerekmektedir.
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-gold">
+                        <i class="fas fa-check-circle me-2"></i>Rezervasyon Yap
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WhatsApp Hızlı İletişim -->
+<div class="whatsapp-button">
+    <a href="https://wa.me/905334364372" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Form doğrulama
+        const forms = document.querySelectorAll('.needs-validation');
+        
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                
+                // Tur seçimi kontrolü
+                const selectedTourId = document.getElementById('selected_tour_id').value;
+                const tourFeedback = document.getElementById('tour-selection-feedback');
+                
+                if (!selectedTourId) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    tourFeedback.style.display = 'block';
+                } else {
+                    tourFeedback.style.display = 'none';
+                }
+                
+                form.classList.add('was-validated');
+            }, false);
+        });
+        
+        // Tur kartı seçimi
+        const tourCards = document.querySelectorAll('.tour-card');
+        const selectedTourInput = document.getElementById('selected_tour_id');
+        
+        tourCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Önceki seçimi temizle
+                tourCards.forEach(c => c.classList.remove('selected'));
+                
+                // Yeni seçimi işaretle
+                this.classList.add('selected');
+                
+                // Seçilen tur ID'sini form input'una ata
+                const tourId = this.getAttribute('data-tour-id');
+                selectedTourInput.value = tourId;
+                
+                // Hata mesajını gizle
+                document.getElementById('tour-selection-feedback').style.display = 'none';
+            });
+        });
+    });
+</script>
+{% endblock %} 

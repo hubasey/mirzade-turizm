@@ -1,0 +1,126 @@
+{% extends 'editor/base.html' %}
+
+{% block title %}Kontrol Paneli - Mirzade Turizm Editör Paneli{% endblock %}
+
+{% block page_title %}Kontrol Paneli{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Turlar</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ tour_count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-plane-departure fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Blog Yazıları</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ blog_count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-blog fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Rezervasyonlar</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ reservation_count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Sliderlar</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ slider_count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-images fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Hızlı Erişim</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <a href="{% url 'editor:tour_list' %}" class="btn btn-primary btn-block">
+                            <i class="fas fa-plane-departure mr-2"></i>Turları Yönet
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <a href="{% url 'editor:reservation_list' %}" class="btn btn-info btn-block">
+                            <i class="fas fa-calendar-check mr-2"></i>Rezervasyonları Yönet
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <a href="{% url 'editor:slider_list' %}" class="btn btn-warning btn-block">
+                            <i class="fas fa-images mr-2"></i>Sliderları Yönet
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <a href="{% url 'admin:index' %}" class="btn btn-secondary btn-block">
+                            <i class="fas fa-user-shield mr-2"></i>Admin Paneline Git
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Hoş Geldiniz</h6>
+            </div>
+            <div class="card-body">
+                <p>Merhaba <strong>{{ request.user.username }}</strong>, Mirzade Turizm editör paneline hoş geldiniz.</p>
+                <p>Bu panel üzerinden turları, blog yazılarını, sliderları ve rezervasyonları yönetebilirsiniz.</p>
+                <p>Soldaki menüden ilgili bölümlere erişebilir veya yukarıdaki hızlı erişim butonlarını kullanabilirsiniz.</p>
+                <hr>
+                <p class="mb-0">Herhangi bir sorunuz veya öneriniz varsa, lütfen sistem yöneticisiyle iletişime geçin.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

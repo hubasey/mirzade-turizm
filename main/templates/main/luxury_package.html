@@ -1,0 +1,517 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Lüks Umre Paketi - Mirzade Turizm{% endblock %}
+{% block meta_description %}Harem'e yakın 5 yıldızlı otellerde konaklama, özel rehberlik hizmetleri ve VIP transfer imkanları ile unutulmaz bir umre deneyimi.{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+    /* Temel Stiller */
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        background-color: #f8f9fa;
+    }
+    
+    .section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: #8B7D3A;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #D4AF37, #F5E7A3, #D4AF37);
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    
+    section {
+        padding: 80px 0;
+        position: relative;
+    }
+    
+    /* Paket Banner Stili */
+    .package-banner {
+        background: linear-gradient(135deg, #8B7D3A 0%, #D4AF37 100%);
+        padding: 150px 0 100px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        margin-bottom: 0;
+    }
+    
+    .package-banner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('{% static "img/luxury/hotel1.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        opacity: 0.3;
+        z-index: 0;
+    }
+    
+    .package-banner .container {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .package-title {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        color: #fff;
+        font-family: 'Playfair Display', serif;
+        text-align: center;
+    }
+    
+    .package-subtitle {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin-bottom: 2.5rem;
+        max-width: 700px;
+        color: #fff;
+        line-height: 1.6;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    
+    .btn-gold {
+        background: linear-gradient(135deg, #D4AF37 0%, #F5E7A3 50%, #D4AF37 100%);
+        color: #333;
+        font-weight: 600;
+        padding: 15px 35px;
+        border-radius: 50px;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+    }
+    
+    .btn-gold:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        color: #000;
+    }
+    
+    /* Paket Detayları */
+    .package-details {
+        padding: 80px 0;
+        background-color: #fff;
+    }
+    
+    .detail-card {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 30px;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+    }
+    
+    .detail-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+    
+    .detail-icon {
+        font-size: 2.5rem;
+        color: #D4AF37;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .detail-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    .detail-text {
+        color: #666;
+        line-height: 1.7;
+        text-align: center;
+    }
+    
+    /* Paket Özellikleri */
+    .package-features {
+        padding: 80px 0;
+        background-color: #f8f9fa;
+    }
+    
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .feature-item:hover {
+        transform: translateX(10px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    .feature-icon {
+        font-size: 1.5rem;
+        color: #D4AF37;
+        margin-right: 15px;
+        min-width: 40px;
+        text-align: center;
+    }
+    
+    .feature-text {
+        color: #333;
+        font-weight: 500;
+    }
+    
+    /* Fiyat Bölümü */
+    .price-section {
+        padding: 80px 0;
+        background-color: #fff;
+        text-align: center;
+    }
+    
+    .price-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 40px;
+        max-width: 500px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .price-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, #D4AF37, #F5E7A3, #D4AF37);
+    }
+    
+    .price-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    
+    .price-amount {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #D4AF37;
+        margin-bottom: 20px;
+    }
+    
+    .price-period {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 30px;
+    }
+    
+    .price-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px;
+        text-align: left;
+    }
+    
+    .price-feature {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        color: #666;
+    }
+    
+    .price-feature i {
+        color: #D4AF37;
+        margin-right: 10px;
+    }
+    
+    /* Rezervasyon CTA */
+    .cta-section {
+        padding: 100px 0;
+        background: linear-gradient(135deg, #8B7D3A 0%, #D4AF37 100%);
+        position: relative;
+        color: white;
+        text-align: center;
+    }
+    
+    .cta-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('{% static "img/luxury/kaaba_experience.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+        z-index: 0;
+    }
+    
+    .cta-container {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .cta-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .cta-text {
+        font-size: 1.3rem;
+        margin-bottom: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .btn-white {
+        background: #fff;
+        color: #8B7D3A;
+        font-weight: 600;
+        padding: 15px 35px;
+        border-radius: 50px;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+    }
+    
+    .btn-white:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        background: #f8f9fa;
+    }
+    
+    /* Responsive Düzenlemeler */
+    @media (max-width: 992px) {
+        .package-title {
+            font-size: 3rem;
+        }
+        .cta-title {
+            font-size: 2.5rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .package-title {
+            font-size: 2.5rem;
+        }
+        .package-subtitle {
+            font-size: 1.2rem;
+        }
+        .cta-title {
+            font-size: 2rem;
+        }
+        .cta-text {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Paket Banner -->
+<section class="package-banner">
+    <div class="container">
+        <h1 class="package-title">Lüks Umre Paketi</h1>
+        <p class="package-subtitle">Harem'e yakın 5 yıldızlı otellerde konaklama, özel rehberlik hizmetleri ve VIP transfer imkanları ile unutulmaz bir umre deneyimi.</p>
+        <div class="text-center">
+            <a href="{% url 'main:luxury_reservation' %}" class="btn btn-gold">Rezervasyon Yap</a>
+        </div>
+    </div>
+</section>
+
+<!-- Paket Detayları -->
+<section class="package-details">
+    <div class="container">
+        <h2 class="section-title">Paket Detayları</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <h3 class="detail-title">Premium Konaklama</h3>
+                    <p class="detail-text">Mekke ve Medine'de Harem'e yürüme mesafesinde bulunan 5 yıldızlı otellerde lüks konaklama imkanı.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="detail-title">Özel Rehberlik</h3>
+                    <p class="detail-text">Deneyimli ve uzman rehberlerimiz eşliğinde kutsal mekanları ziyaret ve ibadetlerinizde rehberlik hizmeti.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3 class="detail-title">VIP Transfer</h3>
+                    <p class="detail-text">Havaalanı-otel ve Mekke-Medine arası lüks araçlarla konforlu ve güvenli transfer hizmetleri.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Paket Özellikleri -->
+<section class="package-features">
+    <div class="container">
+        <h2 class="section-title">Paket Özellikleri</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Mekke'de Harem'e 250-500 metre mesafede 5 yıldızlı otel konaklaması</div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Medine'de Mescid-i Nebevi'ye 100-300 metre mesafede 5 yıldızlı otel konaklaması</div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Türk Hava Yolları ile direkt uçuş</div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Özel karşılama ve uğurlama hizmetleri</div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Lüks araçlarla tüm transferler</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Açık büfe kahvaltı ve akşam yemeği</div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Özel Mekke ve Medine şehir turları</div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Maksimum 15-20 kişilik küçük gruplar</div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Umre ve hac konusunda uzman rehberlik hizmeti</div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">Seyahat sağlık sigortası</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fiyat Bölümü -->
+<section class="price-section">
+    <div class="container">
+        <h2 class="section-title">Fiyat Bilgisi</h2>
+        <div class="price-card">
+            <h3 class="price-title">Lüks Umre Paketi</h3>
+            <div class="price-amount">$3,500</div>
+            <div class="price-period">kişi başı</div>
+            <ul class="price-features">
+                <li class="price-feature"><i class="fas fa-check"></i> 10 gün 9 gece konaklama</li>
+                <li class="price-feature"><i class="fas fa-check"></i> Uçak bileti dahil</li>
+                <li class="price-feature"><i class="fas fa-check"></i> Vize işlemleri dahil</li>
+                <li class="price-feature"><i class="fas fa-check"></i> Tüm transferler dahil</li>
+                <li class="price-feature"><i class="fas fa-check"></i> Rehberlik hizmetleri dahil</li>
+            </ul>
+            <a href="{% url 'main:luxury_reservation' %}" class="btn btn-gold">Hemen Rezervasyon Yap</a>
+        </div>
+    </div>
+</section>
+
+<!-- Rezervasyon CTA -->
+<section class="cta-section">
+    <div class="cta-container">
+        <h2 class="cta-title">Unutulmaz Bir Umre Deneyimi İçin</h2>
+        <p class="cta-text">Lüks Umre Paketimiz ile kutsal topraklarda premium hizmet ve konfor ile unutulmaz bir umre deneyimi yaşayın.</p>
+        <a href="{% url 'main:luxury_reservation' %}" class="btn btn-white">Rezervasyon Yap</a>
+    </div>
+</section>
+{% endblock %} 

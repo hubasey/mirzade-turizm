@@ -1,0 +1,140 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Gizlilik Politikası | Mirzade TUR{% endblock %}
+
+{% block content %}
+<!-- Gizlilik Politikası Banner -->
+<div class="page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-white">Gizlilik Politikası</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'main:home' %}" class="text-white">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Gizlilik Politikası</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gizlilik Politikası İçeriği -->
+<section class="privacy-policy py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="content-wrapper bg-white p-4 rounded shadow">
+                    <h2 class="section-title mb-4" style="color: #00927E;">Gizlilik Politikamız</h2>
+                    
+                    <p class="mb-4">Son güncelleme tarihi: {% now "d.m.Y" %}</p>
+                    
+                    <p>Mirzade TUR olarak, müşterilerimizin gizliliğine saygı duyuyor ve kişisel verilerinizin korunmasına önem veriyoruz. Bu Gizlilik Politikası, web sitemizi ziyaret ettiğinizde veya hizmetlerimizi kullandığınızda kişisel verilerinizin nasıl toplandığını, kullanıldığını ve korunduğunu açıklamaktadır.</p>
+                    
+                    <h3 class="mt-4 mb-3">1. Toplanan Bilgiler</h3>
+                    <p>Mirzade TUR, aşağıdaki kişisel bilgileri toplayabilir:</p>
+                    <ul>
+                        <li>Ad, soyad, e-posta adresi, telefon numarası gibi iletişim bilgileri</li>
+                        <li>Doğum tarihi, cinsiyet, vatandaşlık bilgileri</li>
+                        <li>Pasaport veya kimlik bilgileri (tur rezervasyonları için gerekli olduğunda)</li>
+                        <li>Ödeme bilgileri (kredi kartı bilgileri dahil)</li>
+                        <li>Seyahat tercihleri ve geçmiş rezervasyon bilgileri</li>
+                        <li>Web sitemizi kullanırken otomatik olarak toplanan bilgiler (IP adresi, tarayıcı türü, ziyaret edilen sayfalar, ziyaret tarihi ve saati gibi)</li>
+                    </ul>
+                    
+                    <h3 class="mt-4 mb-3">2. Bilgilerin Kullanımı</h3>
+                    <p>Topladığımız bilgileri aşağıdaki amaçlar için kullanabiliriz:</p>
+                    <ul>
+                        <li>Tur rezervasyonlarını tamamlamak ve yönetmek</li>
+                        <li>Müşteri hizmetleri sağlamak ve sorularınıza yanıt vermek</li>
+                        <li>Ürün ve hizmetlerimizi geliştirmek</li>
+                        <li>Kişiselleştirilmiş içerik ve teklifler sunmak</li>
+                        <li>Pazarlama iletişimleri göndermek (izin verdiğiniz takdirde)</li>
+                        <li>Dolandırıcılık ve diğer yasadışı faaliyetleri önlemek</li>
+                        <li>Yasal yükümlülüklerimizi yerine getirmek</li>
+                    </ul>
+                    
+                    <h3 class="mt-4 mb-3">3. Bilgilerin Paylaşımı</h3>
+                    <p>Kişisel bilgilerinizi aşağıdaki durumlarda üçüncü taraflarla paylaşabiliriz:</p>
+                    <ul>
+                        <li>Tur hizmetlerini sağlamak için gerekli olan otel, havayolu şirketi, transfer şirketi gibi iş ortaklarımızla</li>
+                        <li>Ödeme işlemlerini gerçekleştirmek için ödeme hizmeti sağlayıcılarıyla</li>
+                        <li>Yasal bir zorunluluk olduğunda (mahkeme kararı veya yasal süreç gibi)</li>
+                        <li>Şirketimizin satılması, birleşmesi veya devralınması durumunda</li>
+                    </ul>
+                    <p>Kişisel bilgilerinizi pazarlama amaçlı olarak üçüncü taraflara satmayız veya kiralamayız.</p>
+                    
+                    <h3 class="mt-4 mb-3">4. Veri Güvenliği</h3>
+                    <p>Kişisel verilerinizin güvenliğini sağlamak için uygun teknik ve organizasyonel önlemler alıyoruz. Bu önlemler arasında şifreleme, güvenli sunucular kullanma ve düzenli güvenlik değerlendirmeleri yapma yer almaktadır. Ancak, internet üzerinden hiçbir veri iletiminin %100 güvenli olmadığını unutmayın.</p>
+                    
+                    <h3 class="mt-4 mb-3">5. Çerezler ve Benzer Teknolojiler</h3>
+                    <p>Web sitemiz, deneyiminizi geliştirmek ve site kullanımını analiz etmek için çerezler ve benzer teknolojiler kullanmaktadır. Çerezleri tarayıcı ayarlarınızdan devre dışı bırakabilirsiniz, ancak bu durumda web sitemizin bazı özellikleri düzgün çalışmayabilir.</p>
+                    
+                    <h3 class="mt-4 mb-3">6. Haklarınız</h3>
+                    <p>Kişisel verilerinizle ilgili olarak aşağıdaki haklara sahipsiniz:</p>
+                    <ul>
+                        <li>Verilerinize erişim talep etme</li>
+                        <li>Yanlış veya eksik bilgilerin düzeltilmesini isteme</li>
+                        <li>Belirli koşullar altında verilerinizin silinmesini talep etme</li>
+                        <li>Verilerinizin işlenmesine itiraz etme</li>
+                        <li>Verilerinizin başka bir hizmet sağlayıcıya aktarılmasını isteme</li>
+                    </ul>
+                    <p>Bu haklarınızı kullanmak için aşağıdaki iletişim bilgilerinden bize ulaşabilirsiniz.</p>
+                    
+                    <h3 class="mt-4 mb-3">7. İletişim</h3>
+                    <p>Gizlilik politikamız veya kişisel verilerinizle ilgili sorularınız için:</p>
+                    <p>
+                        <strong>E-posta:</strong> kvkk@mirzadetur.com<br>
+                        <strong>Telefon:</strong> 0212 613 00 70<br>
+                        <strong>Telefon:</strong> 0533 436 43 72<br>
+                        <strong>Adres:</strong>
+                        Ali Kuşçu Mah. Hulusi Noyan Sk. No: 4 D:4
+                        Fatih, İstanbul, Türkiye
+                    </p>
+                    
+                    <h3 class="mt-4 mb-3">8. Değişiklikler</h3>
+                    <p>Bu gizlilik politikasını zaman zaman güncelleyebiliriz. Önemli değişiklikler olması durumunda, web sitemizde bir bildirim yayınlayacağız ve gerekirse size e-posta ile bilgi vereceğiz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Sayfa Banner Stili */
+    .page-banner {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/random/1920x1080/?travel') no-repeat center center;
+        background-size: cover;
+        padding: 100px 0;
+        margin-bottom: 50px;
+    }
+    
+    /* İçerik Stilleri */
+    .content-wrapper {
+        line-height: 1.8;
+    }
+    
+    .content-wrapper h3 {
+        color: #00927E;
+        font-weight: 600;
+    }
+    
+    .content-wrapper ul {
+        margin-bottom: 20px;
+    }
+    
+    .content-wrapper ul li {
+        margin-bottom: 10px;
+    }
+    
+    @media (max-width: 768px) {
+        .page-banner {
+            padding: 60px 0;
+        }
+    }
+</style>
+{% endblock %} 

@@ -1,0 +1,608 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ query }} - Arama Sonuçları | Mirzade Turizm Blog{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background-color: #f9f9f9;
+    }
+    
+    .search-banner {
+        background: linear-gradient(135deg, #00927E 0%, #006d5e 100%);
+        padding: 3rem 0;
+        margin-bottom: 3rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .search-banner::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        transform: rotate(30deg);
+    }
+    
+    .search-banner h1 {
+        color: white;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .search-banner .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.9) !important;
+        transition: all 0.3s ease;
+    }
+    
+    .search-banner .breadcrumb-item a:hover {
+        color: white !important;
+        text-decoration: none;
+    }
+    
+    .search-banner .breadcrumb-item.active {
+        color: white !important;
+    }
+    
+    .search-form {
+        margin-bottom: 2.5rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .search-form .form-control {
+        height: 56px;
+        border-radius: 28px 0 0 28px;
+        padding-left: 1.5rem;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        font-size: 1rem;
+    }
+    
+    .search-form .form-control:focus {
+        box-shadow: 0 4px 15px rgba(0, 146, 126, 0.2);
+    }
+    
+    .search-form .btn {
+        border-radius: 0 28px 28px 0;
+        padding: 0 1.75rem;
+        height: 56px;
+        font-weight: 600;
+        background-color: #00927E;
+        border-color: #00927E;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .search-form .btn:hover {
+        background-color: #007a69;
+        border-color: #007a69;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .search-result-count {
+        background-color: #fff;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 4px solid #00927E;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        font-weight: 500;
+        color: #333;
+    }
+    
+    .search-result {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    
+    .search-result:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+    
+    .search-result-image {
+        height: 240px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .search-result-image::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+    }
+    
+    .search-result-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s ease;
+    }
+    
+    .search-result:hover .search-result-image img {
+        transform: scale(1.05);
+    }
+    
+    .search-result-content {
+        padding: 2rem;
+    }
+    
+    .search-result-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+    
+    .search-result-title a {
+        color: #333;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .search-result-title a:hover {
+        color: #00927E;
+    }
+    
+    .search-result-meta {
+        color: #6c757d;
+        font-size: 0.875rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .search-result-meta span {
+        display: flex;
+        align-items: center;
+    }
+    
+    .search-result-meta i {
+        color: #00927E;
+        margin-right: 0.35rem;
+    }
+    
+    .search-result-meta a {
+        color: #00927E;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .search-result-meta a:hover {
+        color: #007a69;
+        text-decoration: underline;
+    }
+    
+    .search-result-summary {
+        margin-bottom: 1.5rem;
+        color: #555;
+        line-height: 1.6;
+    }
+    
+    .btn-outline-primary {
+        color: #00927E;
+        border-color: #00927E;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        padding: 0.5rem 1.25rem;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #00927E;
+        border-color: #00927E;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 146, 126, 0.2);
+    }
+    
+    .sidebar-box {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    
+    .sidebar-box-title {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid #f1f1f1;
+        font-weight: 600;
+        color: #333;
+        font-size: 1.1rem;
+        background-color: #fafafa;
+    }
+    
+    .sidebar-box-title i {
+        color: #00927E;
+    }
+    
+    .sidebar-box-content {
+        padding: 1.5rem;
+    }
+    
+    .category-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .category-list li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #f1f1f1;
+        transition: all 0.3s ease;
+    }
+    
+    .category-list li:hover {
+        padding-left: 0.5rem;
+    }
+    
+    .category-list li:last-child {
+        border-bottom: none;
+    }
+    
+    .category-list a {
+        color: #333;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .category-list a:hover {
+        color: #00927E;
+    }
+    
+    .category-list .badge {
+        background-color: #f1f1f1;
+        color: #333;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .category-list a:hover .badge {
+        background-color: #00927E;
+        color: white;
+    }
+    
+    .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .tag {
+        background-color: #f1f1f1;
+        color: #333;
+        padding: 0.35rem 0.85rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .tag:hover {
+        background-color: #00927E;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .popular-post {
+        display: flex;
+        margin-bottom: 1.25rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid #f1f1f1;
+        transition: all 0.3s ease;
+    }
+    
+    .popular-post:hover {
+        transform: translateX(5px);
+    }
+    
+    .popular-post:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    .popular-post-image {
+        width: 80px;
+        height: 80px;
+        margin-right: 1rem;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .popular-post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s ease;
+    }
+    
+    .popular-post:hover .popular-post-image img {
+        transform: scale(1.1);
+    }
+    
+    .popular-post-content {
+        flex: 1;
+    }
+    
+    .popular-post-content h6 {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.4;
+    }
+    
+    .popular-post-content h6 a {
+        color: #333;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .popular-post-content h6 a:hover {
+        color: #00927E;
+    }
+    
+    .popular-post-date {
+        color: #6c757d;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .popular-post-date i {
+        color: #00927E;
+        margin-right: 0.35rem;
+    }
+    
+    .alert {
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 2rem;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .alert-info {
+        background-color: #e8f4f9;
+        color: #0c5460;
+    }
+    
+    .alert-warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .btn-outline-secondary {
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 767px) {
+        .search-banner {
+            padding: 2rem 0;
+        }
+        
+        .search-banner h1 {
+            font-size: 2rem;
+        }
+        
+        .search-result-image {
+            height: 180px;
+        }
+        
+        .search-result-content {
+            padding: 1.5rem;
+        }
+        
+        .search-result-title {
+            font-size: 1.25rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Arama Banner -->
+<div class="search-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>Blog Arama</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'main:home' %}">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'main:blog_home' %}">Blog</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Arama</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Ana İçerik -->
+        <div class="col-lg-8">
+            <!-- Arama Formu -->
+            <div class="search-form">
+                    <form action="{% url 'main:blog_search' %}" method="GET">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Blog yazılarında ara..." value="{{ query }}" aria-label="Ara">
+                        <button class="btn btn-primary" type="submit"><i class="fas fa-search me-2"></i> Ara</button>
+                        </div>
+                    </form>
+            </div>
+            
+            <!-- Arama Sonuçları -->
+                {% if query %}
+                    {% if posts %}
+                    <div class="search-result-count">
+                        <i class="fas fa-search me-2"></i> <strong>"{{ query }}"</strong> için <span class="badge bg-primary">{{ posts.count }}</span> sonuç bulundu
+                    </div>
+                    
+                        {% for post in posts %}
+                        <div class="search-result">
+                            {% if post.image %}
+                                <div class="search-result-image">
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                            </div>
+                                        {% endif %}
+                            <div class="search-result-content">
+                                <h2 class="search-result-title">
+                                    <a href="{% url 'main:blog_detail' post.slug %}">{{ post.title }}</a>
+                                </h2>
+                                <div class="search-result-meta">
+                                    <span><i class="far fa-calendar-alt"></i> {{ post.published_date|date:"d.m.Y" }}</span>
+                                    <span><i class="far fa-user"></i> {{ post.author }}</span>
+                                    <span><i class="far fa-folder"></i> <a href="{% url 'main:blog_category' post.category.slug %}">{{ post.category.name }}</a></span>
+                                    </div>
+                                <div class="search-result-summary">
+                                    {{ post.summary|truncatechars:200 }}
+                                </div>
+                                <a href="{% url 'main:blog_detail' post.slug %}" class="btn btn-outline-primary">Devamını Oku <i class="fas fa-arrow-right ms-1"></i></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i> <strong>"{{ query }}"</strong> için sonuç bulunamadı. Lütfen farklı anahtar kelimelerle tekrar deneyin.
+                    </div>
+                    
+                    <div class="card p-4 mb-4">
+                        <h5 class="mb-3">Arama İpuçları:</h5>
+                        <ul class="mb-0">
+                            <li class="mb-2">Farklı anahtar kelimeler deneyin</li>
+                            <li class="mb-2">Daha genel terimler kullanın</li>
+                            <li class="mb-2">Yazım hatası olmadığından emin olun</li>
+                            <li>Kategorilere göz atın</li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i> Lütfen arama yapmak için bir anahtar kelime girin.
+                </div>
+                
+                <div class="card p-4 mb-4">
+                    <h5 class="mb-3">Popüler Arama Terimleri:</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="{% url 'main:blog_search' %}?q=hac" class="btn btn-sm btn-outline-secondary">Hac</a>
+                        <a href="{% url 'main:blog_search' %}?q=umre" class="btn btn-sm btn-outline-secondary">Umre</a>
+                        <a href="{% url 'main:blog_search' %}?q=seyahat" class="btn btn-sm btn-outline-secondary">Seyahat</a>
+                        <a href="{% url 'main:blog_search' %}?q=mekke" class="btn btn-sm btn-outline-secondary">Mekke</a>
+                        <a href="{% url 'main:blog_search' %}?q=medine" class="btn btn-sm btn-outline-secondary">Medine</a>
+                    </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Yan Menü -->
+        <div class="col-lg-4">
+            <!-- Kategoriler -->
+            <div class="sidebar-box">
+                <div class="sidebar-box-title">
+                    <i class="fas fa-th-list me-2"></i> Kategoriler
+                </div>
+                <div class="sidebar-box-content">
+                    <ul class="category-list">
+                        {% for category in categories %}
+                            <li>
+                                <a href="{% url 'main:blog_category' category.slug %}">
+                                    {{ category.name }}
+                                    <span class="badge">{{ category.post_count }}</span>
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li>Henüz kategori bulunmuyor</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Popüler Yazılar -->
+            <div class="sidebar-box">
+                <div class="sidebar-box-title">
+                    <i class="fas fa-fire-alt me-2"></i> Popüler Yazılar
+                </div>
+                <div class="sidebar-box-content">
+                    {% for post in popular_posts %}
+                        <div class="popular-post">
+                            <div class="popular-post-image">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                {% else %}
+                                    <div class="bg-light d-flex align-items-center justify-content-center h-100">
+                                        <i class="fas fa-image text-muted"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="popular-post-content">
+                                <h6><a href="{% url 'main:blog_detail' post.slug %}">{{ post.title|truncatechars:50 }}</a></h6>
+                                <div class="popular-post-date">
+                                    <i class="far fa-calendar-alt"></i> {{ post.published_date|date:"d.m.Y" }}
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="mb-0">Henüz popüler yazı bulunmuyor</p>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Etiketler -->
+            <div class="sidebar-box">
+                <div class="sidebar-box-title">
+                    <i class="fas fa-tags me-2"></i> Etiketler
+                </div>
+                <div class="sidebar-box-content">
+                    <div class="tag-list">
+                        {% for tag in tags %}
+                            <a href="{% url 'main:blog_tag' tag.slug %}" class="tag">
+                                {{ tag.name }} ({{ tag.post_count }})
+                            </a>
+                        {% empty %}
+                            <p class="mb-0">Henüz etiket bulunmuyor</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

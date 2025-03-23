@@ -1,0 +1,409 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ hotel.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main:home' %}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'main:hotel_list' %}">Oteller</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ hotel.name }}</li>
+        </ol>
+    </nav>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ hotel.name }}</h1>
+            
+            <div class="mb-3">
+                {% for i in "12345" %}
+                    {% if forloop.counter <= hotel.star_rating %}
+                        <i class="fas fa-star text-warning"></i>
+                    {% else %}
+                        <i class="far fa-star text-warning"></i>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if hotel.category %}
+                <span class="badge bg-info ms-2">{{ hotel.category.name }}</span>
+                {% endif %}
+            </div>
+            
+            <p class="text-muted">
+                <i class="fas fa-map-marker-alt"></i> {{ hotel.address }}, {{ hotel.city }}, {{ hotel.country }}
+            </p>
+            
+            <!-- Otel Fotoğrafları -->
+            {% if hotel.images.exists %}
+            <div id="hotelCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for image in hotel.images.all %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ image.title|default:hotel.name }}" style="height: 400px; object-fit: cover;">
+                        {% if image.title %}
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ image.title }}</h5>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Önceki</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Sonraki</span>
+                </button>
+            </div>
+            {% endif %}
+            
+            <h3>Otel Hakkında</h3>
+            <div class="mb-4">
+                {{ hotel.description|linebreaks }}
+            </div>
+            
+            <!-- Otel Özellikleri -->
+            {% if hotel.amenities.exists %}
+            <h3>Otel Özellikleri</h3>
+            <div class="row mb-4">
+                {% for amenity in hotel.amenities.all %}
+                <div class="col-md-4 mb-2">
+                    <div class="d-flex align-items-center">
+                        {% if amenity.icon %}
+                        <i class="{{ amenity.icon }} me-2"></i>
+                        {% endif %}
+                        <span>{{ amenity.name }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- İlgili Turlar -->
+            {% if hotel.hotel_tours.exists %}
+            <h3>Bu Oteli İçeren Turlar</h3>
+            <div class="row mb-4">
+                {% for tour_hotel in hotel.hotel_tours.all %}
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tour_hotel.tour.title }}</h5>
+                            <p class="card-text">
+                                <strong>Konaklama:</strong> {{ tour_hotel.nights }} gece<br>
+                                {% if tour_hotel.room_type %}
+                                <strong>Oda Tipi:</strong> {{ tour_hotel.room_type.name }}<br>
+                                {% endif %}
+                                <strong>Tarih:</strong> {{ tour_hotel.tour.date }}
+                            </p>
+                            <a href="{% url 'main:tour_detail' tour_hotel.tour.id %}" class="btn btn-sm btn-primary">Tur Detayları</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- Harita -->
+            {% if hotel.latitude and hotel.longitude %}
+            <h3>Konum</h3>
+            <div id="map" style="height: 400px;" class="mb-4"></div>
+            <script>
+                function initMap() {
+                    const hotelLocation = { lat: {{ hotel.latitude }}, lng: {{ hotel.longitude }} };
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 15,
+                        center: hotelLocation,
+                    });
+                    const marker = new google.maps.Marker({
+                        position: hotelLocation,
+                        map: map,
+                        title: "{{ hotel.name }}"
+                    });
+                }
+            </script>
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+            {% endif %}
+            
+            <!-- Uzaklık Bilgileri -->
+            <h3>Uzaklık Bilgileri</h3>
+            <div class="row mb-4">
+                {% if hotel.distance_to_center %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-city me-2"></i>
+                        <span>Şehir Merkezine: {{ hotel.distance_to_center }} km</span>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if hotel.distance_to_airport %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-plane me-2"></i>
+                        <span>Havalimanına: {{ hotel.distance_to_airport }} km</span>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if hotel.distance_to_beach %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-umbrella-beach me-2"></i>
+                        <span>Plaja: {{ hotel.distance_to_beach }} km</span>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if hotel.distance_to_public_transport %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-bus me-2"></i>
+                        <span>Toplu Taşımaya: {{ hotel.distance_to_public_transport }} km</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Ulaşım Bilgileri -->
+            <h3>Ulaşım Seçenekleri</h3>
+            <div class="row mb-4">
+                {% if hotel.has_airport_shuttle %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-shuttle-van me-2 text-success"></i>
+                        <span>Havalimanı Servisi</span>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if hotel.has_car_rental %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-car me-2 text-success"></i>
+                        <span>Araç Kiralama</span>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if hotel.has_bike_rental %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-bicycle me-2 text-success"></i>
+                        <span>Bisiklet Kiralama</span>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if hotel.has_public_transport_nearby %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-bus-alt me-2 text-success"></i>
+                        <span>Yakın Toplu Taşıma</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            {% if hotel.transportation_notes %}
+            <div class="alert alert-info mb-4">
+                <h5><i class="fas fa-info-circle me-2"></i> Ulaşım Notları</h5>
+                <p>{{ hotel.transportation_notes|linebreaks }}</p>
+            </div>
+            {% endif %}
+            
+            <!-- Otel detay sayfasına Hac/Umre özelliklerini ekleyin -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-mosque me-2"></i> Hac ve Umre Özellikleri</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% if hotel.distance_to_haram %}
+                        <div class="col-md-6 mb-2">
+                            <i class="fas fa-walking text-primary me-2"></i> Harem'e Uzaklık: {{ hotel.distance_to_haram }} metre
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.view_of_kaaba %}
+                        <div class="col-md-6 mb-2">
+                            <i class="fas fa-kaaba text-primary me-2"></i> Kabe Manzaralı
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.view_of_haram %}
+                        <div class="col-md-6 mb-2">
+                            <i class="fas fa-landmark text-primary me-2"></i> Harem Manzaralı
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.has_prayer_room %}
+                        <div class="col-md-6 mb-2">
+                            <i class="fas fa-mosque text-primary me-2"></i> Mescit
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.has_quran %}
+                        <div class="col-md-6 mb-2">
+                            <i class="fas fa-book text-primary me-2"></i> Kuran-ı Kerim
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.has_qibla_direction %}
+                        <div class="col-md-6 mb-2">
+                            <i class="fas fa-compass text-primary me-2"></i> Kıble Yönü
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.has_prayer_mat %}
+                        <div class="col-md-6 mb-2">
+                            <i class="fas fa-scroll text-primary me-2"></i> Seccade
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold mb-3">Ulaşım Hizmetleri</h6>
+                            <ul class="list-unstyled">
+                                {% if hotel.has_haram_shuttle %}
+                                <li class="mb-2"><i class="fas fa-shuttle-van text-success me-2"></i> Harem Servisi</li>
+                                {% endif %}
+                                
+                                {% if hotel.has_airport_shuttle %}
+                                <li class="mb-2"><i class="fas fa-plane text-success me-2"></i> Havalimanı Servisi</li>
+                                {% endif %}
+                                
+                                {% if hotel.has_mina_shuttle %}
+                                <li class="mb-2"><i class="fas fa-bus text-success me-2"></i> Mina Servisi</li>
+                                {% endif %}
+                                
+                                {% if hotel.has_arafat_shuttle %}
+                                <li class="mb-2"><i class="fas fa-bus-alt text-success me-2"></i> Arafat Servisi</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h6 class="fw-bold mb-3">Yemek Hizmetleri</h6>
+                            <ul class="list-unstyled">
+                                {% if hotel.has_breakfast %}
+                                <li class="mb-2"><i class="fas fa-coffee text-success me-2"></i> Kahvaltı Dahil</li>
+                                {% endif %}
+                                
+                                {% if hotel.has_lunch %}
+                                <li class="mb-2"><i class="fas fa-utensils text-success me-2"></i> Öğle Yemeği Dahil</li>
+                                {% endif %}
+                                
+                                {% if hotel.has_dinner %}
+                                <li class="mb-2"><i class="fas fa-utensils text-success me-2"></i> Akşam Yemeği Dahil</li>
+                                {% endif %}
+                                
+                                {% if hotel.has_turkish_food %}
+                                <li class="mb-2"><i class="fas fa-flag text-success me-2"></i> Türk Mutfağı</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    {% if hotel.suitable_for_hajj or hotel.has_mina_tent or hotel.has_arafat_tent %}
+                    <hr>
+                    
+                    <h6 class="fw-bold mb-3">Hac Dönemi Özellikleri</h6>
+                    <div class="row">
+                        {% if hotel.suitable_for_hajj %}
+                        <div class="col-md-4 mb-2">
+                            <i class="fas fa-kaaba text-primary me-2"></i> Hac İçin Uygun
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.has_mina_tent %}
+                        <div class="col-md-4 mb-2">
+                            <i class="fas fa-campground text-primary me-2"></i> Mina Çadırı Dahil
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.has_arafat_tent %}
+                        <div class="col-md-4 mb-2">
+                            <i class="fas fa-campground text-primary me-2"></i> Arafat Çadırı Dahil
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    {% if hotel.has_turkish_guide or hotel.has_religious_guide or hotel.has_24h_assistance %}
+                    <hr>
+                    
+                    <h6 class="fw-bold mb-3">Rehberlik ve Destek</h6>
+                    <div class="row">
+                        {% if hotel.has_turkish_guide %}
+                        <div class="col-md-4 mb-2">
+                            <i class="fas fa-user-tie text-primary me-2"></i> Türkçe Rehber
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.has_religious_guide %}
+                        <div class="col-md-4 mb-2">
+                            <i class="fas fa-pray text-primary me-2"></i> Dini Rehberlik
+                        </div>
+                        {% endif %}
+                        
+                        {% if hotel.has_24h_assistance %}
+                        <div class="col-md-4 mb-2">
+                            <i class="fas fa-headset text-primary me-2"></i> 24 Saat Destek
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <!-- Oda Tipleri -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Oda Tipleri</h5>
+                </div>
+                <div class="card-body">
+                    {% for room_type in hotel.room_types.all %}
+                    <div class="mb-3 {% if not forloop.last %}border-bottom pb-3{% endif %}">
+                        <h5>{{ room_type.name }}</h5>
+                        <p class="text-muted">Kapasite: {{ room_type.capacity }} kişi</p>
+                        <p>{{ room_type.description|truncatewords:20 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">{{ room_type.price_per_night }} TL / gece</span>
+                            <button class="btn btn-sm btn-outline-primary">Rezervasyon Yap</button>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">Henüz oda bilgisi eklenmemiş.</p>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- İletişim Bilgileri -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>İletişim</h5>
+                </div>
+                <div class="card-body">
+                    <p><i class="fas fa-phone me-2"></i> +90 XXX XXX XX XX</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@{{ hotel.name|lower|cut:" " }}.com</p>
+                    <p><i class="fas fa-globe me-2"></i> www.{{ hotel.name|lower|cut:" " }}.com</p>
+                    
+                    <hr>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-primary">İletişime Geç</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

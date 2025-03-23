@@ -1,0 +1,121 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Kullanım Koşulları | Mirzade TUR{% endblock %}
+
+{% block content %}
+<!-- Kullanım Koşulları Banner -->
+<div class="page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-white">Kullanım Koşulları</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'main:home' %}" class="text-white">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Kullanım Koşulları</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Kullanım Koşulları İçeriği -->
+<section class="terms-of-use py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="content-wrapper bg-white p-4 rounded shadow">
+                    <h2 class="section-title mb-4" style="color: #00927E;">Kullanım Koşulları</h2>
+                    
+                    <p class="mb-4">Son güncelleme tarihi: {% now "d.m.Y" %}</p>
+                    
+                    <p>Mirzade TUR web sitesini kullanarak, aşağıdaki kullanım koşullarını kabul etmiş olursunuz. Bu koşulları kabul etmiyorsanız, lütfen web sitemizi kullanmayınız.</p>
+                    
+                    <h3 class="mt-4 mb-3">1. Genel Hükümler</h3>
+                    <p>Bu web sitesi, Mirzade TUR tarafından işletilmektedir. Bu sayfada "biz", "bizim", "Mirzade TUR" veya "şirket" olarak anılan tüm ifadeler Mirzade TUR'u ifade etmektedir. Mirzade TUR, bu kullanım koşullarını herhangi bir zamanda değiştirme hakkını saklı tutar. Değişiklikler, web sitesinde yayınlandığı andan itibaren geçerli olacaktır.</p>
+                    
+                    <h3 class="mt-4 mb-3">2. Fikri Mülkiyet Hakları</h3>
+                    <p>Bu web sitesinde yer alan tüm içerik (metin, grafikler, logolar, düğme simgeleri, görseller, ses klipleri, dijital indirmeler, veri derlemeleri ve yazılım dahil) Mirzade TUR'un mülkiyetindedir veya Mirzade TUR'un lisans aldığı içeriklerdir ve Türkiye Cumhuriyeti ve uluslararası fikri mülkiyet yasaları tarafından korunmaktadır.</p>
+                    <p>Web sitesinin içeriğini kopyalamak, çoğaltmak, yeniden yayınlamak, yüklemek, göndermek, iletmek veya dağıtmak yasaktır. Web sitesinin içeriğini kişisel, ticari olmayan amaçlarla görüntüleyebilir ve yazdırabilirsiniz, ancak içeriği değiştiremez ve tüm telif hakkı ve diğer mülkiyet bildirimlerini korumalısınız.</p>
+                    
+                    <h3 class="mt-4 mb-3">3. Kullanıcı Hesapları</h3>
+                    <p>Web sitemizin bazı bölümleri, bir hesap oluşturmanızı gerektirebilir. Hesap oluşturduğunuzda, doğru, güncel ve eksiksiz bilgiler sağlamayı kabul edersiniz. Hesap bilgilerinizin gizliliğini korumak ve hesabınız altında gerçekleşen tüm etkinliklerden sorumlu olmak sizin sorumluluğunuzdadır.</p>
+                    <p>Mirzade TUR, herhangi bir hesabı herhangi bir zamanda ve herhangi bir nedenle sonlandırma hakkını saklı tutar.</p>
+                    
+                    <h3 class="mt-4 mb-3">4. Rezervasyon ve Ödeme Koşulları</h3>
+                    <p>Web sitemiz üzerinden yapılan tüm rezervasyonlar, ödeme koşullarımıza ve iptal politikalarımıza tabidir. Rezervasyon yapmadan önce, ilgili tur veya hizmet için belirtilen özel koşulları dikkatlice okumanızı öneririz.</p>
+                    <p>Ödeme işlemleri, güvenli ödeme sistemleri aracılığıyla gerçekleştirilir. Ödeme bilgilerinizin güvenliği konusunda gerekli tüm önlemleri alıyoruz, ancak internet üzerinden yapılan hiçbir veri iletiminin %100 güvenli olmadığını unutmayın.</p>
+                    
+                    <h3 class="mt-4 mb-3">5. İptal ve İade Politikası</h3>
+                    <p>Tur ve hizmetlerimiz için iptal ve iade politikalarımız, rezervasyon sırasında belirtilmektedir. Genel olarak, iptal koşulları şu şekildedir:</p>
+                    <ul>
+                        <li>Tur başlangıç tarihinden 30 gün veya daha önce yapılan iptallerde, ödenen tutarın %80'i iade edilir.</li>
+                        <li>Tur başlangıç tarihinden 15-29 gün önce yapılan iptallerde, ödenen tutarın %50'si iade edilir.</li>
+                        <li>Tur başlangıç tarihinden 14 gün veya daha az süre kala yapılan iptallerde iade yapılmaz.</li>
+                    </ul>
+                    <p>Özel durumlar ve mücbir sebepler (doğal afetler, salgın hastalıklar, siyasi olaylar vb.) durumunda farklı iptal koşulları uygulanabilir.</p>
+                    
+                    <h3 class="mt-4 mb-3">6. Sorumluluk Sınırlaması</h3>
+                    <p>Mirzade TUR, web sitesinin kullanımından kaynaklanan doğrudan, dolaylı, arızi, özel veya sonuç olarak ortaya çıkan zararlardan sorumlu değildir. Web sitesinde yer alan bilgilerin doğruluğunu sağlamak için elimizden geleni yapıyoruz, ancak tüm bilgilerin her zaman doğru, güncel ve eksiksiz olduğunu garanti edemeyiz.</p>
+                    <p>Mirzade TUR, web sitesinin kesintisiz veya hatasız çalışacağını garanti etmez. Web sitesinin çalışmasını engelleyen veya etkileyen faktörler (internet bağlantı sorunları, donanım arızaları, yazılım sorunları vb.) için sorumluluk kabul etmiyoruz.</p>
+                    
+                    <h3 class="mt-4 mb-3">7. Üçüncü Taraf Bağlantıları</h3>
+                    <p>Web sitemiz, üçüncü taraf web sitelerine bağlantılar içerebilir. Bu bağlantılar, yalnızca bilgi amaçlı olarak sağlanmaktadır. Mirzade TUR, üçüncü taraf web sitelerinin içeriği, gizlilik politikaları veya uygulamaları üzerinde hiçbir kontrole sahip değildir ve bu siteler için hiçbir sorumluluk veya yükümlülük kabul etmez.</p>
+                    
+                    <h3 class="mt-4 mb-3">8. Uygulanacak Hukuk ve Anlaşmazlıkların Çözümü</h3>
+                    <p>Bu kullanım koşulları, Türkiye Cumhuriyeti yasalarına tabidir. Bu koşullardan kaynaklanan veya bunlarla ilgili herhangi bir anlaşmazlık, İstanbul Mahkemeleri ve İcra Daireleri'nin münhasır yargı yetkisine tabi olacaktır.</p>
+                    
+                    <h3 class="mt-4 mb-3">9. İletişim</h3>
+                    <p>Kullanım koşullarımız hakkında sorularınız veya endişeleriniz varsa, lütfen bizimle iletişime geçin:</p>
+                    <p>
+                        <strong>E-posta:</strong> info@mirzadetur.com<br>
+                        <strong>Telefon:</strong> 0212 613 00 70<br>
+                        <strong>Telefon:</strong> 0533 436 43 72<br>
+                        <strong>Adres:</strong>
+                        Ali Kuşçu Mah. Hulusi Noyan Sk. No: 4 D:4
+                        Fatih, İstanbul, Türkiye
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Sayfa Banner Stili */
+    .page-banner {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/random/1920x1080/?contract') no-repeat center center;
+        background-size: cover;
+        padding: 100px 0;
+        margin-bottom: 50px;
+    }
+    
+    /* İçerik Stilleri */
+    .content-wrapper {
+        line-height: 1.8;
+    }
+    
+    .content-wrapper h3 {
+        color: #00927E;
+        font-weight: 600;
+    }
+    
+    .content-wrapper ul {
+        margin-bottom: 20px;
+    }
+    
+    .content-wrapper ul li {
+        margin-bottom: 10px;
+    }
+    
+    @media (max-width: 768px) {
+        .page-banner {
+            padding: 60px 0;
+        }
+    }
+</style>
+{% endblock %} 

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mirzade Editör Paneli{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #D4AF37;
+            --secondary-color: #1E1E1E;
+            --accent-color: #8B4513;
+            --light-color: #F8F9FA;
+            --dark-color: #212529;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .sidebar {
+            background-color: var(--secondary-color);
+            color: white;
+            min-height: 100vh;
+            position: fixed;
+            width: 250px;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            background-color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .sidebar-header h3 {
+            color: var(--secondary-color);
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            padding: 0;
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            padding: 10px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-menu li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .sidebar-menu li.active {
+            background-color: rgba(212, 175, 55, 0.2);
+        }
+        
+        .sidebar-menu li.active a {
+            color: var(--primary-color);
+        }
+        
+        .sidebar-menu i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+        
+        .navbar-brand {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #c09c30;
+            border-color: #c09c30;
+        }
+        
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }
+        
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .table td, .table th {
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+        
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        .badge-primary {
+            background-color: var(--primary-color);
+        }
+        
+        .badge-secondary {
+            background-color: var(--secondary-color);
+        }
+        
+        .badge-success {
+            background-color: #28a745;
+        }
+        
+        .badge-danger {
+            background-color: #dc3545;
+        }
+        
+        .badge-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        
+        .badge-info {
+            background-color: #17a2b8;
+        }
+        
+        .stat-card {
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .stat-card-title {
+            font-size: 1rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-left: -250px;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+            
+            .sidebar.active {
+                margin-left: 0;
+            }
+            
+            .content.active {
+                margin-left: 250px;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Mirzade Editör</h3>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="{% if request.path == '/editor/' %}active{% endif %}">
+                <a href="{% url 'editor:dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            </li>
+            <li class="{% if '/editor/tours/' in request.path %}active{% endif %}">
+                <a href="{% url 'editor:tour_list' %}"><i class="fas fa-plane"></i> Turlar</a>
+            </li>
+            <li class="{% if '/editor/sliders/' in request.path %}active{% endif %}">
+                <a href="{% url 'editor:slider_list' %}"><i class="fas fa-images"></i> Sliderlar</a>
+            </li>
+            <li class="{% if '/editor/reservations/' in request.path %}active{% endif %}">
+                <a href="{% url 'editor:reservation_list' %}"><i class="fas fa-calendar-check"></i> Rezervasyonlar</a>
+            </li>
+            <li>
+                <a href="{% url 'main:home' %}" target="_blank"><i class="fas fa-home"></i> Siteyi Görüntüle</a>
+            </li>
+            <li>
+                <a href="{% url 'admin:index' %}"><i class="fas fa-user-shield"></i> Admin Paneli</a>
+            </li>
+            <li>
+                <a href="{% url 'editor:logout' %}"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <nav class="navbar">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary d-md-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span class="navbar-brand">{% block page_title %}Dashboard{% endblock %}</span>
+                <div class="d-flex">
+                    <span class="me-3">Hoş geldiniz, {{ request.user.username }}</span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
+                $('.sidebar').toggleClass('active');
+                $('.content').toggleClass('active');
+            });
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 
